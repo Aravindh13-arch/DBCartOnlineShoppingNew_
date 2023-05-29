@@ -21,5 +21,7 @@ public partial class TblBrand
 
     public virtual AspNetUser CreatedByNavigation { get; set; } = null!;
 
+    public virtual ICollection<TblProduct> TblProducts { get; } = new List<TblProduct>();
+
     public virtual AspNetUser? UpdatedByNavigation { get; set; }
 }
