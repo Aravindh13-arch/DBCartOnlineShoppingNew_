@@ -31,5 +31,10 @@ namespace AspnetIdentityRoleBasedTutorial.Controllers
         {
             return View();
         }
+
+        public IActionResult travel()
+        {
+            return View();
+        }
     }
 }
