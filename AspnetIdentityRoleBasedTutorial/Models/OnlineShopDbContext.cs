@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Protocols;
 
 namespace OnlineShoppingProject.Models;
 
@@ -9,7 +10,11 @@ public partial class OnlineShopDbContext : DbContext
     public OnlineShopDbContext()
     {
     }
-
+    private IConfiguration _configuration;
+    public OnlineShopDbContext(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
     public OnlineShopDbContext(DbContextOptions<OnlineShopDbContext> options)
         : base(options)
     {
@@ -48,8 +53,9 @@ public partial class OnlineShopDbContext : DbContext
     public virtual DbSet<TblWishList> TblWishLists { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-LKU7RG2;Database=OnlineShopDB;Trusted_Connection=True;TrustServerCertificate=True;");
+    {
+        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using OnlineShoppingProject.BAL;
 using OnlineShoppingProject.DAL;
 using OnlineShoppingProject.ViewModels.ProductModels;
@@ -21,34 +22,36 @@ namespace OnlineShoppingProject.Controllers
         [HttpGet]
         public async Task<IActionResult> CartList()
         {
-            var UserName = HttpContext.User.Identity.Name;
-            var userId = _commonImplementation.GetTheUserIdDAL(UserName);
-            if(userId ==  null)
+
+            string UserName = HttpContext.User.Identity.Name;
+            if (UserName.IsNullOrEmpty())
             {
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
+            var userId = _commonImplementation.GetTheUserIdDAL(UserName);
             var model = await _cartImplementation.GetProductCartBAL(userId);
-           
+
             return View(model);
         }
         public async Task<IActionResult> InsertToCart(ProductVM product)
         {
 
-            var UserName = HttpContext.User.Identity.Name;
-             product.UserId = _commonImplementation.GetTheUserIdDAL(UserName);
-            if (product.UserId != null)
+            string UserName = HttpContext.User.Identity.Name;
+            if (UserName.IsNullOrEmpty())
             {
-                if (await _cartImplementation.InsertCartBAL(product))
-                {
-                    return RedirectToPage("GetProductCart");
-                    // return Json(new { isValid = true, message = "Cart item added successfully." });
-                }
-                else
-                {
-                    return Json(new { isValid = false, html = "<h1>failed to submit</h1>" });
-                }
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
-            return RedirectToPage("Login", "Login");
+            product.UserId = _commonImplementation.GetTheUserIdDAL(UserName);
+            if (await _cartImplementation.InsertCartBAL(product))
+            {
+                return RedirectToPage("/Cart/CartList");
+                // return Json(new { isValid = true, message = "Cart item added successfully." });
+            }
+            else
+            {
+                return Json(new { isValid = false, html = "<h1>failed to submit</h1>" });
+            }
+
         }
     }
 }

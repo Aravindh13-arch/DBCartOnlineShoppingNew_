@@ -31,7 +31,7 @@ namespace OnlineShoppingProject.DAL
                         Description = _context.TblProducts.Single(r => r.ProductId == product.Id).Description,
                         CreatedAt = DateTime.UtcNow,
                         Status = (int)MyConstants.Status.Active,
-                        CreatedBy = _context.AspNetUsers.Single(r=>r.Id == product.UserId).ToString()
+                        CreatedBy = _context.AspNetUsers.Single(r=>r.Id == product.UserId).Id
                     });
                 }
                 else
