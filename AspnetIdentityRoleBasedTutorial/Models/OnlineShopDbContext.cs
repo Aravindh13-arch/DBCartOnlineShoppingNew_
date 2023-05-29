@@ -43,6 +43,8 @@ public partial class OnlineShopDbContext : DbContext
 
     public virtual DbSet<TblPurchase> TblPurchases { get; set; }
 
+    public virtual DbSet<TblSubCategory> TblSubCategories { get; set; }
+
     public virtual DbSet<TblUnit> TblUnits { get; set; }
 
     public virtual DbSet<TblWishList> TblWishLists { get; set; }
@@ -451,6 +453,7 @@ public partial class OnlineShopDbContext : DbContext
                 .HasColumnType("decimal(18, 0)")
                 .HasColumnName("rate");
             entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.SubCategoryId).HasColumnName("subCategoryId");
             entity.Property(e => e.UnitId).HasColumnName("unitId");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
@@ -460,8 +463,21 @@ public partial class OnlineShopDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("updatedBy");
 
+            entity.HasOne(d => d.Brand).WithMany(p => p.TblProducts)
+                .HasForeignKey(d => d.BrandId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.Category).WithMany(p => p.TblProducts)
+                .HasForeignKey(d => d.CategoryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_tblProduct_tblcategory_categoryId");
+
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TblProductCreatedByNavigations)
                 .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.SubCategory).WithMany(p => p.TblProducts)
+                .HasForeignKey(d => d.SubCategoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity.HasOne(d => d.Unit).WithMany(p => p.TblProducts)
@@ -500,6 +516,44 @@ public partial class OnlineShopDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblPurchaseUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
+        });
+
+        modelBuilder.Entity<TblSubCategory>(entity =>
+        {
+            entity.HasKey(e => e.SubCategoryId);
+
+            entity.ToTable("tblSubCategory");
+
+            entity.Property(e => e.SubCategoryId).HasColumnName("subCategoryId");
+            entity.Property(e => e.CategoryId).HasColumnName("categoryId");
+            entity.Property(e => e.CreatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
+            entity.Property(e => e.CreatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("createdBy");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.SubCategoryName)
+                .HasMaxLength(50)
+                .HasColumnName("subCategoryName");
+            entity.Property(e => e.UpdatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("updatedAt");
+            entity.Property(e => e.UpdatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("updatedBy");
+
+            entity.HasOne(d => d.Category).WithMany(p => p.TblSubCategories)
+                .HasForeignKey(d => d.CategoryId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TblSubCategoryCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblSubCategoryUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
         });
 
         modelBuilder.Entity<TblUnit>(entity =>
