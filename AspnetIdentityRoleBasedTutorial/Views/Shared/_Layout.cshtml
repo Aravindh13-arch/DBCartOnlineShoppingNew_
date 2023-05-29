@@ -16,28 +16,7 @@
 
 </head>
 
-<script>
-    $(document).ready(function () {
-        // Activate Carousel
-        $("#myCarousel").carousel();
 
-        // Enable Carousel Indicators
-        $(".carousel-indicators li").click(function () {
-            $(".carousel-indicators li").removeClass("active");
-            $(this).addClass("active");
-        });
-
-        // Enable Carousel Controls
-        $(".carousel-control-prev").click(function () {
-            $("#myCarousel").carousel("prev");
-        });
-
-        $(".carousel-control-next").click(function () {
-            $("#myCarousel").carousel("next");
-        });
-    });
-
-</script>
 
 <body>
 
@@ -45,7 +24,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light" style="background-color: darkviolet;">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Product" asp-action="ProductDetails"><h3>DB Cart</h3></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><h3>DB Cart</h3></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -55,7 +34,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Product" asp-action="GetAll"><h5>Products</h5></a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Product" asp-action="ProductDetails"><h5>Products</h5></a>
                             </li>
                         }
                         @if (User.IsInRole("Admin"))
@@ -70,7 +49,6 @@
             </div>
         </nav>
     </header>
-
     <div class="online-shopping-company" style="margin-top:5%">
         <div class="category">
             <a asp-area="" asp-controller="Product" asp-action="groceries">
@@ -180,8 +158,6 @@
         </a>
     </div>
 
-
-
     @*Main Content Area*@
 
     <div class="container">
@@ -210,12 +186,14 @@
 </html>
 
 <style>
-    a{
+    a {
         color: #000000;
     }
-    .text-muted{
+
+    .text-muted {
         color: #ffffff;
     }
+
     body {
         margin: 0;
         overflow-x: hidden;
@@ -225,25 +203,5 @@
     .navbar-light .navbar-brand {
         color: #e9ecef;
     }
-
-    .online-shopping-company {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: baseline;
-    }
-
-    .category {
-        margin-right: 20px;
-    }
-
-    .category-icon img {
-        width: 128px;
-        height: 128px;
-    }
-
-    .category-title {
-        margin-top: 10px;
-        text-align: center;
     }
 </style>

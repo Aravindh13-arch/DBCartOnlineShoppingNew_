@@ -49,6 +49,10 @@ public partial class AspNetUser
 
     public virtual ICollection<TblAddress> TblAddressUpdatedByNavigations { get; } = new List<TblAddress>();
 
+    public virtual ICollection<TblBrand> TblBrandCreatedByNavigations { get; } = new List<TblBrand>();
+
+    public virtual ICollection<TblBrand> TblBrandUpdatedByNavigations { get; } = new List<TblBrand>();
+
     public virtual ICollection<TblBuyNow> TblBuyNowCreatedByNavigations { get; } = new List<TblBuyNow>();
 
     public virtual ICollection<TblBuyNow> TblBuyNowUpdatedByNavigations { get; } = new List<TblBuyNow>();
@@ -56,6 +60,10 @@ public partial class AspNetUser
     public virtual ICollection<TblCart> TblCartCreatedByNavigations { get; } = new List<TblCart>();
 
     public virtual ICollection<TblCart> TblCartUpdatedByNavigations { get; } = new List<TblCart>();
+
+    public virtual ICollection<TblCategory> TblCategoryCreatedByNavigations { get; } = new List<TblCategory>();
+
+    public virtual ICollection<TblCategory> TblCategoryUpdatedByNavigations { get; } = new List<TblCategory>();
 
     public virtual ICollection<TblInventory> TblInventoryCreatedByNavigations { get; } = new List<TblInventory>();
 

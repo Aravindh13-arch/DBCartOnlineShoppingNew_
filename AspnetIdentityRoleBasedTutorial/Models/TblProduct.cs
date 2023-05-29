@@ -13,6 +13,10 @@ public partial class TblProduct
 
     public int UnitId { get; set; }
 
+    public int CategoryId { get; set; }
+
+    public int BrandId { get; set; }
+
     public decimal Rate { get; set; }
 
     public string Image { get; set; } = null!;
