@@ -1218,7 +1218,7 @@ header {
 
 
 /*FOOTER*/
-.footer {
+/*.footer {
     width: 100%;
     padding: 0px 0px;
     background: #000;
@@ -1305,7 +1305,7 @@ header {
             width: 70%;
         }
 }
-
+*/
 
 
 
@@ -1324,9 +1324,10 @@ header {
 
 
 .container {
-    padding: 33px;
+    padding: 44px;
     width: 100%;
- /*   margin-top: 8%;*/
+    max-width:1366px;
+    /*   margin-top: 8%;*/
 }
 
 span.psw {

@@ -53,5 +53,35 @@ namespace OnlineShoppingProject.Controllers
             }
 
         }
+
+        //public async Task<IActionResult> GetClientById(int id)
+        //{
+        //    var client = await _clientImplementation.GetClientById(id);
+        //    return View(client);
+        //}
+        public async Task<IActionResult> RemoveCartList(int id)
+        {
+            //var product = await _cartImplementation.GetCartById(id);
+            return View(id);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmDelete(ProductVM product)
+        {
+            string UserName = HttpContext.User.Identity.Name;
+            if (UserName.IsNullOrEmpty())
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
+            product.UserId = _commonImplementation.GetTheUserIdDAL(UserName);
+            if (await _cartImplementation.RemoveCartbyId(product))
+            {
+                return Json(new { isValid = true, html = "" });
+            }
+            else
+            {
+                return Json(new { isValid = false, html = "<h1>failed to submit</h1>" });
+            }
+        }
     }
 }

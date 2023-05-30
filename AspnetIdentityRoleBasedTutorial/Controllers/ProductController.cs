@@ -15,7 +15,8 @@ namespace AspnetIdentityRoleBasedTutorial.Controllers
         }
         public async Task<IActionResult> ProductDetails()
         {
-            return View(await productimplemenationbal.GetProductList());
+            
+           return View(await productimplemenationbal.GetProductList());
         }
         
         //Product Category

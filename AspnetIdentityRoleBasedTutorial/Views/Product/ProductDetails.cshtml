@@ -49,38 +49,68 @@
         </section>
     </div>
 
-<div>
-    <div class="section4-header">
-        <span class="title">OFFER ZONE</span>
-        <button class="next" onclick='scrollright4()'><i class="fa fa-angle-right"></i></button>
-        <button class="previous" onclick='scrollleft4()'><i class="fa fa-angle-left"></i></button>
+    <div>
+        <div class="section4-header">
+            <span class="title">OFFER ZONE</span>
+            <button class="next" onclick='scrollright5()'><i class="fa fa-angle-right"></i></button>
+            <button class="previous" onclick='scrollleft5()'><i class="fa fa-angle-left"></i></button>
+        </div>
+        <hr />
+
+        <section class="section4" id="section5">
+            @foreach (var product in Model.TblProducts)
+            {
+                    <div class="product-item">
+                        <div class="slider">
+                            <a href="#" class="like-button" id="heart" onclick="mainMenuNav('@Url.Action("AddWishList", "WishList",new {ProductId=product.ProductId})')"><i class="far fa-heart"></i></a>
+                            <img src="~/Img/@product.Image" width="200" height="150" />
+                            <span>@product.ProductName</span>
+                            <span>@product.Rate</span>
+                            <div class="quantity-container">
+                                <button class="quantity-button minus" onclick="decrementQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" name="quantity" value="1" min="1" max="100">
+                                <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>
+                            </div>
+                            <div class="button-container">
+                                <button type="button" class="btn btn-info" onclick="BuyNow('@Url.Action("GetAddressId", "Address",new {userId=product.CreatedBy,Id=product.ProductId})')">Buy</button>
+                                <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Cart",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+            }
+        </section>
     </div>
-    <hr />
+    <div>
+        <div class="section4-header">
+            <span class="title">NEW COMES</span>
+            <button class="next" onclick='scrollright6()'><i class="fa fa-angle-right"></i></button>
+            <button class="previous" onclick='scrollleft6()'><i class="fa fa-angle-left"></i></button>
+        </div>
+        <hr />
 
-    <section class="section4" id="section4">
-        @foreach (var product in Model.TblProducts)
-        {
-            <div class="product-item">
-                <div class="slider">
-                    <a href="#" class="like-button" id="heart" onclick="mainMenuNav('@Url.Action("AddWishList", "WishList",new {ProductId=product.ProductId})')"><i class="far fa-heart"></i></a>
-                    <img src="~/Img/@product.Image" width="200" height="150" />
-                    <span>@product.ProductName</span>
-                    <span>@product.Rate</span>
-                    <div class="quantity-container">
-                        <button class="quantity-button minus" onclick="decrementQuantity(this)">-</button>
-                        <input type="number" class="quantity-input" name="quantity" value="1" min="1" max="100">
-                        <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>
+        <section class="section4" id="section6">
+            @foreach (var product in Model.TblProducts)
+            {
+                <div class="product-item">
+                    <div class="slider">
+                        <a href="#" class="like-button" id="heart" onclick="mainMenuNav('@Url.Action("AddWishList", "WishList",new {ProductId=product.ProductId})')"><i class="far fa-heart"></i></a>
+                        <img src="~/Img/@product.Image" width="200" height="150" />
+                        <span>@product.ProductName</span>
+                        <span>@product.Rate</span>
+                        <div class="quantity-container">
+                            <button class="quantity-button minus" onclick="decrementQuantity(this)">-</button>
+                            <input type="number" class="quantity-input" name="quantity" value="1" min="1" max="100">
+                            <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>
+                        </div>
+                        <div class="button-container">
+                            <button type="button" class="btn btn-info" onclick="BuyNow('@Url.Action("GetAddressId", "Address",new {userId=product.CreatedBy,Id=product.ProductId})')">Buy</button>
+                            <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Cart",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
+                        </div>
                     </div>
-                    <div class="button-container">
-                        <button type="button" class="btn btn-info" onclick="BuyNow('@Url.Action("GetAddressId", "Address",new {userId=product.CreatedBy,Id=product.ProductId})')">Buy</button>
-                        <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Cart",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
-                    </div>
-
                 </div>
-            </div>
-        }
-    </section>
-</div>
+            }
+        </section>
+    </div>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -178,22 +208,22 @@
     }
 
 
-        BuyNow = (url) => {
-            $.ajax({
-                type: 'Post',
-                url: url,
-                contentType: false,
-                processData: false,
-                success: function (res) {
-                    $('#main').html(res);
-                },
-                error: function (msg) {
+    BuyNow = (url) => {
+        $.ajax({
+            type: 'Post',
+            url: url,
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                $('#main').html(res);
+            },
+            error: function (msg) {
 
-                    $('#main').html(msg);
+                $('#main').html(msg);
 
-                }
-            })
-        }
+            }
+        })
+    }
 
 
 </script>
