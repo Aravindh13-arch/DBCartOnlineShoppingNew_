@@ -23,5 +23,23 @@ namespace OnlineShoppingProject.BAL
             return await _cartImplementation.AddToCart(product);
 
         }
+
+        public async Task<ProductVM> GetCartById(int id)
+        {
+            var product = await _cartImplementation.GetCartById(id);
+            ProductVM productVM = new ProductVM();
+            productVM.Id = product.CartId;
+            productVM.ProductId = product.ProductId;
+            productVM.Description = product.Description;
+            productVM.quantity = product.Quantity;
+            productVM.Rate = product.Rate;    
+
+            return productVM;
+        }
+
+        public async Task<bool> RemoveCartbyId(ProductVM client)
+        {
+            return await _cartImplementation.RemoveCartbyId(client);
+        }
     }
 }

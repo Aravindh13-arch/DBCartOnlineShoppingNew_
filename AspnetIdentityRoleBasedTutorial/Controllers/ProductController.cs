@@ -15,8 +15,22 @@ namespace AspnetIdentityRoleBasedTutorial.Controllers
         }
         public async Task<IActionResult> ProductDetails()
         {
-            return View(await productimplemenationbal.GetProductList());
+            
+           return View(await productimplemenationbal.GetProductList());
         }
+        
+        //Product Category - Appliances
+        public async Task<IActionResult> ProductCategory()
+        {
+            return View(await productimplemenationbal.GetProductCategoryList());
+        }
+
+        //Product Category - Mobiles
+        public async Task<IActionResult> ProductCategoryMobile()
+        {
+            return View(await productimplemenationbal.GetProductCategoryMobileList());
+        }
+
         public IActionResult GetAll()
         {
             return View();
@@ -30,6 +44,16 @@ namespace AspnetIdentityRoleBasedTutorial.Controllers
         public IActionResult groceries()
         {
             return View();
+        }
+
+        public IActionResult travel()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> GetListfashion(int id)
+        {
+            return View(await productimplemenationbal.GetFashionList(id));
         }
     }
 }

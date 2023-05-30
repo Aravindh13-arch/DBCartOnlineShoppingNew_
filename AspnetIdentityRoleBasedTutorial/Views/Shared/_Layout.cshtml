@@ -8,34 +8,15 @@
     <title>@ViewData["Title"] - DBCart</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/travel.css" asp-append-version="true" />
+
     <link rel="stylesheet" href="~/AspnetIdentityRoleBasedTutorial.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 </head>
 
-<script>
-    $(document).ready(function () {
-        // Activate Carousel
-        $("#myCarousel").carousel();
 
-        // Enable Carousel Indicators
-        $(".carousel-indicators li").click(function () {
-            $(".carousel-indicators li").removeClass("active");
-            $(this).addClass("active");
-        });
-
-        // Enable Carousel Controls
-        $(".carousel-control-prev").click(function () {
-            $("#myCarousel").carousel("prev");
-        });
-
-        $(".carousel-control-next").click(function () {
-            $("#myCarousel").carousel("next");
-        });
-    });
-
-</script>
 
 <body>
 
@@ -43,7 +24,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light" style="background-color: darkviolet;">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Product" asp-action="ProductDetails"><h3>DB Cart</h3></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><h3>DB Cart</h3></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -53,7 +34,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Product" asp-action="GetAll"><h5>Products</h5></a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Product" asp-action="ProductDetails"><h5>Products</h5></a>
                             </li>
                         }
                         @if (User.IsInRole("Admin"))
@@ -68,8 +49,7 @@
             </div>
         </nav>
     </header>
-
-    <div class="online-shopping-company" style="margin-top:5%">
+@*    <div class="online-shopping-company" style="margin-top:5%">
         <div class="category">
             <a asp-area="" asp-controller="Product" asp-action="groceries">
                 <div class="category-icon">
@@ -79,7 +59,9 @@
             </a>
         </div>
         <div class="category">
-            <a asp-area="" asp-controller="Home" asp-action="Index">
+
+            <a asp-area="" asp-controller="Product" asp-action="ProductCategoryMobile">
+
                 <div class="category-icon">
                     <img loading="lazy" class="icon" alt="Mobiles" src="https://rukminim1.flixcart.com/flap/128/128/image/22fddf3c7da4c4f4.png?q=100">
                 </div>
@@ -87,7 +69,7 @@
             </a>
         </div>
         <div class="category">
-            <a asp-area="" asp-controller="Product" asp-action="fashion">
+            <a asp-area="" asp-controller="Product" asp-action="GetListfashion" asp-route-id="2">
                 <div class="category-icon">
                     <img loading="lazy" class="icon" alt="Fashion" src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/0d75b34f7d8fbcb3.png?q=100">
                 </div>
@@ -114,7 +96,7 @@
         </div>
 
         <div class="category">
-            <a asp-area="" asp-controller="Home" asp-action="Index">
+            <a asp-area="" asp-controller="Product" asp-action="ProductCategory">
                 <div class="category-icon">
                     <img loading="lazy" class="icon" alt="Appliances" src="https://rukminim1.flixcart.com/flap/128/128/image/0ff199d1bd27eb98.png?q=100">
                 </div>
@@ -123,7 +105,7 @@
         </div>
 
         <div class="category">
-            <a asp-area="" asp-controller="Home" asp-action="Index">
+            <a asp-area="" asp-controller="Product" asp-action="travel">
                 <div class="category-icon">
                     <img loading="lazy" class="icon" alt="Travel" src="https://rukminim1.flixcart.com/flap/128/128/image/71050627a56b4693.png?q=100">
                 </div>
@@ -176,9 +158,7 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
-    </div>
-
-
+    </div>*@
 
     @*Main Content Area*@
 
@@ -189,8 +169,8 @@
     </div>
 
     @* Common footer for all Pages*@
-    <div style="margin-top:3%">
-        <footer class="border-top footer text-muted" style="background-color: rebeccapurple;">
+  <div>
+        <footer class="border-top footer text-muted" style="background-color: rebeccapurple; ">
             <div class="container" style="color:#ffffff;">
                 &copy; 2023 - DB Cart Pvt Ltd. - <a asp-area="" asp-controller="Home" asp-action="Privacy">About Us</a>
             </div>
@@ -208,12 +188,14 @@
 </html>
 
 <style>
-    a{
+    a {
         color: #000000;
     }
-    .text-muted{
+
+    .text-muted {
         color: #ffffff;
     }
+
     body {
         margin: 0;
         overflow-x: hidden;
@@ -224,24 +206,17 @@
         color: #e9ecef;
     }
 
-    .online-shopping-company {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: baseline;
+    
+
+
+   /*footer {
+        height: 15%;
+        bottom: 96px;
+        padding-bottom: -40px;
+        padding: 0px;
+        width: 100%;
+        margin-bottom: -7%;
+      
     }
 
-    .category {
-        margin-right: 20px;
-    }
-
-    .category-icon img {
-        width: 128px;
-        height: 128px;
-    }
-
-    .category-title {
-        margin-top: 10px;
-        text-align: center;
-    }
 </style>

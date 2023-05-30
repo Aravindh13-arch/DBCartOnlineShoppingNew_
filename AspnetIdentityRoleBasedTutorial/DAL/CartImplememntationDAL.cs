@@ -31,7 +31,7 @@ namespace OnlineShoppingProject.DAL
                         Description = _context.TblProducts.Single(r => r.ProductId == product.Id).Description,
                         CreatedAt = DateTime.UtcNow,
                         Status = (int)MyConstants.Status.Active,
-                        CreatedBy = _context.AspNetUsers.Single(r=>r.Id == product.UserId).ToString()
+                        CreatedBy = _context.AspNetUsers.Single(r=>r.Id == product.UserId).Id
                     });
                 }
                 else
@@ -52,6 +52,32 @@ namespace OnlineShoppingProject.DAL
         public async Task<List<TblCart>> GetAllProductCart(string UserId)
         {
             return await _context.TblCarts.Include(r => r.Product).Select(r => r).Where(r => r.CreatedBy == UserId).ToListAsync();            
+        }
+
+        public async Task<TblCart> GetCartById(int id)
+        {
+            return await _context.TblCarts.FindAsync(id);
+        }
+
+        public async Task<bool> RemoveCartbyId(ProductVM productVM)
+        {
+
+            try
+            {
+                var productDB = _context.TblCarts.Where(x => x.CartId == productVM.Id).FirstOrDefault();
+                {
+                    productDB.Status = (int)MyConstants.Status.Deleted;
+                    productDB.UpdatedAt = DateTime.UtcNow;
+                    productDB.UpdatedBy = _context.AspNetUsers.Single(r => r.Id == productVM.UserId).Id;
+                }
+                var result = await _context.SaveChangesAsync();
+                if (result > 0) { return true; }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            };
         }
     }
 }

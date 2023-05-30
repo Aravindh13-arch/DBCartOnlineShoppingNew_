@@ -1,0 +1,275 @@
+﻿@model OnlineShoppingProject.ViewModels.ProductVM
+<head>
+    <!--META TAGS-->
+    <meta name="viewport" content="width=device-width, initial-scal=1, user-scalable=no">
+    <meta name="author" content="Mahesh">
+
+    <!--FONT AWESOME-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--GOOGLE FONTS-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="online-shopping-company" style="margin-top: 2%;margin-left: -2%;">
+        <div class="category">
+            <a asp-area="" asp-controller="Product" asp-action="groceries">
+                <div class="category-icon">
+                    <img loading="lazy" class="icon" alt="Grocery" src="https://rukminim1.flixcart.com/flap/128/128/image/29327f40e9c4d26b.png?q=100">
+                </div>
+                <div class="category-title">Grocery</div>
+            </a>
+        </div>
+        <div class="category">
+            <a asp-area="" asp-controller="Product" asp-action="ProductCategoryMobile">
+                <div class="category-icon">
+                    <img loading="lazy" class="icon" alt="Mobiles" src="https://rukminim1.flixcart.com/flap/128/128/image/22fddf3c7da4c4f4.png?q=100">
+                </div>
+                <div class="category-title">Mobiles</div>
+            </a>
+        </div>
+        <div class="category">
+            <a asp-area="" asp-controller="Product" asp-action="fashion">
+                <div class="category-icon">
+                    <img loading="lazy" class="icon" alt="Fashion" src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/0d75b34f7d8fbcb3.png?q=100">
+                </div>
+                <div class="category-title">Fashion</div>
+            </a>
+        </div>
+
+        <div class="category">
+            <a asp-area="" asp-controller="Home" asp-action="Index">
+                <div class="category-icon">
+                    <img loading="lazy" class="icon" alt="Electronics" src="https://rukminim1.flixcart.com/flap/128/128/image/69c6589653afdb9a.png?q=100">
+                </div>
+                <div class="category-title">Electronics</div>
+            </a>
+        </div>
+
+        <div class="category">
+            <a asp-area="" asp-controller="Home" asp-action="Index">
+                <div class="category-icon">
+                    <img loading="lazy" class="icon" alt="Home" src="https://rukminim1.flixcart.com/flap/128/128/image/ab7e2b022a4587dd.jpg?q=100">
+                </div>
+                <div class="category-title">Home</div>
+            </a>
+        </div>
+
+        <div class="category">
+            <a asp-area="" asp-controller="Product" asp-action="ProductCategory">
+                <div class="category-icon">
+                    <img loading="lazy" class="icon" alt="Appliances" src="https://rukminim1.flixcart.com/flap/128/128/image/0ff199d1bd27eb98.png?q=100">
+                </div>
+                <div class="category-title">Appliances</div>
+            </a>
+        </div>
+
+        <div class="category">
+            <a asp-area="" asp-controller="Product" asp-action="travel">
+                <div class="category-icon">
+                    <img loading="lazy" class="icon" alt="Travel" src="https://rukminim1.flixcart.com/flap/128/128/image/71050627a56b4693.png?q=100">
+                </div>
+                <div class="category-title">Travel</div>
+            </a>
+        </div>
+
+        <div class="category">
+            <a asp-area="" asp-controller="Home" asp-action="Index">
+                <div class="category-icon">
+                    <img loading="lazy" class="icon" alt="Top Offers" src="https://rukminim1.flixcart.com/flap/128/128/image/f15c02bfeb02d15d.png?q=100">
+                </div>
+                <div class="category-title">Top Offers</div>
+            </a>
+        </div>
+        <div class="category">
+            <a asp-area="" asp-controller="Home" asp-action="Index">
+                <div class="category-icon">
+                    <img loading="lazy" class="icon" alt="Beauty, Toys &amp; More" src="https://rukminim1.flixcart.com/flap/128/128/image/dff3f7adcf3a90c6.png?q=100">
+                </div>
+                <div class="category-title">Beauty, Toys</div>
+            </a>
+        </div>
+    </div>
+
+    <div>
+        <div class="section4-header">
+            <span class="title">Home Appliances</span>
+            <button class="next" onclick='scrollright4()'><i class="fa fa-angle-right"></i></button>
+            <button class="previous" onclick='scrollleft4()'><i class="fa fa-angle-left"></i></button>
+        </div>
+        <hr />
+
+        <section class="section4" id="section4">
+            @foreach (var product in Model.TblProducts)
+            {
+                <div class="product-item">
+                    <div class="slider">
+                        <a href="#" class="like-button" id="heart" onclick="mainMenuNav('@Url.Action("AddWishList", "WishList",new {ProductId=product.ProductId})')"><i class="far fa-heart"></i></a>
+                        <img src="~/Img/@product.Image" width="200" height="150" />
+                        <span>@product.ProductName</span>
+                        <span>@product.Rate</span>
+                        <div class="quantity-container">
+                            <button class="quantity-button minus" onclick="decrementQuantity(this)">-</button>
+                            <input type="number" class="quantity-input" name="quantity" value="1" min="1" max="100">
+                            <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>
+                        </div>
+                        <div class="button-container">
+                            <button type="button" class="btn btn-info" onclick="BuyNow('@Url.Action("GetAddressId", "Address",new {Id=product.ProductId})')">Buy</button>
+                            <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Cart",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+<script>
+
+    function redirectToAddress() {
+        window.location.href = '@Url.Action("GetAddressId", "Address")';
+    }
+    $(document).ready(function () {
+        $('.section4').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 100 // Adjust the speed as needed
+        });
+    });
+
+    $(document).ready(function () {
+        $("#heart").click(function () {
+            if ($("#heart").hasClass("liked")) {
+                $("#heart").html('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+                $("#heart").removeClass("liked");
+            } else {
+                $("#heart").html('<i class="fa fa-heart" aria-hidden="true"></i>');
+                $("#heart").addClass("liked");
+            }
+        });
+    });
+
+    function toggleHeartColor(button) {
+        $(button).find('i').toggleClass('red-heart');
+    }
+
+    mainMenuNav = (url) => {
+        $.ajax({
+            type: 'Post',
+            url: url,
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                $('#main').html(res);
+            },
+            error: function (msg) {
+
+                $('#main').html(msg);
+
+            }
+        })
+    }
+
+
+    function addToCart(url, button) {
+        var quantity = $(button).closest('.slider').find('.quantity-input').val();
+        var url1 = url.replace("TO_Num", quantity);
+        mainMenuNav(url1);
+    }
+
+    function incrementQuantity(button) {
+        var input = $(button).siblings(".quantity-input");
+        var value = parseInt(input.val());
+        if (value < 10) {
+            input.val(value + 1);
+        }
+    }
+
+    function decrementQuantity(button) {
+        var input = $(button).siblings(".quantity-input");
+        var value = parseInt(input.val());
+        if (value > 1) {
+            input.val(value - 1);
+        }
+    }
+
+    //Buy Script
+
+    BuyNow = (url) => {
+        $.ajax({
+            type: 'Post',
+            url: url,
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                $('#main').html(res);
+            },
+            error: function (msg) {
+
+                $('#main').html(msg);
+
+            }
+        })
+    }
+
+
+    BuyNow = (url) => {
+        $.ajax({
+            type: 'Post',
+            url: url,
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                $('#main').html(res);
+            },
+            error: function (msg) {
+
+                $('#main').html(msg);
+
+            }
+        })
+    }
+
+
+</script>
+
+<style>
+    a {
+        color: #000000;
+    }
+
+
+    .online-shopping-company {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: baseline;
+    }
+
+    .category {
+        margin-right: 20px;
+    }
+
+    .category-icon img {
+        width: 128px;
+        height: 128px;
+    }
+
+    .category-title {
+        margin-top: 10px;
+        text-align: center;
+    }
+</style>

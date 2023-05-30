@@ -13,6 +13,12 @@ public partial class TblProduct
 
     public int UnitId { get; set; }
 
+    public int CategoryId { get; set; }
+
+    public int SubCategoryId { get; set; }
+
+    public int BrandId { get; set; }
+
     public decimal Rate { get; set; }
 
     public string Image { get; set; } = null!;
@@ -29,7 +35,13 @@ public partial class TblProduct
 
     public string? UpdatedBy { get; set; }
 
+    public virtual TblBrand Brand { get; set; } = null!;
+
+    public virtual TblCategory Category { get; set; } = null!;
+
     public virtual AspNetUser CreatedByNavigation { get; set; } = null!;
+
+    public virtual TblSubCategory SubCategory { get; set; } = null!;
 
     public virtual ICollection<TblAddress> TblAddresses { get; } = new List<TblAddress>();
 

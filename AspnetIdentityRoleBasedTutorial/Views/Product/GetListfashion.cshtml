@@ -1,0 +1,676 @@
+﻿ @model List<OnlineShoppingProject.ViewModels.ProductVM>
+
+<body>
+
+    <!-- banner -->
+    <div class="banner">
+        <div class="banner-img">
+            <img src="https://i.postimg.cc/t403yfn9/home2.jpg" alt="img ">
+        </div>
+    </div>
+
+    <!-- fashion trends -->
+@*    <section class="fashion-trends">
+        <div class="container">
+            <div class="fashion-box">
+                <div class="title-style text-center">
+                    <h1>DbCart Trends</h1>
+                </div>
+            </div>
+            @foreach(var item in Model)
+            {
+            <div class="container bg-white">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
+                        <div class="product">
+                            <img src="~/Img/@item.Image" alt="img">
+                            <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
+                                <li class="icon expand-arrows"></li>
+                                <li class="icon mx-3 heart"></li>
+                                <li class="icon shopping-bag"></li>
+                            </ul>
+                        </div>
+                        <div class="tag bg-red">sale</div>
+                        <div class="title pt-4 pb-1">@item.ProductName</div>
+                            <div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
+                        <div class="price">@item.Rate</div>
+                    </div>
+                 </div>
+            </div>
+            }
+    </section>*@
+
+
+    <section class="fashion-trends">
+        <div class="container">
+            <div class="fashion-box">
+                <div class="title-style text-center">
+                    <h1>DbCart Trends</h1>
+                </div>
+            </div>
+            <div class="container bg-white">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-4 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
+                            <div class="product">
+                                <img src="~/Img/@item.Image" alt="img">
+                                <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
+                                    <li class="icon expand-arrows"></li>
+                                    <li class="icon mx-3 heart"></li>
+                                    <li class="icon shopping-bag"></li>
+                                </ul>
+                            </div>
+                            <div class="tag bg-red">sale</div>
+                            <div class="title pt-4 pb-1">@item.ProductName</div>
+                            <div class="d-flex align-content-center justify-content-center">
+                                <span class="fas fa-star"></span>
+                                <span class="fas fa-star"></span>
+                                <span class="fas fa-star"></span>
+                                <span class="fas fa-star"></span>
+                                <span class="fas fa-star"></span>
+                            </div>
+                            <div class="price">@item.Rate</div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Offer section -->
+
+    <section class="offer">
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <img src="https://i.ibb.co/gjjSk0z/exclusive.jpg" alt="" />
+            </div>
+            <div class="col-md-6">
+                <div class="subscribe">
+                    <h4>DbCart Exclusive</h4>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
+                        explicabo quia exercitationem iusto animi quos molestiae delectus,
+                        tempora reiciendis sapiente saepe recusandae, provident, alias
+                        eligendi magnam? A obcaecati modi ab.
+                    </p>
+                    <a href="#" target="_blank" rel="noopener noreferrer">Subscribe</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest blog -->
+    <section class="fashion-blog">
+        <div class="title-style text-center">
+            <h1>Latest Fashion Blog</h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="blog-img">
+                        <img src="https://i.ibb.co/7jq8mJf/blog-2.jpg" alt="" />
+                        <h5>Buy 1 Get 1 free</h5>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="blog-img">
+                        <img src="https://i.ibb.co/JpqQqNk/blog-1.jpg" alt="" />
+                        <h5>New style 50% off</h5>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="blog-img">
+                        <img src="https://i.ibb.co/RY5nxYb/blog-3.jpg" alt="" />
+                        <h5>New Shoes Collection</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fashion brands -->
+
+    <section class="fashion-brands">
+        <div class="title-style text-center">
+            <h1>Our Fashion Brands</h1>
+        </div>
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <div class="brand-logo">
+                        <img src="https://download.logo.wine/logo/Adidas/Adidas-Logo.wine.png" alt="">
+                    </div>
+                    <p>Exclusive Offers</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="brand-logo">
+                        <img src="https://download.logo.wine/logo/Puma_(brand)/Puma_(brand)-Logo.wine.png" alt="">
+                    </div>
+                    <p>Min. 40% off</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="brand-logo">
+                        <img src="https://i.ibb.co/MVBhpFf/brand-4.png" alt="">
+                    </div>
+                    <p>Free Delivery</p>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="brand-logo">
+                        <img src="https://i.ibb.co/MNYw41G/brand-6.png" alt="">
+                    </div>
+                    <p>Up to 50% off</p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Footer section -->
+
+    <section class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="payment">
+                        <h5>Payment Gateways</h5>
+                        <img src="https://i.ibb.co/zn2HMVg/payment.png" alt="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="insta-img">
+                        <h5>Instagram Pics</h5>
+                        <img src="https://i.ibb.co/CtDtXwt/insta-1.jpg" alt="">
+                        <img src="https://i.ibb.co/JyJSrcJ/insta-2.jpg" alt="">
+                        <img src="https://i.ibb.co/f8C2JZj/insta-3.jpg" alt="">
+                        <img src="https://i.ibb.co/7gFjs42/insta-4.jpg" alt="">
+                        <img src="https://i.ibb.co/x5fZ3YX/insta-5.jpg" alt="">
+                        <img src="https://i.ibb.co/N3dFtW1/insta-6.jpg" alt="">
+                        <img src="https://i.ibb.co/0Mxfw8c/insta-7.jpg" alt="">
+                        <img src="https://i.ibb.co/wyxYTDy/insta-8.jpg" alt="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="app-download">
+                        <h5>Download Mobile App</h5>
+                        <img src="https://i.ibb.co/KbPTYYQ/play-store.png" alt="">
+                        <img src="https://i.ibb.co/hVM4X2p/app-store.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-8">
+                    <p class="copyright">&copy; Copyright</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="footer-icons">
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-youtube"></i>
+                        <i class="fab fa-linkedin-in"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- js file -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background: #f5f6fc;
+            margin-bottom: 80px;
+        }
+
+        /*.banner-img {
+                  margin: 80px 115px;
+                  width: 60%;
+                }*/
+
+        .banner-img img {
+            width: 100%;
+            margin-bottom: -50px;
+        }
+
+        .banner {
+            position: relative;
+        }
+
+        .banner-title {
+            position: absolute;
+            left: 50%;
+            top: 20%;
+        }
+
+            .banner-title h1 {
+                font-size: 55px;
+                background: rgba(0, 0, 0, 0.75);
+                color: #fff;
+                line-height: 70px;
+                padding: 0 10px 0 10px;
+                text-transform: uppercase;
+            }
+
+        /* Fashion trends */
+
+        .fashion-trends {
+            padding: 100px 0;
+        }
+
+        .fashion-box {
+            margin: 80px 0;
+        }
+
+        .title-style h1 {
+            padding: 40px 0;
+        }
+
+        .title-style {
+            margin: 0 auto 80px;
+            height: 120px;
+            width: 80%;
+            min-width: 700px;
+            background: #fff;
+            position: relative;
+            box-shadow: 0 4px 5px 0 rgba(0, 0, 50, 0.5);
+        }
+
+            .title-style::after {
+                content: "";
+                height: 100px;
+                width: 200px;
+                background-color: #f992a6;
+                position: absolute;
+                top: -10px;
+                left: -10px;
+                z-index: -1;
+            }
+
+            .title-style::before {
+                content: "";
+                height: 100px;
+                width: 200px;
+                background-color: #f992a6;
+                position: absolute;
+                bottom: -10px;
+                right: -10px;
+                z-index: -1;
+            }
+
+        /*.trending-img {
+                  position: relative;
+                  margin-bottom: 15px;
+                }
+
+                .trending-img img {
+                  width: 100%;
+                }
+
+                .btn-buy {
+                  width: 150px;
+                  padding: 10px 0;
+                  outline: none !important;
+                  border: 0;
+                  border-radius: 2px;
+                  position: absolute;
+                  background: #fff;
+                  left: 50%;
+                  bottom: 0;
+                  transform: translate(-50%, 0);
+                  transition: 0.6s;
+                  opacity: 0;
+                }
+
+                .trending-img:hover .btn-buy {
+                  transform: translate(-50%, 50%);
+                  bottom: 50%;
+                  opacity: 1;
+                  z-index: 1;
+                }
+
+                .overlay {
+                  height: 0;
+                  width: 100%;
+                  background: #333;
+                  position: absolute;
+                  top: 0;
+                  opacity: 0;
+                  transition: 0.5s;
+                }
+
+                .trending-img:hover .overlay {
+                  opacity: 0.5;
+                  height: 100%;
+                }
+                */
+        /* offer */
+
+        .offer {
+            background-image: url(https://i.ibb.co/Z1Wpsgp/offer-bg.jpg);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .row {
+            margin: initial !important;
+        }
+
+        .subscribe {
+            max-width: 500px;
+            margin-top: 80px;
+            margin-bottom: 20px;
+            padding: 60px;
+            background: #ffffff8c;
+        }
+
+            .subscribe a {
+                width: 100px;
+                display: block;
+                color: #ffffff !important;
+                background: #000000;
+                text-decoration: none !important;
+                padding: 5px;
+                text-align: center;
+            }
+
+        .offer img {
+            width: 300px;
+            height: 500px;
+            margin-bottom: -100px;
+            margin-top: 100px;
+        }
+
+        /* fashion blog */
+
+        .fashion-blog {
+            margin: 250px 0 150px 0;
+        }
+
+        .blog-img img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .fashion-blog h5 {
+            margin-top: 20px;
+            min-width: bold;
+            text-align: center;
+        }
+
+        /* fashion brands */
+
+        .fashion-brands {
+            margin-bottom: 150px;
+        }
+
+        .brand-logo {
+            width: 200px;
+            height: 200px;
+            background: #ffffff;
+            border-radius: 50%;
+            margin: 50px auto 30px;
+            box-shadow: 0 2px 40px 0 rgba(110, 130, 208, 0.18);
+        }
+
+            .brand-logo img {
+                width: 100px;
+                margin: 50px auto;
+            }
+
+        .fashion-brands p {
+            margin-top: 30px;
+            font-weight: bold;
+        }
+
+        /* footer section */
+
+        .footer {
+            margin-top: 150px;
+            background: #f5f6fc;
+        }
+
+        .payment,
+        .insta-img,
+        .app-download {
+            margin: 50px auto;
+        }
+
+            .payment img {
+                width: 200px;
+                cursor: pointer;
+            }
+
+            .insta-img img {
+                width: 75px;
+                padding: 5px;
+                cursor: pointer;
+            }
+
+            .app-download img {
+                width: 200px;
+                padding: 5px;
+            }
+
+        .footer h5 {
+            margin-bottom: 40px;
+        }
+
+            .footer h5::before {
+                content: "";
+                width: 70px;
+                height: 3px;
+                background: #4f74e8;
+                top: 80px;
+                position: absolute;
+            }
+
+        .footer-icons {
+            text-align: right;
+        }
+
+            .footer-icons .fab {
+                margin: 0 10px auto;
+                font-size: 20px;
+                cursor: pointer;
+            }
+
+        /* for small devices */ /
+
+        .banner-img {
+            margin: 40px auto;
+            width: 80%;
+        }
+
+        .banner-title {
+            top: 150px;
+            left: 20%;
+            transform: translateX(-50%);
+        }
+        /*
+                  .banner-title h1 {
+                    font-size: 16px;
+                    padding: 5px;
+                    line-height: 20px;
+                  }
+                          */
+        .title-style h1 {
+            font-size: 25px;
+        }
+
+        .fashion-box {
+            margin: -20px 0;
+        }
+
+        .title-style {
+            margin: 0 auto 80px;
+            height: 120px;
+            width: 50%;
+            min-width: 250px;
+            background: #fff;
+            position: relative;
+            box-shadow: 0 4px 5px 0 rgba(0, 0, 50, 0.5);
+        }
+
+        .sm-bt {
+            margin-bottom: 40px;
+        }
+
+        .offer img {
+            margin-top: 40px !important;
+            margin-bottom: 0 !important;
+        }
+
+        .fashion-blog {
+            margin: 100px 0 150px 0;
+        }
+
+        .footer-icons {
+            text-align: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+
+
+
+
+        /*  fvnsklvjnlfksvjndf
+                */
+
+        .container {
+            margin: 30px auto
+        }
+
+        .navbar-nav .nav-link {
+            color: #000 !important;
+            padding: 0.5rem 0rem !important;
+            border-color: transparent;
+            margin-left: 1.5rem;
+            transition: none
+        }
+
+
+
+
+
+        .container .product-item {
+            min-height: 450px;
+            border: none;
+            overflow: hidden;
+            position: relative;
+            border-radius: 0
+        }
+
+            .container .product-item .product {
+                width: 100%;
+                height: 350px;
+                position: relative;
+                overflow: hidden;
+                cursor: pointer
+            }
+
+                .container .product-item .product img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover
+                }
+
+                .container .product-item .product .icons .icon {
+                    width: 40px;
+                    height: 40px;
+                    background-color: #fff;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    transition: transform 0.6s ease;
+                    transform: rotate(180deg);
+                    cursor: pointer
+                }
+
+                    .container .product-item .product .icons .icon:hover {
+                        background-color: #b71c1c;
+                        color: #fff
+                    }
+
+                    .container .product-item .product .icons .icon:nth-last-of-type(3) {
+                        transition-delay: 0.2s
+                    }
+
+                    .container .product-item .product .icons .icon:nth-last-of-type(2) {
+                        transition-delay: 0.15s
+                    }
+
+                    .container .product-item .product .icons .icon:nth-last-of-type(1) {
+                        transition-delay: 0.1s
+                    }
+
+            .container .product-item:hover .product .icons .icon {
+                transform: translateY(-60px)
+            }
+
+            .container .product-item .tag {
+                text-transform: uppercase;
+                font-size: 0.75rem;
+                font-weight: 500;
+                position: absolute;
+                top: 10px;
+                left: 20px;
+                padding: 0 0.4rem
+            }
+
+            .container .product-item .title {
+                font-size: 0.95rem;
+                letter-spacing: 0.5px
+            }
+
+            .container .product-item .fa-star {
+                font-size: 0.65rem;
+                color: goldenrod
+            }
+
+            .container .product-item .price {
+                margin-top: 10px;
+                margin-bottom: 10px;
+                font-weight: 600
+            }
+
+        .fw-800 {
+            font-weight: 800
+        }
+
+        .bg-green {
+            background-color: #208f20 !important;
+            color: #fff
+        }
+
+        .bg-black {
+            background-color: #1f1d1d;
+            color: #fff
+        }
+
+        .bg-red {
+            background-color: #bb3535;
+            color: #fff
+        }
+
+        .heart {
+            color: red;
+            cursor: pointer;
+        }
+
+        .fa-heart {
+            color: red;
+            cursor: pointer;
+        }
+
+    </style>
+</body>

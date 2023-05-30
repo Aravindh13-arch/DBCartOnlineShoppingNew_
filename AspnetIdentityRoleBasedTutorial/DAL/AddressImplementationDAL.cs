@@ -24,6 +24,7 @@ namespace OnlineShoppingProject.DAL
                 throw new ArgumentNullException("model");
             }
 
+
             var name= _context.AspNetUsers.Single(u => u.Id == userId).Name;
             var result = _context.AspNetUsers
                 .Join(_context.TblAddresses,
@@ -72,6 +73,7 @@ namespace OnlineShoppingProject.DAL
                 //address.ProductId = item.ProductId;
                 //   address.CreatedBy = item.UserId;
                 add.TblName.Add(address);
+
 
                 
             }

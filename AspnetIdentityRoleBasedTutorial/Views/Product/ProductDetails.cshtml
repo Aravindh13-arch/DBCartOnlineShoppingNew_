@@ -39,9 +39,11 @@
                             <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>
                         </div>
                         <div class="button-container">
+
                             <button type="button" class="btn btn-info" onclick="Buy('@Url.Action("GetAddressId", "Address",new {CreatedBy=product.CreatedBy,ProductId=product.ProductId})')">Buy</button>
                            @* <button type="button" class="btn btn-info" onclick="redirectToAddress(@product.CreatedBy,@product.ProductId)">Buy</button>*@
                             <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Product",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
+
                         </div>
                     </div>
                 </div>
@@ -49,7 +51,7 @@
         </section>
     </div>
 
-        <div>
+    <div>
         <div class="section4-header">
             <span class="title">OFFER ZONE</span>
             <button class="next" onclick='scrollright5()'><i class="fa fa-angle-right"></i></button>
@@ -60,6 +62,7 @@
         <section class="section4" id="section5">
             @foreach (var product in Model.TblProducts)
             {
+
                 <div class="product-item">
                     <div class="slider">
                         <a href="#" class="like-button" id="heart" onclick="mainMenuNav('@Url.Action("AddWishList", "WishList",new {ProductId=product.ProductId})')"><i class="far fa-heart"></i></a>
@@ -75,13 +78,12 @@
                           @*  <button type="button" class="btn btn-info" asp-controller="Address" asp-action="GetAddressId" )">Buy</button>*@
                             <button type="button" class="btn btn-info" onclick="BuyNow('@Url.Action("GetAddressId", "Address",new {Id=product.ProductId})">Buy</button>
                             <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Product",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
+
                         </div>
                     </div>
-                </div>
             }
         </section>
     </div>
-
     <div>
         <div class="section4-header">
             <span class="title">NEW COMES</span>
@@ -105,11 +107,13 @@
                             <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>
                         </div>
                         <div class="button-container">
+
               @*              <button type="button" class="btn btn-info" onclick="BuyNow('@Url.Action("GetAddressId", "Address",new {userId=product.CreatedBy,Id=product.ProductId})')">Buy</button>*@
                             <button>
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Address" asp-action="GetAddressId" asp-route-Id="@product.ProductId">Buy</a>
                             </button>
                             <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Product",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
+
                         </div>
                     </div>
                 </div>
@@ -130,24 +134,6 @@
     }
     $(document).ready(function () {
         $('.section4').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 100 // Adjust the speed as needed
-        });
-    });
-
-        $(document).ready(function () {
-        $('.section5').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 100 // Adjust the speed as needed
-        });
-    });
-
-    $(document).ready(function () {
-        $('.section6').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: true,
@@ -231,24 +217,22 @@
     }
 
 
-  
-        BuyNow = (url) => {
-            $.ajax({
-                type: 'Post',
-                url: url,
-                contentType: false,
-                processData: false,
-                success: function (res) {
-                    $('#main').html(res);
-                },
-                error: function (msg) {
+    BuyNow = (url) => {
+        $.ajax({
+            type: 'Post',
+            url: url,
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                $('#main').html(res);
+            },
+            error: function (msg) {
 
-                    $('#main').html(msg);
+                $('#main').html(msg);
 
-                }
-            })
-        }
-
+            }
+        })
+    }
 
 
 </script>
