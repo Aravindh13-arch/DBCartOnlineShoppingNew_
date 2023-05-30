@@ -1,8 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿ @model List<OnlineShoppingProject.ViewModels.ProductVM>
 
 <body>
 
@@ -14,41 +10,20 @@
     </div>
 
     <!-- fashion trends -->
-    <section class="fashion-trends">
+@*    <section class="fashion-trends">
         <div class="container">
             <div class="fashion-box">
                 <div class="title-style text-center">
                     <h1>DbCart Trends</h1>
                 </div>
             </div>
-            @*        <div class="row">
-            <div class="col-md-4">
-            <div class="trending-img">
-            <img src="https://i.postimg.cc/Xqmwr12c/clothing.webp" alt="img" />
-            <button type="button" class="btn-buy">Buy Now</button>
-            <div class="overlay"></div>
-            </div>
-            </div>
-            <div class="col-md-4">
-            <div class="trending-img">
-            <img src="https://i.postimg.cc/8CmBZH5N/shoes.webp" alt="img" />
-            <button type="button" class="btn-buy">Buy Now</button>
-            <div class="overlay"></div>
-            </div>
-            </div>
-            <div class="col-md-4">
-            <div class="trending-img">
-            <img src="https://i.postimg.cc/MHv7KJYp/access.webp" alt="img" />
-            <button type="button" class="btn-buy">Buy Now</button>
-            <div class="overlay"></div>
-            </div>
-            </div>
-            </div>
-            *@            <div class="container bg-white">
+            @foreach(var item in Model)
+            {
+            <div class="container bg-white">
                 <div class="row">
-                    <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
+                    <div class="col-lg-6 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
                         <div class="product">
-                            <img src="~/Img/blackandredzipupjacket.png" alt="">
+                            <img src="~/Img/@item.Image" alt="img">
                             <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                                 <li class="icon expand-arrows"></li>
                                 <li class="icon mx-3 heart"></li>
@@ -56,100 +31,52 @@
                             </ul>
                         </div>
                         <div class="tag bg-red">sale</div>
-                        <div class="title pt-4 pb-1">Winter Sweater</div>
-                        <div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
-                        <div class="price">$ 60.0</div>
+                        <div class="title pt-4 pb-1">@item.ProductName</div>
+                            <div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
+                        <div class="price">@item.Rate</div>
                     </div>
-                    <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-                        <div class="product">
-                            <img src="~/Img/blackpullovehoodie.png" alt="">
-                            <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-                                <li class="icon"><span class="fas fa-expand-arrows-alt"></span></li>
-                                <li class="icon mx-3"><span class="far fa-heart"></span></li>
-                                <li class="icon"><span class="fas fa-shopping-bag"></span></li>
-                            </ul>
-                        </div>
-                        <div class="tag bg-black">out of stock</div>
-                        <div class="title pt-4 pb-1">Denim Dresses</div>
-                        <div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
-                        <div class="price">$ 55.0</div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-                        <div class="product">
-                            <img src="~/Img/JacketTracksuitPumaClothingBlue.png" alt="">
-                            <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-                                <li class="icon"><span class="fas fa-expand-arrows-alt"></span></li>
-                                <li class="icon mx-3"><span class="far fa-heart"></span></li>
-                                <li class="icon"><span class="fas fa-shopping-bag"></span></li>
-                            </ul>
-                        </div>
-                        <div class="tag bg-green">new</div>
-                        <div class="title pt-4 pb-1"> Empire Waist Dresses</div>
-                        <div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
-                        <div class="price">$ 70.0</div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-                        <div class="product">
-                            <img src="~/Img/DressshirtAdventureGCasualSuit.png" alt="">
-                            <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-                                <li class="icon"><span class="fas fa-expand-arrows-alt"></span></li>
-                                <li class="icon mx-3"><span class="far fa-heart"></span></li>
-                                <li class="icon"><span class="fas fa-shopping-bag"></span></li>
-                            </ul>
-                        </div>
-                        <div class="title pt-4 pb-1">Pinafore Dresses</div>
-                        <div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
-                        <div class="price">$ 60.0</div>
-                    </div>
-                </div>
+                 </div>
+            </div>
+            }
+    </section>*@
 
-                <div class="row">
-                    <div class="col-lg-4 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-                        <div class="product">
-                            <img src="~/Img/whiteandblackadidasSuperstarshoes.png" alt="img" />
-                            <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-                                <li class="icon"><span class="fas fa-expand-arrows-alt"></span></li>
-                                <li class="icon mx-3"><span class="far fa-heart"></span></li>
-                                <li class="icon"><span class="fas fa-shopping-bag"></span></li>
-                            </ul>
-                        </div>
-                        <div class="tag bg-red">sale</div>
-                        <div class="title pt-4 pb-1">Mens stylish jacket</div>
-                        <div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
-                        <div class="price">$ 60.0</div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-                        <div class="product">
-                            <img src="" alt="img" />
-                            <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-                                <li class="icon"><span class="fas fa-expand-arrows-alt"></span></li>
-                                <li class="icon mx-3"><span class="far fa-heart"></span></li>
-                                <li class="icon"><span class="fas fa-shopping-bag"></span></li>
-                            </ul>
-                        </div>
-                        <div class="tag bg-black">out of stock</div>
-                        <div class="title pt-4 pb-1">ELATE SHOES</div>
-                        <div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
-                        <div class="price">$ 55.0</div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-                        <div class="product">
-                            <img src="https://i.postimg.cc/MHv7KJYp/access.webp" alt="img" />
-                            <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-                                <li class="icon"><span class="fas fa-expand-arrows-alt"></span></li>
-                                <li class="icon mx-3"><span class="far fa-heart"></span></li>
-                                <li class="icon"><span class="fas fa-shopping-bag"></span></li>
-                            </ul>
-                        </div>
-                        <div class="tag bg-green">new</div>
-                        <div class="title pt-4 pb-1"> Empire Waist Dresses</div>
-                        <div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
-                        <div class="price">$ 70.0</div>
-                    </div>
+
+    <section class="fashion-trends">
+        <div class="container">
+            <div class="fashion-box">
+                <div class="title-style text-center">
+                    <h1>DbCart Trends</h1>
                 </div>
             </div>
+            <div class="container bg-white">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-4 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
+                            <div class="product">
+                                <img src="~/Img/@item.Image" alt="img">
+                                <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
+                                    <li class="icon expand-arrows"></li>
+                                    <li class="icon mx-3 heart"></li>
+                                    <li class="icon shopping-bag"></li>
+                                </ul>
+                            </div>
+                            <div class="tag bg-red">sale</div>
+                            <div class="title pt-4 pb-1">@item.ProductName</div>
+                            <div class="d-flex align-content-center justify-content-center">
+                                <span class="fas fa-star"></span>
+                                <span class="fas fa-star"></span>
+                                <span class="fas fa-star"></span>
+                                <span class="fas fa-star"></span>
+                                <span class="fas fa-star"></span>
+                            </div>
+                            <div class="price">@item.Rate</div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
     </section>
-
     <!-- Offer section -->
 
     <section class="offer">
@@ -303,9 +230,9 @@
         }
 
         /*.banner-img {
-          margin: 80px 115px;
-          width: 60%;
-        }*/
+                  margin: 80px 115px;
+                  width: 60%;
+                }*/
 
         .banner-img img {
             width: 100%;
@@ -378,51 +305,51 @@
             }
 
         /*.trending-img {
-          position: relative;
-          margin-bottom: 15px;
-        }
+                  position: relative;
+                  margin-bottom: 15px;
+                }
 
-        .trending-img img {
-          width: 100%;
-        }
+                .trending-img img {
+                  width: 100%;
+                }
 
-        .btn-buy {
-          width: 150px;
-          padding: 10px 0;
-          outline: none !important;
-          border: 0;
-          border-radius: 2px;
-          position: absolute;
-          background: #fff;
-          left: 50%;
-          bottom: 0;
-          transform: translate(-50%, 0);
-          transition: 0.6s;
-          opacity: 0;
-        }
+                .btn-buy {
+                  width: 150px;
+                  padding: 10px 0;
+                  outline: none !important;
+                  border: 0;
+                  border-radius: 2px;
+                  position: absolute;
+                  background: #fff;
+                  left: 50%;
+                  bottom: 0;
+                  transform: translate(-50%, 0);
+                  transition: 0.6s;
+                  opacity: 0;
+                }
 
-        .trending-img:hover .btn-buy {
-          transform: translate(-50%, 50%);
-          bottom: 50%;
-          opacity: 1;
-          z-index: 1;
-        }
+                .trending-img:hover .btn-buy {
+                  transform: translate(-50%, 50%);
+                  bottom: 50%;
+                  opacity: 1;
+                  z-index: 1;
+                }
 
-        .overlay {
-          height: 0;
-          width: 100%;
-          background: #333;
-          position: absolute;
-          top: 0;
-          opacity: 0;
-          transition: 0.5s;
-        }
+                .overlay {
+                  height: 0;
+                  width: 100%;
+                  background: #333;
+                  position: absolute;
+                  top: 0;
+                  opacity: 0;
+                  transition: 0.5s;
+                }
 
-        .trending-img:hover .overlay {
-          opacity: 0.5;
-          height: 100%;
-        }
-        */
+                .trending-img:hover .overlay {
+                  opacity: 0.5;
+                  height: 100%;
+                }
+                */
         /* offer */
 
         .offer {
@@ -554,7 +481,7 @@
                 cursor: pointer;
             }
 
-        /* for small devices *//
+        /* for small devices */ /
 
         .banner-img {
             margin: 40px auto;
@@ -567,12 +494,12 @@
             transform: translateX(-50%);
         }
         /*
-          .banner-title h1 {
-            font-size: 16px;
-            padding: 5px;
-            line-height: 20px;
-          }
-                  */
+                  .banner-title h1 {
+                    font-size: 16px;
+                    padding: 5px;
+                    line-height: 20px;
+                  }
+                          */
         .title-style h1 {
             font-size: 25px;
         }
@@ -616,7 +543,7 @@
 
 
         /*  fvnsklvjnlfksvjndf
-        */
+                */
 
         .container {
             margin: 30px auto
@@ -735,18 +662,15 @@
             color: #fff
         }
 
-.heart
-{
+        .heart {
             color: red;
             cursor: pointer;
-}
+        }
 
         .fa-heart {
             color: red;
             cursor: pointer;
         }
 
-
     </style>
 </body>
-

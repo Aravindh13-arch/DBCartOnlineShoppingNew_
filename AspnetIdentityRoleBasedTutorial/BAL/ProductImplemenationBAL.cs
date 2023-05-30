@@ -19,6 +19,12 @@ namespace OnlineShoppingProject.BAL
 
         }
 
+
+        public async Task<List<ProductVM>> GetFashionList(int id)
+        {
+            return await productimplemenationDAL.GetListfashion(id);
+        }
+
         // Product Category BAL - Appliances
         public async Task<ProductVM> GetProductCategoryList()
         {
@@ -40,5 +46,6 @@ namespace OnlineShoppingProject.BAL
         }
 
         
+
     }
 }
