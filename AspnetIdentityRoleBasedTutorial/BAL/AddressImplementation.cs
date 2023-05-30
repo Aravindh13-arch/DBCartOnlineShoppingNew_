@@ -12,9 +12,9 @@ namespace OnlineShoppingProject.BAL
             this.addressImplementationDAL = addressImplementationDAL;
         }
 
-        public List<AddressVM> GetIDAddressBAL(string CreatedBy, int ProductId)
+        public List<AddressVM> GetIDAddressBAL(string userId, int Id)
         {
-            return addressImplementationDAL.GetIDAddressDAL(CreatedBy,ProductId);
+            return addressImplementationDAL.GetIDAddressDAL(userId, Id);
         }
 
 
