@@ -2,7 +2,7 @@
 
 namespace OnlineShoppingProject.ViewModels
 {
-    public class ProductVM
+    public class ProductVM 
     {
         public int UserId { get; set; }
         public int Id { get; set; }
@@ -10,7 +10,7 @@ namespace OnlineShoppingProject.ViewModels
         public string Code { get; set; }
         public string Unit { get; set; }
         //public decimal Quantity { get; set; }
-        public decimal quantity { get; set; }
+        public int quantity { get; set; }
 
         public decimal Rate { get; set; }
         public string? Image { get; set; }

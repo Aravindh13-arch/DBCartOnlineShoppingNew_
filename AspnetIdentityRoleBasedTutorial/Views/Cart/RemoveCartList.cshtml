@@ -1,0 +1,8 @@
+﻿<h5>Are you sure you want to delete this?</h5>
+<div>
+
+    <form asp-action="ConfirmDelete" asp-route-id="@Model.Id" onsubmit="return jQueryAjaxPost(this,'Client','Detail');">
+        <input type="submit" value="Delete" class="btn btn-danger" />
+
+    </form>
+</div>

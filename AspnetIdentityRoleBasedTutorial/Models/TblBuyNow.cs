@@ -13,7 +13,7 @@ public partial class TblBuyNow
 
     public int PayementTypes { get; set; }
 
-    public decimal Quantity { get; set; }
+    public int Quantity { get; set; }
 
     public decimal Rate { get; set; }
 

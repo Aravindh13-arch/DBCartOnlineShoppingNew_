@@ -11,7 +11,7 @@ namespace OnlineShoppingProject.ViewModels.ProductModels
         public string Code { get; set; }
         public string Unit { get; set; }
         //public decimal Quantity { get; set; }
-        public decimal quantity { get; set; }
+        public int quantity { get; set; }
 
         public decimal Rate { get; set; }
         public string? Image { get; set; }
