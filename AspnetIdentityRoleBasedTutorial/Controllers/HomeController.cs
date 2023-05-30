@@ -1,5 +1,6 @@
 ﻿using AspnetIdentityRoleBasedTutorial.Models;
 using Microsoft.AspNetCore.Mvc;
+using OnlineShoppingProject.BAL;
 using System.Diagnostics;
 
 namespace AspnetIdentityRoleBasedTutorial.Controllers
@@ -7,17 +8,20 @@ namespace AspnetIdentityRoleBasedTutorial.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private ProductImplemenationBAL productimplemenationbal;
+        public HomeController(ILogger<HomeController> logger, ProductImplemenationBAL productimplemenation)
         {
             _logger = logger;
+            productimplemenationbal = productimplemenation;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+
+            var productList = await productimplemenationbal.GetProductList();
+            return View(productList);
         }
-         
+
         public IActionResult Privacy()
         {
             return View();

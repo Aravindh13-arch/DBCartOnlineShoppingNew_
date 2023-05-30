@@ -17,12 +17,10 @@
 
 
 </head>
+<body>
 
-    @*<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    </div>*@
-    <div class="online-shopping-company" style="margin-top:5%">
+
+    <div class="online-shopping-company" style="margin-top: 2%;margin-left: -2%;">
         <div class="category">
             <a asp-area="" asp-controller="Product" asp-action="groceries">
                 <div class="category-icon">
@@ -32,7 +30,7 @@
             </a>
         </div>
         <div class="category">
-            <a asp-area="" asp-controller="Home" asp-action="Index">
+            <a asp-area="" asp-controller="Product" asp-action="ProductCategoryMobile">
                 <div class="category-icon">
                     <img loading="lazy" class="icon" alt="Mobiles" src="https://rukminim1.flixcart.com/flap/128/128/image/22fddf3c7da4c4f4.png?q=100">
                 </div>
@@ -67,7 +65,7 @@
         </div>
 
         <div class="category">
-            <a asp-area="" asp-controller="Home" asp-action="Index">
+            <a asp-area="" asp-controller="Product" asp-action="ProductCategory">
                 <div class="category-icon">
                     <img loading="lazy" class="icon" alt="Appliances" src="https://rukminim1.flixcart.com/flap/128/128/image/0ff199d1bd27eb98.png?q=100">
                 </div>
@@ -131,15 +129,14 @@
     </div>
 
 
-   
+    <div>
+        @{
+            await Html.RenderPartialAsync("/Views/Product/ProductDetails.cshtml", Model);
+        }
+    </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        // Call the page with controller and action method
-        window.location.href = '/Product/ProductDetails';
-    });
-</script>
+</body>
+
 <style>
     a {
         color: #000000;
