@@ -9,7 +9,7 @@ public partial class TblInventory
 
     public int? ProductId { get; set; }
 
-    public decimal Quantity { get; set; }
+    public int Quantity { get; set; }
 
     public short Status { get; set; }
 
