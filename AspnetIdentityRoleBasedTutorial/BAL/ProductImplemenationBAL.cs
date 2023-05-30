@@ -19,7 +19,7 @@ namespace OnlineShoppingProject.BAL
 
         }
 
-        // Product Category BAL 
+        // Product Category BAL - Appliances
         public async Task<ProductVM> GetProductCategoryList()
         {
             return new ProductVM
@@ -28,5 +28,17 @@ namespace OnlineShoppingProject.BAL
             };
 
         }
+
+        // Product Category BAL - Mobiles
+        public async Task<ProductVM> GetProductCategoryMobileList()
+        {
+            return new ProductVM
+            {
+                TblProducts = await productimplemenationDAL.GetListOfProductCategoryMobile()
+            };
+
+        }
+
+        
     }
 }

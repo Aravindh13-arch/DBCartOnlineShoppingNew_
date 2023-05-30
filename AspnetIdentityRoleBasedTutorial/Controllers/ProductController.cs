@@ -18,10 +18,16 @@ namespace AspnetIdentityRoleBasedTutorial.Controllers
             return View(await productimplemenationbal.GetProductList());
         }
         
-        //Product Category
+        //Product Category - Appliances
         public async Task<IActionResult> ProductCategory()
         {
             return View(await productimplemenationbal.GetProductCategoryList());
+        }
+
+        //Product Category - Mobiles
+        public async Task<IActionResult> ProductCategoryMobile()
+        {
+            return View(await productimplemenationbal.GetProductCategoryMobileList());
         }
 
         public IActionResult GetAll()

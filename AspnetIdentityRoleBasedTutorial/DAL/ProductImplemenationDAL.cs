@@ -17,7 +17,7 @@ namespace OnlineShoppingProject.DAL
             return await _context.TblProducts.Select(r => r).ToListAsync();
         }
 
-        // Product Category DAL Home Appliances
+        // Product Category DAL Appliances
         public async Task<List<TblProduct>> GetListOfProductCategory()
         {
             try
@@ -43,6 +43,32 @@ namespace OnlineShoppingProject.DAL
             }
         }
 
+
+        // Product Category DAL Mobiles
+        public async Task<List<TblProduct>> GetListOfProductCategoryMobile()
+        {
+            try
+            {
+                var result = await _context.TblSubCategories
+                    .Join(_context.TblProducts, category => category.SubCategoryId, product => product.SubCategoryId,
+                        (category, product) => new TblProduct
+                        {
+                            SubCategoryId = category.SubCategoryId,
+                            ProductName = product.ProductName,
+                            Image = product.Image,
+                            Rate = product.Rate
+
+                        })
+                    .Where(product => product.SubCategoryId == 5)
+                    .ToListAsync();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return new List<TblProduct>();
+            }
+        }     
 
     }
 }
