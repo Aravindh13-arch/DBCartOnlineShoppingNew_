@@ -4,7 +4,7 @@ namespace OnlineShoppingProject.ViewModels
 {
     public class ProductVM
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public int Id { get; set; }
         public string ProductName { get; set; }
         public string Code { get; set; }

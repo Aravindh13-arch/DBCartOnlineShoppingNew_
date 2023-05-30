@@ -16,17 +16,18 @@ namespace OnlineShoppingProject.DAL
             }
 
 
-        public List<AddressVM> GetIDAddressDAL(string CreatedBy, int ProductId)
+        public List<AddressVM> GetIDAddressDAL(string userId, int Id)
         {
             List<AddressVM> addresses = new List<AddressVM>();
-            if (CreatedBy == null)
+            if (userId == null)
             {
                 throw new ArgumentNullException("model");
             }
 
-            var result = _context.TblUsers
+            var name= _context.AspNetUsers.Single(u => u.Id == userId).Name;
+            var result = _context.AspNetUsers
                 .Join(_context.TblAddresses,
-                    t1 => t1.UserId,
+                    t1 => t1.Id,
                     t2 => t2.CreatedBy,
                     (t1, t2) => new { t1, t2 })
                 .Join(_context.TblProducts,
@@ -36,29 +37,45 @@ namespace OnlineShoppingProject.DAL
                 .GroupBy(r => new
                 {
                     r.t3.t2.DeliverAddress,
-                    r.t3.t1.UserId,
-                    r.t4.ProductId
+                    r.t3.t1.Id,
+                    r.t4.ProductId,
+                    r.t3.t2.City,
+                    r.t3.t2.State,
+                    r.t3.t2.PinCode,
+                    r.t3.t2.AddressId
+
                 })
                 .Select(g1 => new
                 {
                     DeliveryAddress = g1.Key.DeliverAddress,
-                    UserId = g1.Key.UserId,
-                  //  ProductId = g1.Key.ProductId
+                    UserId = g1.Key.Id,
+                    City= g1.Key.City,
+                    State= g1.Key.State,
+                    PinCode= g1.Key.PinCode,
+                    AddressId= g1.Key.AddressId,
+               
                 })
-                .Where(res => res.UserId == CreatedBy)
+                .Where(res => res.UserId == userId)
                 .Distinct()
                 .ToList();
-
+            AddressVM add = new AddressVM();
+            add.Name = name;
             foreach (var item in result)
             {
-                AddressVM address = new AddressVM();
+                NameVM address = new NameVM();
                 address.DeliverAddress = item.DeliveryAddress;
-               // address.ProductId = item.ProductId;
-                address.CreatedBy = item.UserId;
+                address.City = item.City;
+                address.State = item.State;
+                address.PinCode = item.PinCode;
+                address.AddressId = item.AddressId;
 
-                addresses.Add(address);
+                //address.ProductId = item.ProductId;
+                //   address.CreatedBy = item.UserId;
+                add.TblName.Add(address);
+
+                
             }
-
+            addresses.Add(add);
             return addresses;
         }
 

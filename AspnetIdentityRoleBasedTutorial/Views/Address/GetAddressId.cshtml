@@ -1,78 +1,227 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<OnlineShoppingProject.ViewModels.AddressVM>
+
+
+<hr />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+
+    function handleRadioClick(radio) {
+        var deliverButtons = document.querySelectorAll(".orange-button");
+        deliverButtons.forEach(function (button) {
+            button.style.display = "none";
+            hideAddress();
+        });
+
+        var deliverButton = radio.parentNode.parentNode.querySelector(".orange-button");
+        deliverButton.style.display = "block";
+    }
+
+    function handleButtonClick(addressId) {
+        console.log("Selected address ID: " + addressId);
+    }
+
+    $(document).ready(function () {
+        $("#show").click(function () {
+            $("#address").show();
+            $("#messageBox").hide();
+        });
+    });
+
+    function hideAddress() {
+        $("#address").hide();
+        $("#messageBox").show();
+    }
+
+    function showAddress() {
+        var city = $("#city").val();
+        var state = $("#state").val();
+        var pincode = $("#pincode").val();
+        var address = $("#address").val();
+
+        $("#cityValue").text("City: " + city);
+        $("#stateValue").text("State: " + state);
+        $("#pincodeValue").text("Pincode: " + pincode);
+        $("#addressValue").text("Address: " + address);
+
+        $("#addressDetails").show();
+      
+    }
+    </script>
 @{
+    var tblNameList = Model.SelectMany(r => r.TblName).ToList();
+    var Name = Model.Select(r => r.Name).FirstOrDefault();
 }
+<h4>DELIVERY ADDRESS :@Name</h4>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Address Delivery Form</title>
-
-</head>
-<body>
-    <div class="container">
-        <h2>Address Delivery Form</h2>
-        <form>
-          
-            <div class="form-group">
-                <label for="address">Address:</label>
-                <input type="text" id="address" name="address" required>
-            </div>
-            <div class="form-group">
-                <label for="city">City:</label>
-                <input type="text" id="city" name="city" required>
-            </div>
-            <div class="form-group">
-                <label for="state">State:</label>
-                <input type="text" id="state" name="state" required>
-            </div>
-            <div class="form-group">
-                <label for="postalCode">PIN Code:</label>
-                <input type="text" id="pinCode" name="postalCode" required>
-            </div>
-
-            <button type="submit">Submit</button>
-        </form>
+@foreach (var address in tblNameList)
+{
+  
+    <div>
+        <label>
+            <input type="radio"  onclick="handleRadioClick(this)" name="selectedAddress" value="@address.AddressId" />
+            <span class="bold-address" style="font-size: 18px;">@address.DeliverAddress, @address.City, @address.State, @address.PinCode</span>
+        </label>
+        <br />
+        <button type="button" class="btn btn-primary orange-button" style="display: none;" onclick="handleButtonClick('@address.AddressId')">DELIVER HERE</button>
     </div>
-    <style>
-        /* Basic styling for the form */
-        .container {
-            width: 400px;
-            margin: auto;
-            background-color: #f0f8ff; /* Light blue background color */
-            padding: 20px;
-            border-radius: 8px;
+    <hr />
+   
+}
+<div>
+  @*  <button id="hide" onclick="hideAddress()">Hide</button>*@
+    <button id="show" onclick="showAddress()">Add a new address</button>
+
+
+</div>
+<div class="form-container" id="address">
+  
+    <form action="/form/submit" method="post">
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" required placeholder="City/District/Town" />
+        </div>
+        <div class="form-group">
+            <label for="state">State</label>
+            <input type="text" id="state" name="state" required placeholder="Enter State" />
+        </div>
+        <div class="form-group">
+            <label for="pincode">Pincode</label>
+            <input type="text" id="pincode" name="pincode" required placeholder="Enter Pincode" />
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="4" required placeholder="Area And Street"></textarea>
+        </div>
+        <div class="form-group ">
+            <button >SAVE AND DELIVER HERE</button>
+            <button id="hide" onclick="hideAddress()">CANCEL</button>
+        </div>
+
+        <div class="form-group">
+           
+        </div>
+
+
+        <div id="messageBox">
+            <p>This is a message box!</p>
+        </div>
+    </form>
+</div>
+
+
+
+
+<script>
+    function handleButtonClick(addressId) {
+        
+        console.log("Selected address ID: " + addressId);
+ 
+    }
+</script>
+<style>
+    .orange-button {
+        background-color: orange;
+        color: white;
+        font-size: 16px;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    #hide {
+        background-color: lightgray;
+        color: black;
+        font-size: 16px;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .bold-address {
+        font-weight: bold;
+    }
+
+    .address {
+        font-size: 22px;
+    }
+
+    .button-container {
+        margin-top: 10px;
+    }
+
+
+    body {
+        margin: 0;
+        padding: 0;
+        border: 2px solid #ccc;
+    }
+
+    .form-container {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        border: 2px solid #ccc;
+        padding: 20px;
+    }
+
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-            left-padding: 2px;
-        }
+            .form-container form .form-group {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+            }
 
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
+                .form-container form .form-group label {
+                    display: inline-block;
+                    width: 100px;
+                }
 
-        input[type="text"],
-        select {
-            width: 100%;
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
+                .form-container form .form-group input[type="text"],
+                .form-container form .form-group textarea {
+                    width: 298px;
+                    height: 40px;
+                    padding: 8px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                }
 
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-    </style>
-</body>
-</html>
+                .form-container form .form-group textarea {
+                    height: 80px;
+                }
+
+            .form-container form .submit-button {
+                margin-left: auto;
+            }
+
+                .form-container form .submit-button input[type="submit"] {
+                    background-color: orange;
+                    color: white;
+                    padding: 8px 16px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+
+    #addressDetails {
+        border: 1px solid #ccc;
+        padding: 10px;
+        display: none;
+    }
+
+
+</style>
+
+
+
+
+
 
