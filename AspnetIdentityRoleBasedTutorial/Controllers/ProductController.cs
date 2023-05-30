@@ -36,5 +36,10 @@ namespace AspnetIdentityRoleBasedTutorial.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> GetListfashion(int id)
+        {
+            return View(await productimplemenationbal.GetFashionList(id));
+        }
     }
 }

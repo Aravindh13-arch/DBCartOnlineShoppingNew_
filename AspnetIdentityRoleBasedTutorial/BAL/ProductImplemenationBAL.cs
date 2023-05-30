@@ -18,5 +18,10 @@ namespace OnlineShoppingProject.BAL
             };
 
         }
+
+        public async Task<List<ProductVM>> GetFashionList(int id)
+        {
+            return await productimplemenationDAL.GetListfashion(id);
+        }
     }
 }
