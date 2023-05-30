@@ -18,5 +18,15 @@ namespace OnlineShoppingProject.BAL
             };
 
         }
+
+        // Product Category BAL 
+        public async Task<ProductVM> GetProductCategoryList()
+        {
+            return new ProductVM
+            {
+                TblProducts = await productimplemenationDAL.GetListOfProductCategory()
+            };
+
+        }
     }
 }
