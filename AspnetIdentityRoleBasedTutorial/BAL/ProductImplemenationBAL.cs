@@ -19,9 +19,33 @@ namespace OnlineShoppingProject.BAL
 
         }
 
+
         public async Task<List<ProductVM>> GetFashionList(int id)
         {
             return await productimplemenationDAL.GetListfashion(id);
         }
+
+        // Product Category BAL - Appliances
+        public async Task<ProductVM> GetProductCategoryList()
+        {
+            return new ProductVM
+            {
+                TblProducts = await productimplemenationDAL.GetListOfProductCategory()
+            };
+
+        }
+
+        // Product Category BAL - Mobiles
+        public async Task<ProductVM> GetProductCategoryMobileList()
+        {
+            return new ProductVM
+            {
+                TblProducts = await productimplemenationDAL.GetListOfProductCategoryMobile()
+            };
+
+        }
+
+        
+
     }
 }

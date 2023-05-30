@@ -101,13 +101,55 @@ Create  TABLE [dbo].[tblUnit]
 
 
 
-Create  TABLE [dbo].[tblProduct]
+CREATE TABLE tblCategory (
+    [categoryId] int IDENTITY(1,1) NOT NULL,
+    [categoryName] NVARCHAR(50) NOT NULL,
+	[status] smallint NOT NULL,
+    [createdAt] datetime NOT NULL,
+    [updatedAt] datetime  NULL,
+	[createdBy] varchar(255) NOT NULL,
+	[updatedBy] varchar(255) NULL,
+	CONSTRAINT [PK_tblCategory] PRIMARY KEY ([categoryId]),
+    CONSTRAINT [FK_tblCategory_AspNetUsers_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_tblCategory_AspNetUsers_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id])); 
+
+
+CREATE TABLE tblSubCategory (
+    [subCategoryId] int IDENTITY(1,1) NOT NULL,
+	[categoryId] int NOT NULL,
+    [subCategoryName] NVARCHAR(50) NOT NULL,
+	[status] smallint NOT NULL,
+    [createdAt] datetime NOT NULL,
+    [updatedAt] datetime  NULL,
+	[createdBy] varchar(255) NOT NULL,
+	[updatedBy] varchar(255) NULL,
+	CONSTRAINT [PK_tblSubCategory] PRIMARY KEY ([subCategoryId]),
+    CONSTRAINT [FK_tblSubCategory_AspNetUsers_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_tblSubCategory_AspNetUsers_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_tblSubCategory_tblCategory_categoryId] FOREIGN KEY ([categoryId]) REFERENCES [dbo].[tblCategory] ([categoryId]));
+
+
+CREATE TABLE tblBrand (
+    [brandId] int IDENTITY(1,1) NOT NULL,
+    [brandName] NVARCHAR(50) NOT NULL,
+	[status] smallint NOT NULL,
+    [createdAt] datetime NOT NULL,
+    [updatedAt] datetime  NULL,
+	[createdBy] varchar(255) NOT NULL,
+	[updatedBy] varchar(255) NULL,
+	CONSTRAINT [PK_tblBrand] PRIMARY KEY ([brandId]),
+    CONSTRAINT [FK_tblBrand_AspNetUsers_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_tblBrand_AspNetUsers_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id])); 
+
+
+	Create  TABLE [dbo].[tblProduct]
 (
 	[productId] int NOT NULL   Identity(1,1),
 	[productName] varchar(100) NOT NULL,
 	[productCode] varchar(50)  NULL,
 	[unitId] int NOT NULL,
 	[categoryId] int NOT NULL,
+	[subCategoryId] int NOT NULL,
 	[brandId] int NOT NULL,
 	[rate] decimal NOT NULL,
 	[image]  varchar(500) NOT NULL,
@@ -120,13 +162,17 @@ Create  TABLE [dbo].[tblProduct]
     CONSTRAINT [PK_tblProduct] PRIMARY KEY ([productId]),
    	CONSTRAINT [FK_tblProduct_AspNetUsers_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
     CONSTRAINT [FK_tblProduct_AspNetUsers_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
-	CONSTRAINT [FK_tblProduct_tblUnit_unitId] FOREIGN KEY ([unitId]) REFERENCES [dbo].[tblUnit] ([unitId])
+	CONSTRAINT [FK_tblProduct_tblUnit_unitId] FOREIGN KEY ([unitId]) REFERENCES [dbo].[tblUnit] ([unitId]),
+	CONSTRAINT [FK_tblProduct_tblcategory_categoryId] FOREIGN KEY ([categoryId]) REFERENCES [dbo].[tblcategory] ([categoryId]),
+	CONSTRAINT [FK_tblProduct_tblSubCategory_subCategoryId] FOREIGN KEY ([subCategoryId]) REFERENCES [dbo].[tblSubCategory] ([subCategoryId]),
+    CONSTRAINT [FK_tblProduct_tblBrand_brandId] FOREIGN KEY ([brandId]) REFERENCES [dbo].[tblBrand] ([brandId])
 );
+
 
 CREATE TABLE [dbo].[tblInventory](
 	[inventoryId] int Identity(1,1) NOT NULL,
 	[productId] int NULL,
-	[quantity] decimal(18, 2) NOT NULL,
+	[quantity] int NOT NULL,
 	[status] smallint NOT NULL,
 	[createdAt] datetime2(7) NOT NULL,
 	[updatedAt] datetime2(7) NULL,
@@ -142,7 +188,7 @@ CREATE TABLE [dbo].[tblInventory](
 CREATE TABLE [dbo].[tblCart](
 	[cartId] int Identity(1,1) NOT NULL,
 	[productId] int NULL,
-	[quantity] decimal(18, 2) NOT NULL,
+	[quantity]int NOT NULL,
 	[rate] decimal NOT NULL,
 	[status] smallint NOT NULL,
 	[description] varchar (250) NULL,
@@ -207,7 +253,7 @@ CREATE TABLE [dbo].[tblWishList](
 	[addressId] int NOT NULL,
 	[productId] int NOT NULL,
     [payementTypes] int NOT NULL,
-	[quantity] decimal NOT NULL,
+	[quantity] int NOT NULL,
 	[rate] decimal NOT NULL,
 	[totalAmount] decimal NOT NULL,
     [status] smallint NOT NULL,
@@ -235,117 +281,171 @@ CREATE TABLE [dbo].[tblWishList](
 	CONSTRAINT [FK_tblPurchase_AspNetUsers_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id])); 
 
 
-CREATE TABLE tblCategory (
-    [categoryId] int IDENTITY(1,1) NOT NULL,
-    [categoryName] NVARCHAR(50) NOT NULL,
-	[status] smallint NOT NULL,
-    [createdAt] datetime NOT NULL,
-    [updatedAt] datetime  NULL,
-	[createdBy] varchar(255) NOT NULL,
-	[updatedBy] varchar(255) NULL,
-	CONSTRAINT [PK_tblCategory] PRIMARY KEY ([categoryId]),
-    CONSTRAINT [FK_tblCategory_AspNetUsers_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
-	CONSTRAINT [FK_tblCategory_AspNetUsers_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id])); 
-
-
-CREATE TABLE tblBrand (
-    [brandId] int IDENTITY(1,1) NOT NULL,
-    [brandName] NVARCHAR(50) NOT NULL,
-	[status] smallint NOT NULL,
-    [createdAt] datetime NOT NULL,
-    [updatedAt] datetime  NULL,
-	[createdBy] varchar(255) NOT NULL,
-	[updatedBy] varchar(255) NULL,
-	CONSTRAINT [PK_tblBrand] PRIMARY KEY ([brandId]),
-    CONSTRAINT [FK_tblBrand_AspNetUsers_createdBy] FOREIGN KEY ([createdBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
-	CONSTRAINT [FK_tblBrand_AspNetUsers_updatedBy] FOREIGN KEY ([updatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id])); 
-
  
 
  INSERT INTO tblCategory (categoryName,status,createdAt,createdBy)
 VALUES
-    ('Electronics',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-    ('Fashion',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-    ('Home & Kitchen',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-    ('Books',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-    ('Sports',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-    ('Beauty & Personal Care',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1');
+    ('Electronics',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Fashion',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Home & Kitchen',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Books',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Sports',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Beauty & Personal Care',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d');
+
+
+	
+ INSERT INTO tblSubCategory (subCategoryName,categoryId,status,createdAt,createdBy)
+VALUES
+    ('AC',3,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('AirCooler',3,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Computer',1,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Camera',1,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Mobile',1,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Drone',1,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('LED',1,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Headphone',1,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Mic',1,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Monitor',1,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Mouse',1,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Printer',1,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Radio',1,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Usb',1,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Mic',1,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Telephone',1,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Toy',3,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Book',6,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Shirt',2,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d');
 
 	
 INSERT INTO tblBrand (brandName,status,createdAt,createdBy)
 VALUES
-    ('Samsung',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-    ('Apple',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-    ('Mi',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-    ('Nike',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-    ('Adidas',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-    ('Puma',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-    ('Sony',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-    ('LG',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-    ('HP',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-    ('Dell',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1');
-
+    ('Samsung',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Apple',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Mi',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Nike',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Adidas',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Puma',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Sony',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('LG',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('HP',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+    ('Dell',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('BlueStar',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('IFB',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Havels',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Asus',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Lenovo',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Nikon',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Realme',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Boat',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Boult',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Akg',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Rode',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Logitech',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Canon',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Logitech',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Epson',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Saregama',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Sandisk',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Lexar',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Dlink',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Lego',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('ZIRCON',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Vertiqo',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Crompton',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Philips',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Paulo Coelho',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	('Otto',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d');
+	
 INSERT INTO [dbo].tblUnit(unitName,description,status,createdAt,createdBy)
-values('Pieces','Pieces',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1');
+values('Pieces','Pieces',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d');
 
 
 SET Identity_Insert [dbo].tblProduct ON
-INSERT INTO [dbo].tblProduct(productId,categoryId,brandId,productName,productCode,unitId,rate,image,description,status,createdAt,createdBy)
-values(1,1,8,'Ac','PRO0001',1,41000,'Ac.png','AC',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-      (2,1,8,'AirCooler','PRO0002',1,18000,'AirCooler.png','AirCooler',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (3,1,2,'Computer','PRO0003',1,20000,'Computer.png','Computer',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (4,1,7,'Nikon camera','PRO0004',1,19000,'Nikon camera.png','Nikon camera',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (5,1,5,'samsung mobile','PRO0005',1,9999,'samsung mobile.png','samsung mobile',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (6,1,6,'Sony Camera','PRO0006',1,100000,'Sony Camera.png','Sony Camera',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (7,1,2,'computer','PRO0007',1,1000,'computer-keyboard-Mouse.png','computer-keyboard-Mouse',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (8,1,3,'drone','PRO0008',1,3000,'drone.png','drone',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (9,1,9,'energy','PRO0009',1,4000,'energy.png','energy',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (10,1,10,'headphones (2)','PRO0010',1,4000,'headphones (2).png','headphones (2)',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (11,1,4,'headphones','PRO0011',1,4200,'headphones.png','headphones',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (12,1,7,'microphone','PRO0012',1,4500,'microphone.png','microphone',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (13,1,3,'monitor-apple','PRO0013',1,64500,'monitor-apple.png','monitor-apple',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (14,1,2,'mouse','PRO0014',1,2300,'mouse.png','mouse',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (15,1,9,'printer','PRO0015',1,23400,'printer.png','printer',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (16,1,7,'radio','PRO0016',1,23400,'radio.png','radio',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (17,1,2,'Sandisk usb','PRO0017',1,400,'Sandisk usb.png','Sandisk usb',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (18,1,6,'server','PRO0018',1,145400,'server.png','server',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (19,1,1,'Solar energy','PRO0019',1,15400,'Solar energy.png','Solar energy',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (20,1,7,'tablet','PRO0020',1,13400,'tablet.png','tablet',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (21,1,3,'technology','PRO0021',1,13400,'technology.png','technology',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (22,1,5,'telephone','PRO0022',1,8400,'telephone.png','telephone',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (23,1,2,'web-camera','PRO0023',1,18400,'web-camera.png','web-camera',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (24,1,5,'Naruto','PRO0024',1,100000,'Naruto.jpeg','Naruto',2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1')
+INSERT INTO [dbo].tblProduct(productId,categoryId,subCategoryId,brandId,productName,productCode,unitId,rate,image,description,status,createdAt,createdBy)
+values(1,3,1,11,'BlueStar AC 1.5Ton','PRO0001',1,41000,'BlueStar_AC.png','AC',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),     
+	  (2,3,1,12,'IFB AC 1Ton 5Star','PRO0002',1,41000,'IFB_AC.png','AC',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),    
+	  (3,3,2,13,'Havels Aircooler','PRO0003',1,18000,'Havels_Aircooler.png','AirCooler',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+      (4,3,2,1,'Samsung AirCooler','PRO0004',1,18000,'Samsung_Aircooler.png','AirCooler',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (5,1,3,15,'Lenovo computer','PRO0005',1,1000,'computer-keyboard-Mouse.png','computer-keyboard-Mouse',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),	  
+	  (6,1,3,14,'Asus Computer','PRO0006',1,20000,'Computer.png','Computer',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'), 
+	  (7,1,4,16,'Nikon camera B20','PRO0007',1,19000,'Nikon camera.png','Nikon camera',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (8,1,4,7,'Sony Camera S45','PRO0008',1,100000,'Sony Camera.png','Sony Camera',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (9,1,5,1,'samsung galaxy s22','PRO0009',1,9999,'samsung mobile.png','samsung mobile',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (10,1,5,17,'Realme 5','PRO0010',1,9999,'Realme_Mobile.png','samsung mobile',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),  
+	  (11,1,6,31,'ZIRCON drone','PRO0011',1,3000,'Zircon_drone.png','drone',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (12,1,6,32,'Vertiqo drone','PRO0012',1,3000,'drone.png','drone',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (13,1,7,33,'Crompton Bulb','PRO0013',1,4000,'Crompton_Bulb.png','energy',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (14,1,7,34,'Philips Bulb','PRO0014',1,4000,'energy.png','energy',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (15,1,8,18,'Boat headphones','PRO0015',1,4000,'headphones (2).png','headphones (2)',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (16,1,8,19,'Boult headphones','PRO0016',1,4200,'headphones.png','headphones',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),	  
+	  (17,1,9,20,'Akg mic','PRO0017',1,4500,'AKG_Mic.png','microphone',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (18,1,9,21,'Rode mic','PRO0018',1,4500,'microphone.png','microphone',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (19,1,10,2,'monitor-apple','PRO0019',1,64500,'monitor-apple.png','monitor-apple',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (20,1,10,8,'monitor-Lg','PRO0020',1,64500,'monitor_Lg.png','monitor-apple',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (21,1,11,14,'Asus mouse','PRO0021',1,2300,'Asus_Mouse.png','mouse',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (22,1,11,24,'Logitech mouse','PRO0022',1,2300,'mouse.png','mouse',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (23,1,12,23,'Canon printer','PRO0023',1,23400,'Canon_printer.png','printer',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (24,1,12,25,'Epson printer','PRO0024',1,23400,'printer.png','printer',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (25,1,13,7,'Sony radio','PRO0025',1,23400,'Sony_radio.png','radio',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (26,1,13,26,'Saregama radio','PRO0026',1,23400,'radio.png','radio',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (27,1,14,27,'Sandisk usb','PRO0027',1,400,'Sandisk usb.png','Sandisk usb',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (28,1,14,28,'Lexar usb','PRO0028',1,400,'Lexar_Usb.png','Sandisk usb',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (29,1,3,14,'server','PRO0029',1,145400,'server.png','server',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (30,1,7,34,'Solar energy','PRO0030',1,15400,'Solar energy.png','Solar energy',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (31,1,5,3,'MI tablet','PRO0031',1,13400,'MI_tablet.png','tablet',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (32,1,5,8,'LG tablet','PRO0032',1,13400,'tablet.png','tablet',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (33,1,3,15,'technology','PRO0033',1,13400,'technology.png','technology',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (34,1,16,29,'Dlink telephone','PRO0034',1,8400,'telephone.png','telephone',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (35,1,4,7,'Sony web-camera','PRO0035',1,18400,'web-camera.png','web-camera',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (36,3,17,30,'Naruto anime Toy','PRO0036',1,100000,'Naruto.jpeg','Naruto',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (37,4,18,35,'Alchemist','PRO0037',1,100000,'Alchemist.png','Naruto',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (38,2,19,36,'Otto T-shirt','PRO0038',1,100000,'Otto.png','Naruto',2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d');
 SET Identity_Insert [dbo].tblProduct OFF
+
 
 
 
 
 SET Identity_Insert [dbo].tblInventory ON
 INSERT INTO [dbo].[tblInventory](inventoryId,productId,quantity,status,createdAt,createdBy)
-Values(1,1,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-      (2,2,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (3,3,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (4,4,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (5,5,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (6,6,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (7,7,60,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (8,8,101,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (9,9,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (10,10,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (11,11,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (12,12,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (13,13,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (14,14,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (15,15,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (16,16,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (17,17,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (18,18,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (19,19,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (20,20,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (21,21,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (22,22,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (23,23,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1'),
-	  (24,24,10,2,GETDATE(),'60505938-cbb1-4a85-8912-cdd9c74706d1')
+Values(1,1,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+      (2,2,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (3,3,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (4,4,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (5,5,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (6,6,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (7,7,60,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (8,8,101,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (9,9,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (10,10,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (11,11,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (12,12,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (13,13,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (14,14,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (15,15,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (16,16,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (17,17,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (18,18,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (19,19,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (20,20,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (21,21,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (22,22,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (23,23,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (24,24,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (25,25,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (26,26,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (27,27,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (28,28,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (29,29,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (30,30,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (31,31,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (32,32,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (33,33,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (34,34,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (35,35,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (36,36,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (37,37,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d'),
+	  (38,38,10,2,GETDATE(),'df462265-47ac-43f1-b6f3-1906bb5df06d');
 SET Identity_Insert [dbo].tblInventory OFF
 
 

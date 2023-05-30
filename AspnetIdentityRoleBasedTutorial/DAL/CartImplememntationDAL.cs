@@ -53,5 +53,31 @@ namespace OnlineShoppingProject.DAL
         {
             return await _context.TblCarts.Include(r => r.Product).Select(r => r).Where(r => r.CreatedBy == UserId).ToListAsync();            
         }
+
+        public async Task<TblCart> GetCartById(int id)
+        {
+            return await _context.TblCarts.FindAsync(id);
+        }
+
+        public async Task<bool> RemoveCartbyId(ProductVM productVM)
+        {
+
+            try
+            {
+                var productDB = _context.TblCarts.Where(x => x.CartId == productVM.Id).FirstOrDefault();
+                {
+                    productDB.Status = (int)MyConstants.Status.Deleted;
+                    productDB.UpdatedAt = DateTime.UtcNow;
+                    productDB.UpdatedBy = _context.AspNetUsers.Single(r => r.Id == productVM.UserId).Id;
+                }
+                var result = await _context.SaveChangesAsync();
+                if (result > 0) { return true; }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            };
+        }
     }
 }
