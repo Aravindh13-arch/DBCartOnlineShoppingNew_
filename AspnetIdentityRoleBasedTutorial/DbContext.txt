@@ -126,7 +126,7 @@ Create  TABLE [dbo].[tblProduct]
 CREATE TABLE [dbo].[tblInventory](
 	[inventoryId] int Identity(1,1) NOT NULL,
 	[productId] int NULL,
-	[quantity] decimal(18, 2) NOT NULL,
+	[quantity] int NOT NULL,
 	[status] smallint NOT NULL,
 	[createdAt] datetime2(7) NOT NULL,
 	[updatedAt] datetime2(7) NULL,
@@ -142,7 +142,7 @@ CREATE TABLE [dbo].[tblInventory](
 CREATE TABLE [dbo].[tblCart](
 	[cartId] int Identity(1,1) NOT NULL,
 	[productId] int NULL,
-	[quantity] decimal(18, 2) NOT NULL,
+	[quantity]int NOT NULL,
 	[rate] decimal NOT NULL,
 	[status] smallint NOT NULL,
 	[description] varchar (250) NULL,
@@ -207,7 +207,7 @@ CREATE TABLE [dbo].[tblWishList](
 	[addressId] int NOT NULL,
 	[productId] int NOT NULL,
     [payementTypes] int NOT NULL,
-	[quantity] decimal NOT NULL,
+	[quantity] int NOT NULL,
 	[rate] decimal NOT NULL,
 	[totalAmount] decimal NOT NULL,
     [status] smallint NOT NULL,
