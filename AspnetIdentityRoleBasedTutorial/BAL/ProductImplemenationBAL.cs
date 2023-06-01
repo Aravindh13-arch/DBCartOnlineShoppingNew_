@@ -1,5 +1,6 @@
 ﻿using OnlineShoppingProject.DAL;
 using OnlineShoppingProject.ViewModels;
+using OnlineShoppingProject.ViewModels.CategoryWiseList;
 
 namespace OnlineShoppingProject.BAL
 {
@@ -18,7 +19,19 @@ namespace OnlineShoppingProject.BAL
             };
 
         }
+        public async Task<ProductCategroyList> GetCategroyWiseProductList()
+        {
+            return new ProductCategroyList
+            {
 
+                ElectronicsCategroy = await productimplemenationDAL.GetListOfElectronicsProducts(),
+                FashionCategroy = await productimplemenationDAL.GetListOfFashionProducts(),
+                Home_KitchenCategroy = await productimplemenationDAL.GetListOfHome_KitchenProducts(),
+                BooksCategroy = await productimplemenationDAL.GetListOfBooksProducts(),
+                SportsCategroy = await productimplemenationDAL.GetListOfSportsProducts(),
+                Beauty_Personal_CarCategroy = await productimplemenationDAL.GetListOfBeauty_Personal_CareProducts()
+            };
+        }
 
         public async Task<List<ProductVM>> GetFashionList(int id)
         {
