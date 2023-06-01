@@ -1,4 +1,4 @@
-﻿@model OnlineShoppingProject.ViewModels.ProductVM
+﻿@model OnlineShoppingProject.ViewModels.CategoryWiseList.ProductCategroyList
 <head>
     <!--META TAGS-->
     <meta name="viewport" content="width=device-width, initial-scal=1, user-scalable=no">
@@ -18,14 +18,14 @@
 
     <div>
         <div class="section4-header">
-            <span class="title">PURCHASE CORNER</span>
+            <span class="title">Electronics</span>
             <button class="next" onclick='scrollright4()'><i class="fa fa-angle-right"></i></button>
             <button class="previous" onclick='scrollleft4()'><i class="fa fa-angle-left"></i></button>
         </div>
         <hr />
 
         <section class="section4" id="section4">
-            @foreach (var product in Model.TblProducts)
+            @foreach (var product in Model.ElectronicsCategroy)
             {
                 <div class="product-item">
                     <div class="slider">
@@ -51,14 +51,14 @@
 
     <div>
         <div class="section4-header">
-            <span class="title">OFFER ZONE</span>
+            <span class="title">Fashions</span>
             <button class="next" onclick='scrollright5()'><i class="fa fa-angle-right"></i></button>
             <button class="previous" onclick='scrollleft5()'><i class="fa fa-angle-left"></i></button>
         </div>
         <hr />
 
         <section class="section4" id="section5">
-            @foreach (var product in Model.TblProducts)
+            @foreach (var product in Model.FashionCategroy)
             {
                 <div class="product-item">
                     <div class="slider">
@@ -82,14 +82,14 @@
     </div>
     <div>
         <div class="section4-header">
-            <span class="title">NEW COMES</span>
+            <span class="title">Home Appliances</span>
             <button class="next" onclick='scrollright6()'><i class="fa fa-angle-right"></i></button>
             <button class="previous" onclick='scrollleft6()'><i class="fa fa-angle-left"></i></button>
         </div>
         <hr />
 
         <section class="section4" id="section6">
-            @foreach (var product in Model.TblProducts)
+            @foreach (var product in Model.Home_KitchenCategroy)
             {
                 <div class="product-item">
                     <div class="slider">
