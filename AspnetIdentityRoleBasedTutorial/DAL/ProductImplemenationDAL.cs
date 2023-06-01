@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineShoppingProject.Models;
 using OnlineShoppingProject.ViewModels;
+using OnlineShoppingProject.ViewModels.CategoryWiseList;
 using System.Drawing;
 using System.Security.Cryptography;
 
@@ -88,6 +89,241 @@ namespace OnlineShoppingProject.DAL
             }
         }
 
+        public async Task<List<Moblies>> GetListOfMobileProducts()
+        {
+            List<Moblies> MobileList = new List<Moblies>();
+            var product = await _context.TblProducts.Select(r => r).ToListAsync();
+            if (product != null)
+            {
+
+                foreach (var list in product)
+                {
+                    if (list.CategoryId == 1)
+                    {
+                        Moblies moblies = new Moblies();
+                        moblies.BrandId = list.BrandId;
+                        moblies.SubCategoryId = list.SubCategoryId;
+                        moblies.UnitId = list.UnitId;
+                        moblies.Status = list.Status;
+                        moblies.Rate = list.Rate;
+                        moblies.CreatedBy = list.CreatedBy;
+                        moblies.UpdatedBy = list.UpdatedBy;
+                        moblies.UpdatedAt = list.UpdatedAt;
+                        moblies.CreatedAt = list.CreatedAt;
+                        moblies.CategoryId = list.CategoryId;
+                        moblies.Description = list.Description;
+                        moblies.Image = list.Image;
+                        moblies.ProductCode = list.ProductCode;
+                        moblies.ProductId = list.ProductId;
+                        moblies.ProductName = list.ProductName;
+                        MobileList.Add(moblies);
+                    }
+                }
+
+            }
+            return MobileList;
+        }
+        public async Task<List<Electronics>> GetListOfElectronicsProducts()
+        {
+            List<Electronics> MobileList = new List<Electronics>();
+            var product = await _context.TblProducts.Select(r => r).ToListAsync();
+            if (product != null)
+            {
+
+                foreach (var list in product)
+                {
+                    if (list.CategoryId == 1)
+                    {
+                        Electronics moblies = new Electronics();
+                        moblies.BrandId = list.BrandId;
+                        moblies.SubCategoryId = list.SubCategoryId;
+                        moblies.UnitId = list.UnitId;
+                        moblies.Status = list.Status;
+                        moblies.Rate = list.Rate;
+                        moblies.CreatedBy = list.CreatedBy;
+                        moblies.UpdatedBy = list.UpdatedBy;
+                        moblies.UpdatedAt = list.UpdatedAt;
+                        moblies.CreatedAt = list.CreatedAt;
+                        moblies.CategoryId = list.CategoryId;
+                        moblies.Description = list.Description;
+                        moblies.Image = list.Image;
+                        moblies.ProductCode = list.ProductCode;
+                        moblies.ProductId = list.ProductId;
+                        moblies.ProductName = list.ProductName;
+                        MobileList.Add(moblies);
+                    }
+                }
+
+            }
+            return MobileList;
+        }
+        public async Task<List<Fashion>> GetListOfFashionProducts()
+        {
+            List<Fashion> MobileList = new List<Fashion>();
+            var product = await _context.TblProducts.Select(r => r).ToListAsync();
+            if (product != null)
+            {
+
+                foreach (var list in product)
+                {
+                    if (list.CategoryId == 2)
+                    {
+                        Fashion moblies = new Fashion();
+                        moblies.BrandId = list.BrandId;
+                        moblies.SubCategoryId = list.SubCategoryId;
+                        moblies.UnitId = list.UnitId;
+                        moblies.Status = list.Status;
+                        moblies.Rate = list.Rate;
+                        moblies.CreatedBy = list.CreatedBy;
+                        moblies.UpdatedBy = list.UpdatedBy;
+                        moblies.UpdatedAt = list.UpdatedAt;
+                        moblies.CreatedAt = list.CreatedAt;
+                        moblies.CategoryId = list.CategoryId;
+                        moblies.Description = list.Description;
+                        moblies.Image = list.Image;
+                        moblies.ProductCode = list.ProductCode;
+                        moblies.ProductId = list.ProductId;
+                        moblies.ProductName = list.ProductName;
+                        MobileList.Add(moblies);
+                    }
+                }
+
+            }
+            return MobileList;
+        }
+        public async Task<List<Home_Kitchen>> GetListOfHome_KitchenProducts()
+        {
+            List<Home_Kitchen> MobileList = new List<Home_Kitchen>();
+            var product = await _context.TblProducts.Select(r => r).ToListAsync();
+            if (product != null)
+            {
+                foreach (var list in product)
+                {
+                    if (list.CategoryId == 3)
+                    {
+                        Home_Kitchen moblies = new Home_Kitchen();
+                        moblies.BrandId = list.BrandId;
+                        moblies.SubCategoryId = list.SubCategoryId;
+                        moblies.UnitId = list.UnitId;
+                        moblies.Status = list.Status;
+                        moblies.Rate = list.Rate;
+                        moblies.CreatedBy = list.CreatedBy;
+                        moblies.UpdatedBy = list.UpdatedBy;
+                        moblies.UpdatedAt = list.UpdatedAt;
+                        moblies.CreatedAt = list.CreatedAt;
+                        moblies.CategoryId = list.CategoryId;
+                        moblies.Description = list.Description;
+                        moblies.Image = list.Image;
+                        moblies.ProductCode = list.ProductCode;
+                        moblies.ProductId = list.ProductId;
+                        moblies.ProductName = list.ProductName;
+                        MobileList.Add(moblies);
+                    }
+                }
+
+            }
+            return MobileList;
+        }
+        public async Task<List<Books>> GetListOfBooksProducts()
+        {
+            List<Books> MobileList = new List<Books>();
+            var product = await _context.TblProducts.Select(r => r).ToListAsync();
+            if (product != null)
+            {
+                foreach (var list in product)
+                {
+                    if (list.CategoryId == 4)
+                    {
+                        Books moblies = new Books();
+                        moblies.BrandId = list.BrandId;
+                        moblies.SubCategoryId = list.SubCategoryId;
+                        moblies.UnitId = list.UnitId;
+                        moblies.Status = list.Status;
+                        moblies.Rate = list.Rate;
+                        moblies.CreatedBy = list.CreatedBy;
+                        moblies.UpdatedBy = list.UpdatedBy;
+                        moblies.UpdatedAt = list.UpdatedAt;
+                        moblies.CreatedAt = list.CreatedAt;
+                        moblies.CategoryId = list.CategoryId;
+                        moblies.Description = list.Description;
+                        moblies.Image = list.Image;
+                        moblies.ProductCode = list.ProductCode;
+                        moblies.ProductId = list.ProductId;
+                        moblies.ProductName = list.ProductName;
+                        MobileList.Add(moblies);
+                    }
+                }
+
+            }
+            return MobileList;
+        }
+        public async Task<List<Sports>> GetListOfSportsProducts()
+        {
+            List<Sports> MobileList = new List<Sports>();
+            var product = await _context.TblProducts.Select(r => r).ToListAsync();
+            if (product != null)
+            {
+                foreach (var list in product)
+                {
+                    if (list.CategoryId == 5)
+                    {
+                        Sports moblies = new Sports();
+                        moblies.BrandId = list.BrandId;
+                        moblies.SubCategoryId = list.SubCategoryId;
+                        moblies.UnitId = list.UnitId;
+                        moblies.Status = list.Status;
+                        moblies.Rate = list.Rate;
+                        moblies.CreatedBy = list.CreatedBy;
+                        moblies.UpdatedBy = list.UpdatedBy;
+                        moblies.UpdatedAt = list.UpdatedAt;
+                        moblies.CreatedAt = list.CreatedAt;
+                        moblies.CategoryId = list.CategoryId;
+                        moblies.Description = list.Description;
+                        moblies.Image = list.Image;
+                        moblies.ProductCode = list.ProductCode;
+                        moblies.ProductId = list.ProductId;
+                        moblies.ProductName = list.ProductName;
+                        MobileList.Add(moblies);
+                    }
+                }
+
+            }
+            return MobileList;
+        }
+
+        public async Task<List<Beauty_Personal_Care>> GetListOfBeauty_Personal_CareProducts()
+        {
+            List<Beauty_Personal_Care> MobileList = new List<Beauty_Personal_Care>();
+            var product = await _context.TblProducts.Select(r => r).ToListAsync();
+            if (product != null)
+            {
+                foreach (var list in product)
+                {
+                    if (list.CategoryId == 6)
+                    {
+                        Beauty_Personal_Care moblies = new Beauty_Personal_Care();
+                        moblies.BrandId = list.BrandId;
+                        moblies.SubCategoryId = list.SubCategoryId;
+                        moblies.UnitId = list.UnitId;
+                        moblies.Status = list.Status;
+                        moblies.Rate = list.Rate;
+                        moblies.CreatedBy = list.CreatedBy;
+                        moblies.UpdatedBy = list.UpdatedBy;
+                        moblies.UpdatedAt = list.UpdatedAt;
+                        moblies.CreatedAt = list.CreatedAt;
+                        moblies.CategoryId = list.CategoryId;
+                        moblies.Description = list.Description;
+                        moblies.Image = list.Image;
+                        moblies.ProductCode = list.ProductCode;
+                        moblies.ProductId = list.ProductId;
+                        moblies.ProductName = list.ProductName;
+                        MobileList.Add(moblies);
+                    }
+                }
+
+            }
+            return MobileList;
+        }
 
         // Product Category DAL Mobiles
         public async Task<List<TblProduct>> GetListOfProductCategoryMobile()
