@@ -152,7 +152,7 @@ namespace OnlineShoppingProject.DAL
 
                 foreach (var list in product)
                 {
-                    if (list.CategoryId == 1)
+                    if (list.CategoryId == 7)
                     {
                         Moblies moblies = new Moblies();
                         moblies.BrandId = list.BrandId;

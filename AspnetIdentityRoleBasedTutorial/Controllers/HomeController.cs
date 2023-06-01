@@ -18,7 +18,7 @@ namespace AspnetIdentityRoleBasedTutorial.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var productList = await productimplemenationbal.GetProductList();
+            var productList = await productimplemenationbal.GetCategroyWiseProductList();
             return View(productList);
         }
 
