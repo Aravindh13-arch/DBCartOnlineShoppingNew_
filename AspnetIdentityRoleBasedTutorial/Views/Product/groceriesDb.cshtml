@@ -1,4 +1,4 @@
-﻿@model OnlineShoppingProject.ViewModels.ProductVM
+﻿@model OnlineShoppingProject.ViewModels.CategoryWiseList.ProductCategroyList
 <head>
     <!--META TAGS-->
     <meta name="viewport" content="width=device-width, initial-scal=1, user-scalable=no">
@@ -70,7 +70,7 @@
     </div>
 
     <!--            Vegetables          -->
- @foreach (var product in Model.TblProducts)
+ @foreach (var product in Model.MobliesCategroy)
  {
      <div class="deals-container" id="vegetables">
          <div class="main">
@@ -193,7 +193,7 @@
      </div>
  }
     <!--                Fruits              -->
- @foreach (var product in Model.TblProducts)
+ @foreach (var product in Model.MobliesCategroy)
  {
      <div class="deals-container" id="fruits">
          <div class="main">
@@ -317,7 +317,7 @@
  }
 
     <!--            Meat & Sea Foods                -->
- @foreach (var product in Model.TblProducts)
+ @foreach (var product in Model.MobliesCategroy)
  {
      <div class="deals-container" id="meat">
          <div class="main">
@@ -441,7 +441,7 @@
  }
  @*       ====   DAL ======
     *@
- @foreach (var product in Model.TblProducts)
+ @foreach (var product in Model.MobliesCategroy)
  {
      <div class="deals-container" id="Dal">
          <div class="main">

@@ -62,15 +62,15 @@ namespace AspnetIdentityRoleBasedTutorial.Controllers
 
 
 
-    //Grocery From Database
+        //Grocery From Database
 
-    public async Task<IActionResult> groceriesDb()
-    {
-      return View(await productimplemenationbal.GetGroceryListBAL());
+        public async Task<IActionResult> groceriesDb()
+        {
+            return View(await productimplemenationbal.GetGroceryListBAL());
+        }
+
+
     }
-
-
-  }
 }
 
 
