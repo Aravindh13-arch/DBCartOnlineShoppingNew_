@@ -169,9 +169,14 @@
     </div>
 
     @* Common footer for all Pages*@
-  <div>
-        <footer class="border-top footer text-muted" style="background-color: rebeccapurple; ">
+  <div>@*
+        <footer class="border-top footer text-muted" style="background-color: rebeccapurple; margin-bottom: -4%;">
             <div class="container" style="color:#ffffff;">
+                &copy; 2023 - DB Cart Pvt Ltd. - <a asp-area="" asp-controller="Home" asp-action="Privacy">About Us</a>
+            </div>
+        </footer>*@
+        <footer class="border-top footer text-muted">
+            <div class="footer1" style="padding-top: 2%;">
                 &copy; 2023 - DB Cart Pvt Ltd. - <a asp-area="" asp-controller="Home" asp-action="Privacy">About Us</a>
             </div>
         </footer>
@@ -206,8 +211,18 @@
         color: #e9ecef;
     }
 
-    
 
+    footer {
+        height: 12%;
+        /*position: fixed;*/
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: rebeccapurple;
+        color: #ffffff;
+        text-align: center;
+       /* padding: 10px 0;*/
+    }
 
    /*footer {
         height: 15%;
