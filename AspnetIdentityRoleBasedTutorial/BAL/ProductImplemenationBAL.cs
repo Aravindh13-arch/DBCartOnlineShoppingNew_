@@ -45,7 +45,17 @@ namespace OnlineShoppingProject.BAL
 
         }
 
-        
+        // Product Category BAL - Groceries
+        public async Task<ProductVM> GetGroceryListBAL()
+        {
+            return new ProductVM
+            {
+                TblProducts = await productimplemenationDAL.GetListOfGroceryDAL()
+            };
+
+        }
+
+
 
     }
 }
