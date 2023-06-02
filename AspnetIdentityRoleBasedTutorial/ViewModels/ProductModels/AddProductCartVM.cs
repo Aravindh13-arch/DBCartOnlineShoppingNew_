@@ -8,7 +8,7 @@ namespace OnlineShoppingProject.ViewModels.ProductModels
 
         public int? ProductMasterId { get; set; }
 
-        public decimal Quantity { get; set; }
+        public int Quantity { get; set; }
 
         public decimal Rate { get; set; }
 
@@ -20,9 +20,9 @@ namespace OnlineShoppingProject.ViewModels.ProductModels
 
         public DateTime? ModifiedDate { get; set; }
 
-        public int CreatedById { get; set; }
+        public string CreatedById { get; set; }
 
-        public int? ModifiedById { get; set; }
+        public string? ModifiedById { get; set; }
 
         public List<TblCart>? TblCarts { get; set; } = new List<TblCart>();
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Protocols;
 
 namespace OnlineShoppingProject.Models;
 
@@ -15,6 +14,8 @@ public partial class OnlineShopDbContext : DbContext
     {
         _configuration = configuration;
     }
+
+
     public OnlineShopDbContext(DbContextOptions<OnlineShopDbContext> options)
         : base(options)
     {
@@ -286,9 +287,7 @@ public partial class OnlineShopDbContext : DbContext
                 .HasColumnName("createdBy");
             entity.Property(e => e.PayementTypes).HasColumnName("payementTypes");
             entity.Property(e => e.ProductId).HasColumnName("productId");
-            entity.Property(e => e.Quantity)
-                .HasColumnType("decimal(18, 0)")
-                .HasColumnName("quantity");
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.Rate)
                 .HasColumnType("decimal(18, 0)")
                 .HasColumnName("rate");
@@ -336,9 +335,7 @@ public partial class OnlineShopDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("description");
             entity.Property(e => e.ProductId).HasColumnName("productId");
-            entity.Property(e => e.Quantity)
-                .HasColumnType("decimal(18, 2)")
-                .HasColumnName("quantity");
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.Rate)
                 .HasColumnType("decimal(18, 0)")
                 .HasColumnName("rate");
@@ -404,9 +401,7 @@ public partial class OnlineShopDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("createdBy");
             entity.Property(e => e.ProductId).HasColumnName("productId");
-            entity.Property(e => e.Quantity)
-                .HasColumnType("decimal(18, 2)")
-                .HasColumnName("quantity");
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.UpdatedAt).HasColumnName("updatedAt");
             entity.Property(e => e.UpdatedBy)
