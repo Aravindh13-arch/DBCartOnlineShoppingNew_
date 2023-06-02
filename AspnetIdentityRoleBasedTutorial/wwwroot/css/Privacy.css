@@ -7,3 +7,19 @@
   max-width: 1366px;
   margin-top: 1%;
 }
+
+.section3-header .previous, .section4-header .previous {
+  position: absolute;
+  left: -50px;
+  top: 116%;
+  height: 179%;
+  z-index: 1;
+}
+
+.section3-header .next, .section4-header .next {
+  position: absolute;
+  right: -50px;
+  top: 116%;
+  height: 179%;
+  z-index: 1;
+}
