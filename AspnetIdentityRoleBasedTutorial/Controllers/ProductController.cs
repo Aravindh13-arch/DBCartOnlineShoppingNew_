@@ -54,7 +54,7 @@ namespace AspnetIdentityRoleBasedTutorial.Controllers
   public async Task<IActionResult> GetListfashion(int id)
   {
    return View(await productimplemenationbal.GetFashionList(id));
-
+  }
    //Grocery From Database
 
    public async Task<IActionResult> groceriesDb()
