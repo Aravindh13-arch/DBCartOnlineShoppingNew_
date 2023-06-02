@@ -116,8 +116,9 @@
    {
        <div class="product-item">
          <div class="slider">
-           <a href="#" class="like-button" id="heart" onclick="mainMenuNav('@Url.Action("AddWishList", "WishList",new {ProductId=product.ProductId})')"><i class="far fa-heart"></i></a>
-           <img src="~/Img/@product.Image" width="200" height="150" />
+           <a href="@Url.Action("ProductDetail", "Product", new { id = product.ProductId })">
+             <img src="~/Img/@product.Image" width="200" height="150" />
+           </a>
            <span>@product.ProductName</span>
            <span>@product.Rate</span>
            <div class="quantity-container">
@@ -128,12 +129,12 @@
            <div class="button-container">
              <button type="button" class="btn btn-info" onclick="BuyNow('@Url.Action("GetAddressId", "Address",new {Id=product.ProductId})')">Buy</button>
              <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Cart",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
-
            </div>
          </div>
        </div>
    }
     </section>
+
   </div>
 
 </body>
