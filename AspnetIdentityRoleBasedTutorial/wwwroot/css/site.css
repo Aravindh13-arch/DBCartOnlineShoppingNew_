@@ -1438,8 +1438,8 @@ span.psw {
 /*Section Alignment CSS*/
 
 .product-item img {
-    width: 181px;
-    height: 107px;
+  width: 237px;
+  height: 173px;
 }
 
 
@@ -1447,7 +1447,7 @@ span.psw {
     position: absolute;
     left: -50px;
     top: 116%;
-    height:136%;
+    height:179%;
     z-index: 1;
 }
 
@@ -1455,7 +1455,7 @@ span.psw {
   position: absolute;
   right: -50px;
   top: 116%;
-  height: 136%;
+  height: 179%;
   z-index: 1;
 }
 
@@ -1463,7 +1463,7 @@ span.psw {
 
 .section4 {
     width: 100%;
-    min-height: 43vh;
+    min-height: 56vh;
     overflow-y: hidden;
     padding: 56px 0px;
     box-shadow: 0px 6px 16px -6px rgba(1,1,1,0.5);
