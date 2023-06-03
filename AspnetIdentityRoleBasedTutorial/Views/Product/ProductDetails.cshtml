@@ -12,42 +12,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
 
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+
+
 </head>
 
+
 <body>
-    <partial name="_CategoriesNavbar" />
-    
-    <div>
-        <div class="section4-header">
-            <span class="title">Electronics</span>
-            <button class="next" onclick='scrollright4()'><i class="fa fa-angle-right"></i></button>
-            <button class="previous" onclick='scrollleft4()'><i class="fa fa-angle-left"></i></button>
-        </div>
-        <hr />
+  <partial name="_CategoriesNavbar" />
 
-@*        <section class="section4" id="section4">
-            @foreach (var product in Model.ElectronicsCategroy)
-            {
-                <div class="product-item">
-                    <div class="slider">
-                        <a href="#" class="like-button" id="heart" onclick="mainMenuNav('@Url.Action("AddWishList", "WishList",new {ProductId=product.ProductId})')"><i class="far fa-heart"></i></a>
-                        <img src="~/Img/@product.Image" width="200" height="150" />
-                        <span>@product.ProductName</span>
-                        <span>@product.Rate</span>
-                        <div class="quantity-container">
-                            <button class="quantity-button minus" onclick="decrementQuantity(this)">-</button>
-                            <input type="number" class="quantity-input" name="quantity" value="1" min="1" max="100">
-                            <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>
-                        </div>
-                        <div class="button-container">
-                            <button type="button" class="btn btn-info" onclick="BuyNow('@Url.Action("GetAddressId", "Address",new {Id=product.ProductId})')">Buy</button>
-                            <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Cart",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
-
-                        </div>
-                    </div>
-                </div>
-            }
-        </section>*@
+  <div>
+    <div class="section4-header">
+      <span class="title">Electronics</span>
+      <button class="next" onclick='scrollright4()'><i class="fa fa-angle-right"></i></button>
+      <button class="previous" onclick='scrollleft4()'><i class="fa fa-angle-left"></i></button>
+    </div>
+    <hr />
 
     <section class="section4" id="section4">
    @foreach (var product in Model.ElectronicsCategroy)
@@ -74,34 +58,34 @@
    }
     </section>
 
-    </div>
-    <hr />
+  </div>
+  <hr />
 
-    <section class="section4" id="section4">
-   @foreach (var product in Model.ElectronicsCategroy)
-   {
-       <div class="product-item">
-         <div class="slider">
-           <a href="#" class="like-button" id="heart" onclick="mainMenuNav('@Url.Action("AddWishList", "WishList",new {ProductId=product.ProductId})')"><i class="far fa-heart"></i></a>
-           <img src="~/Img/@product.Image" width="200" height="150" />
-           <span>@product.ProductName</span>
-           <span>@product.Rate</span>
-           <div class="quantity-container">
-             <button class="quantity-button minus" onclick="decrementQuantity(this)">-</button>
-             <input type="number" class="quantity-input" name="quantity" value="1" min="1" max="100">
-             <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>
-           </div>
-           <div class="button-container">
-             <button>
-               <a class="btn btn-info" asp-area="" asp-controller="Address" asp-action="GetAddressId" asp-route-Id="@product.ProductId">Buy</a>
-             </button>
-             <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Cart",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
+  <section class="section4" id="section4">
+  @foreach (var product in Model.ElectronicsCategroy)
+  {
+     <div class="product-item">
+       <div class="slider">
+         <a href="#" class="like-button" id="heart" onclick="mainMenuNav('@Url.Action("AddWishList", "WishList",new {ProductId=product.ProductId})')"><i class="far fa-heart"></i></a>
+         <img src="~/Img/@product.Image" width="200" height="150" />
+         <span>@product.ProductName</span>
+         <span>@product.Rate</span>
+         <div class="quantity-container">
+           <button class="quantity-button minus" onclick="decrementQuantity(this)">-</button>
+           <input type="number" class="quantity-input" name="quantity" value="1" min="1" max="100">
+           <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>
+         </div>
+         <div class="button-container">
+           <button>
+             <a class="btn btn-info" asp-area="" asp-controller="Address" asp-action="GetAddressId" asp-route-Id="@product.ProductId">Buy</a>
+           </button>
+           <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Cart",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
 
-           </div>
          </div>
        </div>
-   }
-    </section>
+     </div>
+  }
+  </section>
   </div>
 
   <div>
@@ -167,6 +151,7 @@
     </section>
   </div>
 </body>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
