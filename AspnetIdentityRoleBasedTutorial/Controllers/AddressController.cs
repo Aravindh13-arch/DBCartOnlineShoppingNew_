@@ -19,12 +19,19 @@ namespace OnlineShoppingProject.Controllers
 
         public IActionResult GetAddressId(int id)
         {
+         
             var userName =HttpContext.User.Identity.Name;
+   
+            if (userName == null)
+            {
+
+
+
+                return Redirect("/Identity/Account/Login");
+            }
             var userId = _context.AspNetUsers.Single(r => r.Email == userName).Id;
-
-
             var buy = AddressImplemenation.GetIDAddressBAL(userId, id);
-            return View();
+            return View(buy);
         }
 
 

@@ -150,7 +150,8 @@
              <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>
            </div>
            <div class="button-container">
-             <button type="button" class="btn btn-info" onclick="BuyNow('@Url.Action("GetAddressId", "Address",new {userId=product.CreatedBy,Id=product.ProductId})')">Buy</button>
+             <a class="nav-link text-dark" asp-area="" asp-controller="Address" asp-action="GetAddressId" asp-route-Id="@product.ProductId">Buy</a>
+             @*<button type="button" class="btn btn-info" onclick="BuyNow('@Url.Action("GetAddressId", "Address",new {userId=product.CreatedBy,Id=product.ProductId})')">Buy</button>*@
              <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Cart",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
            </div>
          </div>
