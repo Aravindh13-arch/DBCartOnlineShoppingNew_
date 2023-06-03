@@ -13,88 +13,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
 
 </head>
-
+<style>
+    #nav1 {
+        width: 108%;
+        margin-left: -4%;
+        height: 50px;
+        margin-top: 2%;
+        padding: 0px;
+    }
+</style>
 <body>
 
-    <div class="online-shopping-company" style="margin-top: 2%;margin-left: -2%;">
-        <div class="category">
-            <a asp-area="" asp-controller="Product" asp-action="groceries">
-                <div class="category-icon">
-                    <img loading="lazy" class="icon" alt="Grocery" src="https://rukminim1.flixcart.com/flap/128/128/image/29327f40e9c4d26b.png?q=100">
-                </div>
-                <div class="category-title">Grocery</div>
-            </a>
-        </div>
-        <div class="category">
-            <a asp-area="" asp-controller="Product" asp-action="ProductCategoryMobile">
-                <div class="category-icon">
-                    <img loading="lazy" class="icon" alt="Mobiles" src="https://rukminim1.flixcart.com/flap/128/128/image/22fddf3c7da4c4f4.png?q=100">
-                </div>
-                <div class="category-title">Mobiles</div>
-            </a>
-        </div>
-        <div class="category">
-            <a asp-area="" asp-controller="Product" asp-action="fashion">
-                <div class="category-icon">
-                    <img loading="lazy" class="icon" alt="Fashion" src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/0d75b34f7d8fbcb3.png?q=100">
-                </div>
-                <div class="category-title">Fashion</div>
-            </a>
-        </div>
-
-        <div class="category">
-            <a asp-area="" asp-controller="Home" asp-action="Index">
-                <div class="category-icon">
-                    <img loading="lazy" class="icon" alt="Electronics" src="https://rukminim1.flixcart.com/flap/128/128/image/69c6589653afdb9a.png?q=100">
-                </div>
-                <div class="category-title">Electronics</div>
-            </a>
-        </div>
-
-        <div class="category">
-            <a asp-area="" asp-controller="Home" asp-action="Index">
-                <div class="category-icon">
-                    <img loading="lazy" class="icon" alt="Home" src="https://rukminim1.flixcart.com/flap/128/128/image/ab7e2b022a4587dd.jpg?q=100">
-                </div>
-                <div class="category-title">Home</div>
-            </a>
-        </div>
-
-        <div class="category">
-            <a asp-area="" asp-controller="Product" asp-action="ProductCategory">
-                <div class="category-icon">
-                    <img loading="lazy" class="icon" alt="Appliances" src="https://rukminim1.flixcart.com/flap/128/128/image/0ff199d1bd27eb98.png?q=100">
-                </div>
-                <div class="category-title">Appliances</div>
-            </a>
-        </div>
-
-        <div class="category">
-            <a asp-area="" asp-controller="Product" asp-action="travel">
-                <div class="category-icon">
-                    <img loading="lazy" class="icon" alt="Travel" src="https://rukminim1.flixcart.com/flap/128/128/image/71050627a56b4693.png?q=100">
-                </div>
-                <div class="category-title">Travel</div>
-            </a>
-        </div>
-
-        <div class="category">
-            <a asp-area="" asp-controller="Home" asp-action="Index">
-                <div class="category-icon">
-                    <img loading="lazy" class="icon" alt="Top Offers" src="https://rukminim1.flixcart.com/flap/128/128/image/f15c02bfeb02d15d.png?q=100">
-                </div>
-                <div class="category-title">Top Offers</div>
-            </a>
-        </div>
-        <div class="category">
-            <a asp-area="" asp-controller="Home" asp-action="Index">
-                <div class="category-icon">
-                    <img loading="lazy" class="icon" alt="Beauty, Toys &amp; More" src="https://rukminim1.flixcart.com/flap/128/128/image/dff3f7adcf3a90c6.png?q=100">
-                </div>
-                <div class="category-title">Beauty, Toys</div>
-            </a>
-        </div>
-    </div>
+    <partial name="_CategoriesNavbar" />
 
     <div>
         <div class="section4-header">

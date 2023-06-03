@@ -1,11 +1,11 @@
 ﻿
-<div class="navbar" style=" width: 108%;  margin-left: -4%;height: 50px;  margin-top: 3%;">
+<div class="navbar" id="nav1">
     <div class="col-12">
         <div class="row">
             <div class="col-lg-1">
                 <div class="category">
-                    <a asp-area="" asp-controller="Product" asp-action="groceries">
-                        <div class="category-title">Grocery</div>
+                    <a asp-area="" asp-controller="Product" asp-action="groceriesDb">
+                        <div class="category-title" >Grocery</div>
                     </a>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                 <div class="category">
                     <a asp-area="" asp-controller="Home" asp-action="Index">
 
-                        <div class="category-title">Home</div>
+                        <div class="category-title"> Home</div>
                     </a>
                 </div>
             </div>
@@ -83,17 +83,21 @@
 </div>
 
 <style>
-    /* a {
+     a {
             color: #000000;
-        }*/
+        }
 
-    .navbar {
+    #nav1 {
         overflow: hidden;
         background-color: #F0F0F0;
         font-family: Arial, Helvetica, sans-serif;
+     /*   width: 108%;
+        margin-left: -4%;
+        height: 50px;
+        margin-top: 3%;*/
     }
 
-        .navbar a {
+    #nav1 a {
             float: left;
             font-size: 16px;
             color: #000000;

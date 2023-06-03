@@ -20,6 +20,19 @@
     int i = 0;
     decimal totalAmount = 0;
 }
+<script>
+    function updatePayableAmount() {
+        var q = $(".quantity-input").val();
+        var r = $("#rate").val();
+
+        $("#payableAmount").val(q * r);
+    }
+
+
+    $("#rate").change(updatePayableAmount);
+    $(".quantity-input").change(updatePayableAmount);
+        });
+</script>
 
 
 <div class="col-12" style="margin-top:8%;">
@@ -46,28 +59,16 @@
                                 <h4 class="text-black mb-0">@product.Description</h4>
                             </div>
 
-                         
-                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                        <button class="quantity-button minus" onclick="decrementQuantity(this)">-</button>
-                                        <input type="number" class="quantity-input" name="quantity" value="@product.Quantity" min="1" max="100">
-                                        <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>
-                              @*  <button class="btn btn-link px-2 btn-lg"
-                                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-
-                                <input id="form1" min="0" name="quantity" value="@product.Quantity" type="number"
-                                       class="form-control form-control-lg" />
-
-                                <button class="btn btn-link px-2 btn-lg"
-                                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                    <i class="fas fa-plus"></i>
-                                </button>*@
+                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">                            
+                                    <button class="quantity-button minus" onclick="decrementQuantity(this)">-</button>
+                                    <input type="number" class="quantity-input" name="quantity" value="1" min="1" max="100" value="@product.Quantity" >
+                                    <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>                            
                             </div>
 
 
                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                <h4 class="mb-0">₹ @product.Rate </h4>
+                          
+                                <h4 class="mb-0" id="rate">₹ @product.Rate </h4>
                             </div>
                             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                 <a href="#!" class="text-muted"><i class="fas fa-times"></i>x</a>
@@ -101,6 +102,7 @@
 
                     <div class="d-flex justify-content-between mb-4">
                         <h5 class="text-uppercase">Price (@i items)</h5>
+                          
                         <h5>₹ @totalAmount</h5>
                     </div>
                     <div class="d-flex justify-content-between mb-4">
@@ -114,7 +116,7 @@
 
                 <div class="d-flex justify-content-between mb-5">
                     <h5 class="text-uppercase">Total price</h5>
-                    <h5>₹ @totalAmount</h5>
+                        <h5 id="payableAmount">₹ @totalAmount</h5>
                 </div>
 
                 <button type="button" class="btn btn-dark btn-block btn-lg"
@@ -128,8 +130,23 @@
     </div>
 </div>
 
+<script>
+    function incrementQuantity(button) {
+        var input = $(button).siblings(".quantity-input");
+        var value = parseInt(input.val());
+        if (value < 10) {
+            input.val(value + 1);
+        }
+    }
 
-
+    function decrementQuantity(button) {
+        var input = $(button).siblings(".quantity-input");
+        var value = parseInt(input.val());
+        if (value > 1) {
+            input.val(value - 1);
+        }
+    }
+</script>
 
 
 
