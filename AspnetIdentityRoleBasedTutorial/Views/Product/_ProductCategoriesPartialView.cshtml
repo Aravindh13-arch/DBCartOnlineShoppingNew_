@@ -34,7 +34,7 @@
              onclick="mainMenuNav('@Url.Action("AddWishList", "WishList", new {ProductId = product.ProductId})')">
              <i class="far fa-heart"></i>
            </a>
-           <a href="@Url.Action("ProductDetail", "Product", new {id = product.ProductId})">
+                <a href="@Url.Action("GetProductDetails", "Product", new {id = product.ProductId})">
              <img src="~/Img/@product.Image" width="200" height="150" class="img-fluid" />
            </a>
            <h5 class="mt-2">@product.ProductName</h5>

@@ -1,0 +1,224 @@
+﻿@model OnlineShoppingProject.ViewModels.ProductVM
+<head>
+   <!--META TAGS-->
+   <meta name="viewport" content="width=device-width, initial-scal=1, user-scalable=no">
+   <meta name="author" content="Mahesh">
+
+   <!--FONT AWESOME-->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+   <!--GOOGLE FONTS-->
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+   <link href="~/css/appliances.css" rel="stylesheet" />
+</head>
+<style>
+   #nav1 {
+       width: 108%;
+       margin-left: -4%;
+       height: 50px;
+       margin-top: 2%;
+       padding: 0px;
+   }
+</style>
+<body>
+   <partial name="_CategoriesNavbar" />
+
+   <div class="container">
+            @foreach (var product in Model.TblProducts)
+   {
+      <section class="product-details">
+         <div class="row">
+            <div class="col-lg-6">
+               <!-- Product image -->
+               <div class="_2QcLo-">
+                  <div>
+                     <div class="CXW8mj" style="height: 200px; width: 200px;">
+                         <img loading="eager" class="_396cs4" alt="Canon EOS M200 Mirrorless Camera Body with Single Lens (EF-M15-45mm f/3.5-6.3 IS STM)" src="~/Img/@product.Image" width="400" height="350" />
+                     </div>
+                  </div>
+               </div>
+               <div class="_3wLduG"></div>
+               <div class="_2hVSre _3nq8ih">
+                  <div class="_36FSn5">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="_1l0elc" width="16" height="16" viewBox="0 0 20 16">
+                        <path d="M8.695 16.682C4.06 12.382 1 9.536 1 6.065 1 3.219 3.178 1 5.95 1c1.566 0 3.069.746 4.05 1.915C10.981 1.745 12.484 1 14.05 1 16.822 1 19 3.22 19 6.065c0 3.471-3.06 6.316-7.695 10.617L10 17.897l-1.305-1.215z" fill="#2874F0" class="eX72wL" stroke="#FFF" fill-rule="evenodd" opacity=".9"></path>
+                     </svg>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-6">
+               <!-- Product details -->
+               <div class="_4rR01T">Nikon EOS M200 Mirrorless Camera Body with Single Lens (EF-M15-45mm f/3.5-6.3 IS STM)</div>
+               <div class="gUuXy-">
+                  <span id="productRating_LSTDLLFKMK9Z3PBNYDJ8ODOX4_DLLFKMK9Z3PBNYDJ_" class="_1lRcqv">
+                     
+                  </span>
+                  <span class="_2_R_DZ">
+                     <span>
+                        <span style="color:blue">1,493 Ratings&nbsp;</span>
+                         <span class="_13vcmD" style="color:blue">&amp;</span>
+                         <span style="color:blue">&nbsp;211 Reviews</span>
+                     </span>
+                  </span>
+               </div>
+               <div class="fMghEO">
+                  <ul class="_1xgFaf">
+                     <li class="rgWa7D">4K Video, Eye Detection AF (One-Shot &amp; Servo AF), Dual pixel CMOS AF, 143 AF areas, Coupled with the Smooth Skin feature, Creative Assist and Creative filters, you would be delivering the best of you wherever you are</li>
+                     <li class="rgWa7D">Effective Pixels: 24.1 MP</li>
+                     <li class="rgWa7D">Sensor Type: CMOS</li>
+                     <li class="rgWa7D">WiFi Available</li>
+                     <li class="rgWa7D">4K</li>
+                     <li class="rgWa7D">2 Year Warranty (1 year standard warranty + 1 year additional warranty from the date of purchase made by the customer.)</li>
+                  </ul>
+               </div>
+               <div class="row">
+                  <div class="col-6">
+                     <div class="_3tbKJL">
+                        <div class="_25b18c">
+                           <div class="_30jeq3 _1_WHN1">₹43,995</div>
+                        </div>
+                        <div class="_3tcB5a p8ucoS">
+                           <div>
+                              <div class="_2Tpdn3" style="color: rgb(0, 0, 0); font-size: 12px; font-weight: 400;">Free delivery</div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-6">
+                     <div class="_13J9qT">
+                     </div>
+                     <div class="_2ZdXDB">
+                        <div class="_3xFhiH">
+                           <div class="_2Tpdn3 _18hQoS" style="color: rgb(38, 165, 65); font-size: 14px; font-weight: 700;">Bank Offer</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      }
+   </div>
+
+
+
+
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+<script>
+
+   function redirectToAddress() {
+       window.location.href = '@Url.Action("GetAddressId", "Address")';
+   }
+   $(document).ready(function () {
+       $('.section4').slick({
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           autoplay: true,
+           autoplaySpeed: 100 // Adjust the speed as needed
+       });
+   });
+
+   $(document).ready(function () {
+       $("#heart").click(function () {
+           if ($("#heart").hasClass("liked")) {
+               $("#heart").html('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+               $("#heart").removeClass("liked");
+           } else {
+               $("#heart").html('<i class="fa fa-heart" aria-hidden="true"></i>');
+               $("#heart").addClass("liked");
+           }
+       });
+   });
+
+   function toggleHeartColor(button) {
+       $(button).find('i').toggleClass('red-heart');
+   }
+
+   mainMenuNav = (url) => {
+       $.ajax({
+           type: 'Post',
+           url: url,
+           contentType: false,
+           processData: false,
+           success: function (res) {
+               $('#main').html(res);
+           },
+           error: function (msg) {
+
+               $('#main').html(msg);
+
+           }
+       })
+   }
+
+
+   function addToCart(url, button) {
+       var quantity = $(button).closest('.slider').find('.quantity-input').val();
+       var url1 = url.replace("TO_Num", quantity);
+       mainMenuNav(url1);
+   }
+
+   function incrementQuantity(button) {
+       var input = $(button).siblings(".quantity-input");
+       var value = parseInt(input.val());
+       if (value < 10) {
+           input.val(value + 1);
+       }
+   }
+
+   function decrementQuantity(button) {
+       var input = $(button).siblings(".quantity-input");
+       var value = parseInt(input.val());
+       if (value > 1) {
+           input.val(value - 1);
+       }
+   }
+
+   //Buy Script
+
+   BuyNow = (url) => {
+       $.ajax({
+           type: 'Post',
+           url: url,
+           contentType: false,
+           processData: false,
+           success: function (res) {
+               $('#main').html(res);
+           },
+           error: function (msg) {
+
+               $('#main').html(msg);
+
+           }
+       })
+   }
+
+
+   BuyNow = (url) => {
+       $.ajax({
+           type: 'Post',
+           url: url,
+           contentType: false,
+           processData: false,
+           success: function (res) {
+               $('#main').html(res);
+           },
+           error: function (msg) {
+
+               $('#main').html(msg);
+
+           }
+       })
+   }
+
+
+</script>
