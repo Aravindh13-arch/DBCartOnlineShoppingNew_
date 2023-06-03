@@ -13,19 +13,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/travel.css" asp-append-version="true" />
-
+ @*   <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/travel.css" asp-append-version="true" />*@
+    <link href="~/css/groceriesdb.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/AspnetIdentityRoleBasedTutorial.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
-
+<style>
+    #nav1 {
+        width: 122%;
+        margin-left: -8%;
+        height: 50px;
+        margin-top: -3%;
+    }
+</style>
 <body>
+    <partial name="_CategoriesNavbar" />
     <div class="main">
         <div class="page-title">Daily Fresh</div>
     </div>
     <div class="container">
+     
         <a href="#vegetables">
             <div class="categories">
                 <img src="https://cdn.pixabay.com/photo/2016/08/11/08/04/vegetables-1584999_1280.jpg" alt="" class="item-image-size">
@@ -506,143 +515,4 @@
          </div>
      </div>
  }
-    <style>
-        body {
-            margin: 0;
-            font-family: system-ui;
-            background-color: gainsboro;
-        }
-
-        .main {
-            background-image: url(https://www.foodiesfeed.com/wp-content/uploads/2019/05/red-fruit-and-vegetables-on-a-white-background-3.jpg);
-            height: max-content;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .page-title {
-            background: rgba(0,0, 0, 0.5);
-            text-align: center;
-            padding: 50px;
-            color: white;
-            font-family: fantasy;
-            font-size: 100px;
-            letter-spacing: 20px;
-            font-variant: small-caps;
-        }
-
-        #sticky {
-            position: fixed;
-            top: 0;
-            width: 100%;
-        }
-
-        button {
-            background: transparent;
-            border: none;
-            outline: none;
-        }
-
-        .container, .deals-container {
-            margin: 50px 50px 50px 5%;
-            width: 90%;
-            text-align: center;
-        }
-
-        .categories, .items {
-            width: max-content;
-            margin: 25px;
-            display: inline-block;
-            border: 1px solid #184d47;
-            border-radius: 0 0 50px 50px;
-        }
-
-            .categories:hover, .items:hover {
-                box-shadow: 0 0 5px 5px #B959F3;
-            }
-
-        .item-image {
-            height: 200px;
-            width: 200px;
-            border-radius: 0 0 50px 50px;
-            padding: 10px;
-        }
-
-        .image-title {
-            text-align: center;
-            padding: 10px;
-            font-weight: bold;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        .title {
-            padding: 50px;
-            font-size: 50px;
-            font-weight: bold;
-            letter-spacing: 10px;
-            color: white;
-            background: rgba(0,0, 0, 0.5);
-        }
-
-        .deal {
-            padding: 50px;
-            font-size: 20px;
-            font-weight: bold;
-            display: inline-block;
-            margin: 20px;
-            max-width: 20%;
-            background: linear-gradient(120deg, #B959F3 20%,#cee397 50%,#B959F3 80%);
-        }
-
-        .coupon-btn {
-            border: 1px solid white;
-            color: white;
-            margin: 10px;
-            padding: 10px;
-            border-radius: 20px;
-        }
-
-            .coupon-btn:hover {
-                box-shadow: 0 0 10px 5px white inset;
-            }
-
-        .images {
-            display: inline-block;
-        }
-
-        .item-image-size {
-            height: 200px;
-            width: 300px;
-            padding: 5px;
-        }
-
-        .description {
-            margin: 20px;
-            min-height: 100px;
-        }
-
-        .item-select {
-            margin: 10px 0 0 0;
-        }
-
-        .buynow-btn {
-            border: 1px solid #184d47;
-            border-radius: 20px;
-            background: #B854F5;
-            color: white;
-            font-weight: bold;
-            padding: 5px 15px;
-            margin-top: 10px;
-        }
-
-            .buynow-btn:hover {
-                border: 1px solid #B959F3;
-                box-shadow: 0 0 10px 5px #981DE3 inset;
-            }
-    </style>
 </body>

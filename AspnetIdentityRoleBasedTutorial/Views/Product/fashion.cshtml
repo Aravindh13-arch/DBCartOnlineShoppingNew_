@@ -1,11 +1,14 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
+﻿
+<style>
+    #nav1{
+     width: 108%;
+     margin-left: -4%;
+     height: 50px;  
+     margin-top: -1%;
+    }
+</style>
 <body>
-
+    <partial name="_CategoriesNavbar" />
     <!-- banner -->
     <div class="banner">
         <div class="banner-img">
@@ -272,7 +275,7 @@
                 </div>
             </div>
             <hr>
-            <div class="row">
+           @* <div class="row">
                 <div class="col-md-8">
                     <p class="copyright">&copy; Copyright</p>
                 </div>
@@ -285,7 +288,7 @@
                         <i class="fab fa-linkedin-in"></i>
                     </div>
                 </div>
-            </div>
+            </div>*@
         </div>
     </section>
     <!-- js file -->
@@ -535,14 +538,14 @@
             margin-bottom: 40px;
         }
 
-            .footer h5::before {
+          /*  .footer h5::before {
                 content: "";
                 width: 70px;
                 height: 3px;
                 background: #4f74e8;
                 top: 80px;
                 position: absolute;
-            }
+            }*/
 
         .footer-icons {
             text-align: right;

@@ -18,6 +18,7 @@ html {
 }
 
 body {
+    background-color: gainsboro;
     margin-bottom: 60px;
 }
 
@@ -1324,9 +1325,10 @@ header {
 
 
 .container {
+   
     padding: 44px;
     width: 100%;
-    max-width:1366px;
+    max-width: 1366px;
     /*   margin-top: 8%;*/
 }
 
