@@ -17,10 +17,7 @@ html {
   min-height: 100%;
 }
 
-body {
-    background-color: gainsboro;
-    margin-bottom: 60px;
-}
+
 
 /*New Added CSS*/
 html {
@@ -38,9 +35,7 @@ html {
     min-height: 100%;
 }
 
-body {
-    margin-bottom: 60px;
-}
+
 
 /*OnlineShopping*/
 
@@ -59,9 +54,7 @@ html {
     min-height: 100%;
 }
 
-body {
-    margin-bottom: 60px;
-}
+
 
 /*OnlineShopping*/
 html {
@@ -72,6 +65,8 @@ body {
     margin: 0;
     overflow-x: hidden;
     font-family: 'fantasy';
+    background-color: gainsboro;
+    margin-bottom: 60px;
 }
 
 /* Thin Scrollbar */
