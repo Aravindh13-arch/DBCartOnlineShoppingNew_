@@ -1,117 +1,152 @@
-﻿
-@model OnlineShoppingProject.ViewModels.CategoryWiseList.ProductCategroyList
+﻿@model OnlineShoppingProject.ViewModels.CategoryWiseList.ProductCategroyList
 <head>
-    <!--META TAGS-->
-    <meta name="viewport" content="width=device-width, initial-scal=1, user-scalable=no">
-    <meta name="author" content="Mahesh">
+  <!--META TAGS-->
+  <meta name="viewport" content="width=device-width, initial-scal=1, user-scalable=no">
+  <meta name="author" content="Mahesh">
 
-    <!--FONT AWESOME-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!--FONT AWESOME-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!--GOOGLE FONTS-->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+  <!--GOOGLE FONTS-->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
-    <div>
-        <div class="section4-header">
-            <span class="title">Electronics</span>
-            <button class="next" onclick='scrollright4()'><i class="fa fa-angle-right"></i></button>
-            <button class="previous" onclick='scrollleft4()'><i class="fa fa-angle-left"></i></button>
-        </div>
-        <hr />
-
-        <section class="section4" id="section4">
-            @foreach (var product in Model.ElectronicsCategroy)
-            {
-                <div class="product-item">
-                    <div class="slider">
-                        <a href="#" class="like-button" id="heart" onclick="mainMenuNav('@Url.Action("AddWishList", "WishList",new {ProductId=product.ProductId})')"><i class="far fa-heart"></i></a>
-                        <img src="~/Img/@product.Image" width="200" height="150" />
-                        <span>@product.ProductName</span>
-                        <span>@product.Rate</span>
-                        <div class="quantity-container">
-                            <button class="quantity-button minus" onclick="decrementQuantity(this)">-</button>
-                            <input type="number" class="quantity-input" name="quantity" value="1" min="1" max="100">
-                            <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>
-                        </div>
-                        <div class="button-container">
-                            <button type="button" class="btn btn-info" onclick="BuyNow('@Url.Action("GetAddressId", "Address",new {Id=product.ProductId})')">Buy</button>
-                            <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Cart",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
-
-                        </div>
-                    </div>
-                </div>
-            }
-        </section>
+ @* Electronics*@
+  <div>
+    <div class="section4-header">
+      <span class="title">Electronics</span>
+      <button class="next" onclick='scrollright4()'><i class="fa fa-angle-right"></i></button>
+      <button class="previous" onclick='scrollleft4()'><i class="fa fa-angle-left"></i></button>
     </div>
+    <hr />
 
-    <div>
-        <div class="section4-header">
-            <span class="title">Fashions</span>
-            <button class="next" onclick='scrollright5()'><i class="fa fa-angle-right"></i></button>
-            <button class="previous" onclick='scrollleft5()'><i class="fa fa-angle-left"></i></button>
-        </div>
-        <hr />
+    <section class="section4" id="section4">
+   @foreach (var product in Model.ElectronicsCategroy)
+   {
+       <div class="product-item col-md-4">
+         <div class="slider">
+           <a href="#" class="like-button" id="heart"
+             onclick="mainMenuNav('@Url.Action("AddWishList", "WishList", new {ProductId = product.ProductId})')">
+             <i class="far fa-heart"></i>
+           </a>
+           <a href="@Url.Action("ProductDetail", "Product", new {id = product.ProductId})">
+             <img src="~/Img/@product.Image" width="200" height="150" class="img-fluid" />
+           </a>
+           <h5 class="mt-2">@product.ProductName</h5>
+           <p>@product.Rate</p>
+           <div class="quantity-container d-flex justify-content-center align-items-center">
+             <button class="quantity-button btn btn-outline-dark" onclick="decrementQuantity(this)">-</button>
+             <input type="number" class="quantity-input form-control" name="quantity" value="1" min="1" max="100">
+             <button class="quantity-button btn btn-outline-dark" onclick="incrementQuantity(this)">+</button>
+           </div>
+           <div class="button-container">
+             <button type="button" class="btn btn-info"
+                    onclick="BuyNow('@Url.Action("GetAddressId", "Address", new {Id = product.ProductId})')">
+               Buy
+             </button>
+             <button type="button" class="btn btn-dark"
+                    onclick="addToCart('@Url.Action("InsertToCart", "Cart", new {Id = product.ProductId, quantity = "TO_Num"})',this)">
+               Add
+               to Cart
+             </button>
+           </div>
+         </div>
+       </div>
+   }
+    </section>
 
-        <section class="section4" id="section5">
-            @foreach (var product in Model.FashionCategroy)
-            {
-                <div class="product-item">
-                    <div class="slider">
-                        <a href="#" class="like-button" id="heart" onclick="mainMenuNav('@Url.Action("AddWishList", "WishList",new {ProductId=product.ProductId})')"><i class="far fa-heart"></i></a>
-                        <img src="~/Img/@product.Image" width="200" height="150" />
-                        <span>@product.ProductName</span>
-                        <span>@product.Rate</span>
-                        <div class="quantity-container">
-                            <button class="quantity-button minus" onclick="decrementQuantity(this)">-</button>
-                            <input type="number" class="quantity-input" name="quantity" value="1" min="1" max="100">
-                            <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>
-                        </div>
-                        <div class="button-container">
-                            <button type="button" class="btn btn-info" onclick="BuyNow('@Url.Action("GetAddressId", "Address",new {userId=product.CreatedBy,Id=product.ProductId})')">Buy</button>
-                            <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Cart",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            }
-        </section>
+
+  </div>
+
+
+
+ @*  Fashions*@
+  <div>
+    <div class="section4-header">
+      <span class="title">Fashions</span>
     </div>
-    <div>
-        <div class="section4-header">
-            <span class="title">Home Appliances</span>
-            <button class="next" onclick='scrollright6()'><i class="fa fa-angle-right"></i></button>
-            <button class="previous" onclick='scrollleft6()'><i class="fa fa-angle-left"></i></button>
-        </div>
-        <hr />
+    <hr />
 
-        <section class="section4" id="section6">
-            @foreach (var product in Model.Home_KitchenCategroy)
-            {
-                <div class="product-item">
-                    <div class="slider">
-                        <a href="#" class="like-button" id="heart" onclick="mainMenuNav('@Url.Action("AddWishList", "WishList",new {ProductId=product.ProductId})')"><i class="far fa-heart"></i></a>
-                        <img src="~/Img/@product.Image" width="200" height="150" />
-                        <span>@product.ProductName</span>
-                        <span>@product.Rate</span>
-                        <div class="quantity-container">
-                            <button class="quantity-button minus" onclick="decrementQuantity(this)">-</button>
-                            <input type="number" class="quantity-input" name="quantity" value="1" min="1" max="100">
-                            <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>
-                        </div>
-                        <div class="button-container">
-                            <button type="button" class="btn btn-info" onclick="BuyNow('@Url.Action("GetAddressId", "Address",new {userId=product.CreatedBy,Id=product.ProductId})')">Buy</button>
-                            <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Cart",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            }
-        </section>
+    <section class="section4" id="section4"  style="min-height: 120vh;">
+      <div class="row">
+    @foreach (var product in Model.FashionCategroy)
+    {
+         <div class="product-item col-md-4">
+           <div class="slider">
+             <a href="#" class="like-button" id="heart" onclick="mainMenuNav('@Url.Action("AddWishList", "WishList",new {ProductId=product.ProductId})')"><i class="far fa-heart"></i></a>
+             <a href="@Url.Action("ProductDetail", "Product", new {id = product.ProductId})">
+               <img src="~/Img/@product.Image" width="200" height="150" class="img-fluid" />
+             </a>
+             <h5 class="mt-2">@product.ProductName</h5>
+             <p>@product.Rate</p>
+             <div class="quantity-container d-flex justify-content-center align-items-center">
+               <button class="quantity-button btn btn-outline-dark" onclick="decrementQuantity(this)">-</button>
+               <input type="number" class="quantity-input form-control" name="quantity" value="1" min="1" max="100">
+               <button class="quantity-button btn btn-outline-dark" onclick="incrementQuantity(this)">+</button>
+             </div>
+             <div class="button-container">
+               <button type="button" class="btn btn-info" onclick="BuyNow('@Url.Action("GetAddressId", "Address",new {userId=product.CreatedBy,Id=product.ProductId})')">Buy</button>
+               <button type="button" class="btn btn-dark" onclick="addToCart('@Url.Action("InsertToCart", "Cart",new {Id=product.ProductId,quantity = "TO_Num"})',this)">Add to Cart</button>
+             </div>
+           </div>
+         </div>
+    }
+      </div>
+    </section>
+  </div>
+
+
+ @*  Home Appliances*@
+  <div>
+    <div class="section4-header">
+      <span class="title">Home Appliances</span>
+      <button class="next" onclick='scrollright6()'><i class="fa fa-angle-right"></i></button>
+      <button class="previous" onclick='scrollleft6()'><i class="fa fa-angle-left"></i></button>
     </div>
+    <hr />
+
+    <section class="section4" id="section6">
+   @foreach (var product in Model.Home_KitchenCategroy)
+   {
+       <div class="product-item col-md-4">
+         <div class="slider">
+           <a href="#" class="like-button" id="heart"
+             onclick="mainMenuNav('@Url.Action("AddWishList", "WishList", new {ProductId = product.ProductId})')">
+             <i class="far fa-heart"></i>
+           </a>
+           <a href="@Url.Action("ProductDetail", "Product", new {id = product.ProductId})">
+             <img src="~/Img/@product.Image" width="200" height="150" class="img-fluid" />
+           </a>
+           <h5 class="mt-2">@product.ProductName</h5>
+           <p>@product.Rate</p>
+           <div class="quantity-container d-flex justify-content-center align-items-center">
+             <button class="quantity-button btn btn-outline-dark" onclick="decrementQuantity(this)">-</button>
+             <input type="number" class="quantity-input form-control" name="quantity" value="1" min="1" max="100">
+             <button class="quantity-button btn btn-outline-dark" onclick="incrementQuantity(this)">+</button>
+           </div>
+           <div class="button-container">
+             <button type="button" class="btn btn-info"
+                    onclick="BuyNow('@Url.Action("GetAddressId", "Address", new {Id = product.ProductId})')">
+               Buy
+             </button>
+             <button type="button" class="btn btn-dark"
+                    onclick="addToCart('@Url.Action("InsertToCart", "Cart", new {Id = product.ProductId, quantity = "TO_Num"})',this)">
+               Add
+               to Cart
+             </button>
+           </div>
+         </div>
+       </div>
+   }
+    </section>
+
+
+  </div>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -121,110 +156,110 @@
 
 <script>
 
-    function redirectToAddress() {
-        window.location.href = '@Url.Action("GetAddressId", "Address")';
-    }
-    $(document).ready(function () {
-        $('.section4').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 100 // Adjust the speed as needed
-        });
-    });
+  function redirectToAddress() {
+      window.location.href = '@Url.Action("GetAddressId", "Address")';
+  }
+  $(document).ready(function () {
+      $('.section4').slick({
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 100 // Adjust the speed as needed
+      });
+  });
 
-    $(document).ready(function () {
-        $("#heart").click(function () {
-            if ($("#heart").hasClass("liked")) {
-                $("#heart").html('<i class="fa fa-heart-o" aria-hidden="true"></i>');
-                $("#heart").removeClass("liked");
-            } else {
-                $("#heart").html('<i class="fa fa-heart" aria-hidden="true"></i>');
-                $("#heart").addClass("liked");
-            }
-        });
-    });
+  $(document).ready(function () {
+      $("#heart").click(function () {
+          if ($("#heart").hasClass("liked")) {
+              $("#heart").html('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+              $("#heart").removeClass("liked");
+          } else {
+              $("#heart").html('<i class="fa fa-heart" aria-hidden="true"></i>');
+              $("#heart").addClass("liked");
+          }
+      });
+  });
 
-    function toggleHeartColor(button) {
-        $(button).find('i').toggleClass('red-heart');
-    }
+  function toggleHeartColor(button) {
+      $(button).find('i').toggleClass('red-heart');
+  }
 
-    mainMenuNav = (url) => {
-        $.ajax({
-            type: 'Post',
-            url: url,
-            contentType: false,
-            processData: false,
-            success: function (res) {
-                $('#main').html(res);
-            },
-            error: function (msg) {
+  mainMenuNav = (url) => {
+      $.ajax({
+          type: 'Post',
+          url: url,
+          contentType: false,
+          processData: false,
+          success: function (res) {
+              $('#main').html(res);
+          },
+          error: function (msg) {
 
-                $('#main').html(msg);
+              $('#main').html(msg);
 
-            }
-        })
-    }
-
-
-    function addToCart(url, button) {
-        var quantity = $(button).closest('.slider').find('.quantity-input').val();
-        var url1 = url.replace("TO_Num", quantity);
-        mainMenuNav(url1);
-    }
-
-    function incrementQuantity(button) {
-        var input = $(button).siblings(".quantity-input");
-        var value = parseInt(input.val());
-        if (value < 10) {
-            input.val(value + 1);
-        }
-    }
-
-    function decrementQuantity(button) {
-        var input = $(button).siblings(".quantity-input");
-        var value = parseInt(input.val());
-        if (value > 1) {
-            input.val(value - 1);
-        }
-    }
-
-    //Buy Script
-
-    BuyNow = (url) => {
-        $.ajax({
-            type: 'Post',
-            url: url,
-            contentType: false,
-            processData: false,
-            success: function (res) {
-                $('#main').html(res);
-            },
-            error: function (msg) {
-
-                $('#main').html(msg);
-
-            }
-        })
-    }
+          }
+      })
+  }
 
 
-    BuyNow = (url) => {
-        $.ajax({
-            type: 'Post',
-            url: url,
-            contentType: false,
-            processData: false,
-            success: function (res) {
-                $('#main').html(res);
-            },
-            error: function (msg) {
+  function addToCart(url, button) {
+      var quantity = $(button).closest('.slider').find('.quantity-input').val();
+      var url1 = url.replace("TO_Num", quantity);
+      mainMenuNav(url1);
+  }
 
-                $('#main').html(msg);
+  function incrementQuantity(button) {
+      var input = $(button).siblings(".quantity-input");
+      var value = parseInt(input.val());
+      if (value < 10) {
+          input.val(value + 1);
+      }
+  }
 
-            }
-        })
-    }
+  function decrementQuantity(button) {
+      var input = $(button).siblings(".quantity-input");
+      var value = parseInt(input.val());
+      if (value > 1) {
+          input.val(value - 1);
+      }
+  }
+
+  //Buy Script
+
+  BuyNow = (url) => {
+      $.ajax({
+          type: 'Post',
+          url: url,
+          contentType: false,
+          processData: false,
+          success: function (res) {
+              $('#main').html(res);
+          },
+          error: function (msg) {
+
+              $('#main').html(msg);
+
+          }
+      })
+  }
+
+
+  BuyNow = (url) => {
+      $.ajax({
+          type: 'Post',
+          url: url,
+          contentType: false,
+          processData: false,
+          success: function (res) {
+              $('#main').html(res);
+          },
+          error: function (msg) {
+
+              $('#main').html(msg);
+
+          }
+      })
+  }
 
 
 </script>
