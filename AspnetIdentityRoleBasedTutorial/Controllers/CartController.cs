@@ -83,5 +83,18 @@ namespace OnlineShoppingProject.Controllers
                 return Json(new { isValid = false, html = "<h1>failed to submit</h1>" });
             }
         }
+
+        public async Task<IActionResult> cart()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> CheckOut()
+        {
+            return View();
+        }
+
+
+
     }
 }
