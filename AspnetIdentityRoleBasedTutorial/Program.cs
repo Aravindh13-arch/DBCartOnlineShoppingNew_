@@ -2,6 +2,8 @@ using AspnetIdentityRoleBasedTutorial.Data;
 using AspnetIdentityRoleBasedTutorial.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using onlineShopping.BAL;
+using onlineShopping.DAL;
 using OnlineShoppingProject.BAL;
 using OnlineShoppingProject.DAL;
 using OnlineShoppingProject.Models;
@@ -23,6 +25,8 @@ builder.Services.AddScoped<ProductImplemenationBAL, ProductImplemenationBAL>();
 builder.Services.AddScoped<ProductImplemenationDAL, ProductImplemenationDAL>();
 builder.Services.AddScoped<AddressImplementation, AddressImplementation>();
 builder.Services.AddScoped<AddressImplementationDAL, AddressImplementationDAL>();
+builder.Services.AddScoped<WishListImplementation , WishListImplementation>();
+builder.Services.AddScoped<WishlistImplementationDAL, WishlistImplementationDAL>();
 
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
