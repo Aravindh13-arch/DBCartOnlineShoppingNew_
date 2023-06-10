@@ -35,9 +35,15 @@ namespace OnlineShoppingProject.Controllers
         }
 
 
-        //public IActionResult GetAddressId()
-        //{
-        //    return View();
-        //}
+        public IActionResult OrderSummary()
+        {
+            return View();
+        }
+
+        public IActionResult SelectSummary()
+        {
+            return View();
+        }
+
     }
 }
