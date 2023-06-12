@@ -30,7 +30,8 @@ namespace OnlineShoppingProject.Controllers
             }
             var userId = _commonImplementation.GetTheUserIdDAL(UserName);
             var model = await _cartImplementation.GetProductCartBAL(userId);
-
+            ViewData["CartItemCount"] = model;
+            ViewBag.CartItems = model;
             return View(model);
         }
         public async Task<IActionResult> InsertToCart(ProductVM product)

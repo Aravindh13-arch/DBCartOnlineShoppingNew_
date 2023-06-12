@@ -1,4 +1,6 @@
-﻿@*
+﻿@model OnlineShoppingProject.ViewModels.ProductModels.WishListVM
+
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -35,21 +37,23 @@
                         </thead>
 
                         <tbody>
+                           @foreach(var item in Model.tblWishLists)
+                           {
                             <tr>
                                 <td class="product-col">
                                     <div class="product">
                                         <figure class="product-media">
                                             <a href="#">
-                                                <img src="Img/products/table/product-1.jpg" alt="Product image">
+                                                <img src="Img/@item.Product.Image" alt="Product image">
                                             </a>
                                         </figure>
 
                                         <h3 class="product-title">
-                                            <a href="#">Beige knitted elastic runner shoes</a>
+                                            <a href="#">@item.Product.ProductName</a>
                                         </h3><!-- End .product-title -->
                                     </div><!-- End .product -->
                                 </td>
-                                <td class="price-col">$84.00</td>
+                                <td class="price-col">@item.Product.Rate</td>
                                 <td class="stock-col"><span class="in-stock">In stock</span></td>
                                 <td class="action-col">
                                     <div class="dropdown">
@@ -66,7 +70,8 @@
                                 </td>
                                 <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
                             </tr>
-                            <tr>
+                           }
+@*                            <tr>
                                 <td class="product-col">
                                     <div class="product">
                                         <figure class="product-media">
@@ -108,7 +113,7 @@
                                 </td>
                                 <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
                             </tr>
-                        </tbody>
+*@                        </tbody>
                     </table><!-- End .table table-wishlist -->
                     <div class="wishlist-share">
                         <div class="social-icons social-icons-sm mb-2">

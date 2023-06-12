@@ -27,12 +27,13 @@ namespace OnlineShoppingProject.DAL
                     {
                         Product = _context.TblProducts.Single(r => r.ProductId == product.Id),
                         Quantity = product.quantity,
-                        Rate = _context.TblProducts.Single(r => r.ProductId == product.Id).Rate * product.quantity,
+                        Rate = _context.TblProducts.Single(r => r.ProductId == product.Id).Rate,
                         Description = _context.TblProducts.Single(r => r.ProductId == product.Id).Description,
                         CreatedAt = DateTime.UtcNow,
                         Status = (int)MyConstants.Status.Active,
                         CreatedBy = _context.AspNetUsers.Single(r=>r.Id == product.UserId).Id
                     });
+                    
                 }
                 else
                 {
@@ -51,9 +52,9 @@ namespace OnlineShoppingProject.DAL
 
         public async Task<List<TblCart>> GetAllProductCart(string UserId)
         {
-            return await _context.TblCarts.Include(r => r.Product).Select(r => r).Where(r => r.CreatedBy == UserId).ToListAsync();            
+            var result = _context.TblCarts.Include(r => r.Product).Select(r => r).Where(r => r.CreatedBy == UserId).ToListAsync();
+            return result.Result;
         }
-
         public async Task<TblCart> GetCartById(int id)
         {
             return await _context.TblCarts.FindAsync(id);

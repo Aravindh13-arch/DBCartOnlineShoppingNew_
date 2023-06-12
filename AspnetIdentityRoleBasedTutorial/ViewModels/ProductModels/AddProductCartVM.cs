@@ -9,7 +9,7 @@ namespace OnlineShoppingProject.ViewModels.ProductModels
         public int? ProductMasterId { get; set; }
 
         public int Quantity { get; set; }
-
+        public int Count { get; set; }
         public decimal Rate { get; set; }
 
         public int Status { get; set; }
