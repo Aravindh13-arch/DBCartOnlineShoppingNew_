@@ -6,6 +6,7 @@ namespace OnlineShoppingProject.Models;
 
 public partial class OnlineShopDbContext : DbContext
 {
+
     public OnlineShopDbContext()
     {
     }
@@ -20,6 +21,7 @@ public partial class OnlineShopDbContext : DbContext
         : base(options)
     {
     }
+
 
     public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
 
@@ -55,10 +57,13 @@ public partial class OnlineShopDbContext : DbContext
 
     public virtual DbSet<TblWishList> TblWishLists { get; set; }
 
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
     }
+
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -203,6 +208,10 @@ public partial class OnlineShopDbContext : DbContext
             entity.Property(e => e.City)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.Country)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("country");
             entity.Property(e => e.CreatedAt).HasColumnName("createdAt");
             entity.Property(e => e.CreatedBy)
                 .HasMaxLength(255)
@@ -212,6 +221,10 @@ public partial class OnlineShopDbContext : DbContext
                 .HasMaxLength(250)
                 .IsUnicode(false)
                 .HasColumnName("deliverAddress");
+            entity.Property(e => e.PhoneNo)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("phone no");
             entity.Property(e => e.PinCode)
                 .HasMaxLength(6)
                 .IsUnicode(false)
@@ -291,6 +304,7 @@ public partial class OnlineShopDbContext : DbContext
             entity.Property(e => e.Rate)
                 .HasColumnType("decimal(18, 0)")
                 .HasColumnName("rate");
+            entity.Property(e => e.Shipping).HasColumnName("shipping");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TotalAmount)
                 .HasColumnType("decimal(18, 0)")
@@ -339,7 +353,11 @@ public partial class OnlineShopDbContext : DbContext
             entity.Property(e => e.Rate)
                 .HasColumnType("decimal(18, 0)")
                 .HasColumnName("rate");
+            entity.Property(e => e.Size).HasColumnName("size");
             entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.Totalamount)
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("totalamount");
             entity.Property(e => e.UpdatedAt).HasColumnName("updatedAt");
             entity.Property(e => e.UpdatedBy)
                 .HasMaxLength(255)
@@ -501,6 +519,9 @@ public partial class OnlineShopDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("createdBy");
             entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.Total)
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("total");
             entity.Property(e => e.UpdatedAt).HasColumnName("updatedAt");
             entity.Property(e => e.UpdatedBy)
                 .HasMaxLength(255)

@@ -13,6 +13,10 @@ public partial class TblCart
 
     public decimal Rate { get; set; }
 
+    public int Size { get; set; }
+
+    public decimal? Totalamount { get; set; }
+
     public short Status { get; set; }
 
     public string? Description { get; set; }
