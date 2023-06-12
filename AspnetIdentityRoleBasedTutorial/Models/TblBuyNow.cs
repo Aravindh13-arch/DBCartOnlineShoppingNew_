@@ -19,6 +19,8 @@ public partial class TblBuyNow
 
     public decimal TotalAmount { get; set; }
 
+    public short Shipping { get; set; }
+
     public short Status { get; set; }
 
     public DateTime CreatedAt { get; set; }

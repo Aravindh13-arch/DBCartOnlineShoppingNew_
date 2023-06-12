@@ -9,6 +9,8 @@ public partial class TblPurchase
 
     public int BuyNowId { get; set; }
 
+    public decimal Total { get; set; }
+
     public short Status { get; set; }
 
     public DateTime CreatedAt { get; set; }

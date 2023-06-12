@@ -13,6 +13,10 @@ public partial class TblAddress
 
     public string State { get; set; } = null!;
 
+    public string Country { get; set; } = null!;
+
+    public string PhoneNo { get; set; } = null!;
+
     public string PinCode { get; set; } = null!;
 
     public string? DeliverAddress { get; set; }
