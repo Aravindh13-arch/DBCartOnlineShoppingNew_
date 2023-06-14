@@ -18,7 +18,7 @@ namespace OnlineShoppingProject.ViewModels.ProductModels
 
         public string? UpdatedBy { get; set; }
 
-        public List<TblWishList>? tblWishLists { get; set; } = new List<TblWishList>();
+        public List<TblWishList> tblWishLists { get; set; } = new List<TblWishList>();
 
 
     }

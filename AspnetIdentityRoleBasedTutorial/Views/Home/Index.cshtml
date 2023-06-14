@@ -62,14 +62,14 @@
                                    </a>
 
                                 <div class="product-action action-icon-top">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                    <a href="#" class="btn-product btn-cart" onclick="loadView('@Url.Action("InsertToCart", "Cart", new { id = item.ProductId })')"><span>add to cart</span></a>
                                     <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
                                     <a href="#" class="btn-product btn-compare" title="Compare"><span>compare</span></a>
                                 </div><!-- End .product-action -->
                             </figure><!-- End .product-media -->
 
                             <div class="product-body product-action-inner">
-                                <a href="#" class="btn-product btn-wishlist" title="Add to wishlist"><span>add to wishlist</span></a>
+                                    <a href="#" class="btn-product btn-wishlist" title="Add to wishlist" onclick="loadView('@Url.Action("AddWishList", "WishList", new { ProductId = item.ProductId })')"><span>add to wishlist</span></a>
                                 <div class="product-cat">
                                     <a href="#">Women</a>
                                 </div><!-- End .product-cat -->
@@ -137,7 +137,7 @@
                                     </a>
 
                                     <div class="product-action action-icon-top">
-                                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                        <a href="#" class="btn-product btn-cart" onclick="loadView('@Url.Action("InsertToCart", "Cart", new { id = item1.ProductId })')"><span>add to cart</span></a>
                                         <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
                                         <a href="#" class="btn-product btn-compare" title="Compare"><span>compare</span></a>
                                     </div><!-- End .product-action -->
