@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineShoppingProject.BAL;
+using OnlineShoppingProject.DAL;
 using OnlineShoppingProject.Models;
 
 namespace OnlineShoppingProject.Controllers
@@ -35,9 +36,21 @@ namespace OnlineShoppingProject.Controllers
         }
 
 
-        //public IActionResult GetAddressId()
-        //{
-        //    return View();
-        //}
+        public IActionResult OrderSummary()
+        {
+            return View();
+        }
+
+        public  IActionResult GetSelectSummary(int Id)
+        {
+             
+            var select=AddressImplemenation.GetSelectSummaryBAL(Id);
+            return View(select);
+
+
+        }
+
+       
+
     }
 }

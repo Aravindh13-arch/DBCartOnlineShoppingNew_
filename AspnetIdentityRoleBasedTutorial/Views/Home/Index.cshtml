@@ -56,10 +56,10 @@
                         <div class="product">
                             <figure class="product-media">
                                 <span class="product-label label-sale">30% off</span>
-                                <a href="product.html">
-@*                                    <img src="Img/products/elements/product-1.jpg" alt="Product image" class="product-image">
-*@                                      <img src="~/Img/@item.Image" alt="Product image" class="product-image">
-                                </a>
+
+                                    <a href="@Url.Action("GetSelectSummary", "Address", new {Id = item.ProductId})">
+                                   <img src="~/Img/@item.Image" alt="Product image" class="product-image">
+                                   </a>
 
                                 <div class="product-action action-icon-top">
                                     <a href="#" class="btn-product btn-cart" onclick="loadView('@Url.Action("InsertToCart", "Cart", new { id = item.ProductId })')"><span>add to cart</span></a>
@@ -129,7 +129,9 @@
                             <div class="product">
                                 <figure class="product-media">
                                     <span class="product-label label-sale">30% off</span>
-                                    <a href="product.html">
+                                    <a href="@Url.Action("GetSelectSummary", "Address", new {Id = item1.ProductId})">
+                                        
+                                    
  @*                                    <img src="Img/products/elements/product-1.jpg" alt="Product image" class="product-image">
  *@                                     <img src="~/Img/@item1.Image" alt="Product image" class="product-image">
                                     </a>
