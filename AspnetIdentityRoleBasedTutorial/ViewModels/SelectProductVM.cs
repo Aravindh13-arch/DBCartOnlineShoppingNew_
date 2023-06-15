@@ -14,7 +14,17 @@ namespace OnlineShoppingProject.ViewModels
 
         public decimal Rate { get; set; }
         public string? Image { get; set; }
+       
 
+    
+  
         public TblProduct? TblProducts { get; set; } = new TblProduct();
+        public List<TblImageVM>? TblImages { get; set; } = new List<TblImageVM>();
+    }
+    public class TblImageVM
+    {
+        public int ProductId { get; set; }
+        public string? ThumbImage { get; set; }
+        public string? Image { get; set; }
     }
 }

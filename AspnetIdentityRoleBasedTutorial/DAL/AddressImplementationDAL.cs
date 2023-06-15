@@ -83,14 +83,66 @@ namespace OnlineShoppingProject.DAL
 
 
 
-        public SelectProductVM GetSelectSummaryDAL(int Id)
+        public List<SelectProductVM> GetSelectSummaryDAL(int Id)
         {
-            SelectProductVM spv=new SelectProductVM();
+      
 
-          var select = _context.TblProducts.Single(r => r.ProductId == Id);
-            spv.ProductName=select.ProductName;
-            spv.Image=select.Image;
-            spv.Rate=select.Rate;
+          
+
+           List<SelectProductVM> spv = new List<SelectProductVM>();
+
+            var select = _context.TblGalleries
+                .Join(_context.TblProducts,
+                    t1 => t1.ProductId,
+                    t2 => t2.ProductId,
+                    (t1, t2) => new { t1, t2 })
+                .Where(g => g.t2.ProductId == Id)
+                .Select(g => new
+                {
+                    productId=g.t2.ProductId,
+                    ProductName = g.t2.ProductName,
+                    Image = g.t2.Image,
+                    Rate = g.t2.Rate,
+                    Image1 = g.t1.Image,
+                    thumbImage=g.t1.ThumbImage
+               
+                })
+                .ToList();
+
+            //SelectProductVM sp = new SelectProductVM();
+            //sp.ProductName=select.ToArray()[0].ProductName;
+            //sp.Image = select.ToArray()[1].Image;
+            //sp.Rate = select.ToArray()[2].Rate;
+
+
+            //foreach (var item in select)
+            //{
+            //    TblImageVM imageVM = new TblImageVM();
+            //    imageVM.ProductId = item.productId;
+            //    imageVM.Image = item.Image1;
+            //    imageVM.ThumbImage = item.thumbImage;
+            //    sp.TblImages.Add(imageVM);
+            //}
+            //spv.Add(sp);
+            if (select.Count > 0)
+            {
+                SelectProductVM sp = new SelectProductVM();
+                sp.ProductName = select[0].ProductName;
+                sp.Image = select[0].Image;
+                sp.Rate = select[0].Rate;
+
+                foreach (var item in select)
+                {
+                    TblImageVM imageVM = new TblImageVM();
+                    imageVM.ProductId = item.productId;
+                    imageVM.Image = item.Image1;
+                    imageVM.ThumbImage = item.thumbImage;
+                    sp.TblImages.Add(imageVM);
+                }
+
+                spv.Add(sp);
+            }
+
             return spv;
 
 

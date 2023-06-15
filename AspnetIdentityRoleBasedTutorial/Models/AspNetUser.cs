@@ -65,6 +65,10 @@ public partial class AspNetUser
 
     public virtual ICollection<TblCategory> TblCategoryUpdatedByNavigations { get; } = new List<TblCategory>();
 
+    public virtual ICollection<TblGallery> TblGalleryCreatedByNavigations { get; } = new List<TblGallery>();
+
+    public virtual ICollection<TblGallery> TblGalleryUpdatedByNavigations { get; } = new List<TblGallery>();
+
     public virtual ICollection<TblInventory> TblInventoryCreatedByNavigations { get; } = new List<TblInventory>();
 
     public virtual ICollection<TblInventory> TblInventoryUpdatedByNavigations { get; } = new List<TblInventory>();

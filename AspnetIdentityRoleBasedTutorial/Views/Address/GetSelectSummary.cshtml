@@ -1,10 +1,15 @@
-﻿@model OnlineShoppingProject.ViewModels.SelectProductVM
+﻿@model IEnumerable<OnlineShoppingProject.ViewModels.SelectProductVM>
 <!DOCTYPE html>
 <html lang="en">
 
 
 <!-- molla/product.html  22 Nov 2019 09:54:50 GMT -->
-
+@{
+    var tblNameList = Model.SelectMany(r => r.TblImages).ToList();
+    var Image = Model.Select(r => r.Image).FirstOrDefault();
+    var ProductName = Model.Select(r => r.ProductName).FirstOrDefault();
+    var Rate = Model.Select(r => r.Rate).FirstOrDefault();
+}
 
 <body>
     <div class="page-wrapper">
@@ -40,37 +45,29 @@
                                 <div class="product-gallery product-gallery-vertical">
                                     <div class="row">
                                         <figure class="product-main-image">
-                                          
-                                            <img id="product-zoom" src="~/Img/@Model.Image" data-zoom-image="~/Img/@Model.Image" alt="Product" >
+                                            <a href="#" data-lightbox="product-zoom" data-title="Product">
+                                                <img id="product-zoom" src="@Url.Content("~/Img/" + tblNameList.First().Image)" alt="Product">
+                                            </a>
                                             <a href="#" id="btn-product-gallery" class="btn-product-gallery">
                                                 <i class="icon-arrows"></i>
                                             </a>
-                                        </figure><!-- End .product-main-image -->
+                                        </figure>
 
                                         <div id="product-zoom-gallery" class="product-image-gallery">
-                                            <a class="product-gallery-item active" href="#" data-image="~/Img/products/single/1.jpg" data-zoom-image="~/Img/products/single/1-big.jpg">
-                                                <img src="~/Img/products/single/1-small.jpg" alt="product side">
-                                            </a>
-
-                                            <a class="product-gallery-item" href="#" data-image="~/Img/products/single/2.jpg" data-zoom-image="~/Img/products/single/2-big.jpg">
-                                                <img src="~/Img/products/single/2-small.jpg" alt="product cross">
-                                            </a>
-
-                                            <a class="product-gallery-item" href="#" data-image="~/Img/products/single/3.jpg" data-zoom-image="~/Img/products/single/3-big.jpg">
-                                                <img src="~/Img/products/single/3-small.jpg" alt="product with model">
-                                            </a>
-
-                                            <a class="product-gallery-item" href="#" data-image="~/Img/products/single/4.jpg" data-zoom-image="~/Img/products/single/4-big.jpg">
-                                                <img src="~/Img/products/single/4-small.jpg" alt="product back">
-                                            </a>
-                                        </div><!-- End .product-image-gallery -->
+                                            @foreach (var images in tblNameList)
+                                            {
+                                                <a class="product-gallery-item" href="#" data-lightbox="product-zoom" data-title="Product" data-image="@Url.Content("~/Img/" + images.Image)" onmousemove="changeProductZoomImage(this)">
+                                                    <img src="@Url.Content("~/Img/" + images.ThumbImage)" alt="product image">
+                                                </a>
+                                            }
+                                        </div>
                                     </div><!-- End .row -->
                                 </div><!-- End .product-gallery -->
                             </div><!-- End .col-md-6 -->
 
                             <div class="col-md-6">
                                 <div class="product-details">
-                                    <h1 class="product-title">@Model.ProductName</h1><!-- End .product-title -->
+                                    <h1 class="product-title">@ProductName</h1><!-- End .product-title -->
 
                                     <div class="ratings-container">
                                         <div class="ratings">
@@ -80,7 +77,7 @@
                                     </div><!-- End .rating-container -->
 
                                     <div class="product-price">
-                                       @Model.Rate
+                                      @Rate
                                     </div><!-- End .product-price -->
 
                                     <div class="product-content">
@@ -501,6 +498,19 @@
     </div><!-- End .page-wrapper -->
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
 
+    
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+       
+
+        function changeProductZoomImage(element) {
+            var newImageSrc = element.getAttribute('data-image'); // Get the data-image attribute value
+
+            var productZoomImage = document.getElementById('product-zoom'); // Get the image element to be updated
+            productZoomImage.setAttribute('src', newImageSrc); // Set the src attribute of the image element to the new image source
+        }
+</script>
   <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/jquery.hoverIntent.min.js"></script>

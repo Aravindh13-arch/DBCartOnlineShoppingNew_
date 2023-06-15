@@ -17,7 +17,7 @@ namespace OnlineShoppingProject.BAL
             return addressImplementationDAL.GetIDAddressDAL(userId, Id);
         }
 
-        public SelectProductVM GetSelectSummaryBAL(int Id)
+        public List<SelectProductVM> GetSelectSummaryBAL(int Id)
         {
 
             return addressImplementationDAL.GetSelectSummaryDAL(Id);
