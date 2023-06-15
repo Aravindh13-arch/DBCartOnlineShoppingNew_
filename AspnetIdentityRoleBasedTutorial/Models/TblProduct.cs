@@ -49,6 +49,8 @@ public partial class TblProduct
 
     public virtual ICollection<TblCart> TblCarts { get; } = new List<TblCart>();
 
+    public virtual ICollection<TblGallery> TblGalleries { get; } = new List<TblGallery>();
+
     public virtual ICollection<TblInventory> TblInventories { get; } = new List<TblInventory>();
 
     public virtual ICollection<TblWishList> TblWishLists { get; } = new List<TblWishList>();

@@ -8,12 +8,12 @@ namespace OnlineShoppingProject.DAL
 {
     public class AddressImplementationDAL
     {
-       private OnlineShopDbContext _context;
+        private OnlineShopDbContext _context;
 
-            public AddressImplementationDAL(OnlineShopDbContext Context)
-            {
-                _context = Context;
-            }
+        public AddressImplementationDAL(OnlineShopDbContext Context)
+        {
+            _context = Context;
+        }
 
 
         public List<AddressVM> GetIDAddressDAL(string userId, int Id)
@@ -25,7 +25,7 @@ namespace OnlineShoppingProject.DAL
             }
 
 
-            var name= _context.AspNetUsers.Single(u => u.Id == userId).Name;
+            var name = _context.AspNetUsers.Single(u => u.Id == userId).Name;
             var result = _context.AspNetUsers
                 .Join(_context.TblAddresses,
                     t1 => t1.Id,
@@ -50,11 +50,11 @@ namespace OnlineShoppingProject.DAL
                 {
                     DeliveryAddress = g1.Key.DeliverAddress,
                     UserId = g1.Key.Id,
-                    City= g1.Key.City,
-                    State= g1.Key.State,
-                    PinCode= g1.Key.PinCode,
-                    AddressId= g1.Key.AddressId,
-               
+                    City = g1.Key.City,
+                    State = g1.Key.State,
+                    PinCode = g1.Key.PinCode,
+                    AddressId = g1.Key.AddressId,
+
                 })
                 .Where(res => res.UserId == userId)
                 .Distinct()
@@ -75,58 +75,79 @@ namespace OnlineShoppingProject.DAL
                 add.TblName.Add(address);
 
 
-                
+
             }
             addresses.Add(add);
             return addresses;
         }
 
 
-        //        public List<AddressVM> GetIDAddressDAL(int userId, int Id)
-        //        {
-        //        List<AddressVM> addres = new List<AddressVM>();
-        //            if (userId == null)
-        //            {
-        //                throw new ArgumentNullException("model");
-        //            }
-        //            var result=  _context.TblUsers
-        //.Join(_context.TblAddresses,
-        //    t1 => t1.UserId,
-        //    t2 => t2.CreatedBy,
-        //    (t1, t2) => new {t1,t2 })
-        //.Join(_context.TblProducts,
-        //     t3=>t3.t2.AddressId,
-        //    t4=>t4.ProductId,
-        //    (t3, t4) => new { t3,t4 })
-        //.GroupBy(r => new
-        //{
-        //   r.t3.t2.DeliverAddress,
-        //   r.t3.t1.UserId, 
-        //    r.t4.ProductId
-        //})
-        //.Select(g1=>new
-        //{
-        //    delivaryAddress=g1.Key.DeliverAddress,
-        //    userId=g1.Key.UserId,
-        //    productId=g1.Key.ProductId
 
-        //}).Where(res => res.userId==userId).ToList();
+        public List<SelectProductVM> GetSelectSummaryDAL(int Id)
+        {
+      
 
+          
 
-        //        foreach (var Item in result)
-        //        {
-        //            AddressVM address = new AddressVM();
-        //            address.DeliverAddress = Item.delivaryAddress;
-        //            address.ProductId = Item.productId;
-        //            address.CreatedBy = Item.userId;
+           List<SelectProductVM> spv = new List<SelectProductVM>();
 
-        //            addres.Add(address);
-        //        }
+            var select = _context.TblGalleries
+                .Join(_context.TblProducts,
+                    t1 => t1.ProductId,
+                    t2 => t2.ProductId,
+                    (t1, t2) => new { t1, t2 })
+                .Where(g => g.t2.ProductId == Id)
+                .Select(g => new
+                {
+                    productId=g.t2.ProductId,
+                    ProductName = g.t2.ProductName,
+                    Image = g.t2.Image,
+                    Rate = g.t2.Rate,
+                    Image1 = g.t1.Image,
+                    thumbImage=g.t1.ThumbImage
+               
+                })
+                .ToList();
+
+            //SelectProductVM sp = new SelectProductVM();
+            //sp.ProductName=select.ToArray()[0].ProductName;
+            //sp.Image = select.ToArray()[1].Image;
+            //sp.Rate = select.ToArray()[2].Rate;
 
 
-        //        return addres;
-        //        }
+            //foreach (var item in select)
+            //{
+            //    TblImageVM imageVM = new TblImageVM();
+            //    imageVM.ProductId = item.productId;
+            //    imageVM.Image = item.Image1;
+            //    imageVM.ThumbImage = item.thumbImage;
+            //    sp.TblImages.Add(imageVM);
+            //}
+            //spv.Add(sp);
+            if (select.Count > 0)
+            {
+                SelectProductVM sp = new SelectProductVM();
+                sp.ProductName = select[0].ProductName;
+                sp.Image = select[0].Image;
+                sp.Rate = select[0].Rate;
+
+                foreach (var item in select)
+                {
+                    TblImageVM imageVM = new TblImageVM();
+                    imageVM.ProductId = item.productId;
+                    imageVM.Image = item.Image1;
+                    imageVM.ThumbImage = item.thumbImage;
+                    sp.TblImages.Add(imageVM);
+                }
+
+                spv.Add(sp);
+            }
+
+            return spv;
+
+
+        }
+       
 
     }
-
 }

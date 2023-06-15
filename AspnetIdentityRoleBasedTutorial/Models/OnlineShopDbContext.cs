@@ -21,6 +21,7 @@ public partial class OnlineShopDbContext : DbContext
     {
     }
 
+
     public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
 
     public virtual DbSet<AspNetRoleClaim> AspNetRoleClaims { get; set; }
@@ -43,6 +44,8 @@ public partial class OnlineShopDbContext : DbContext
 
     public virtual DbSet<TblCategory> TblCategories { get; set; }
 
+    public virtual DbSet<TblGallery> TblGalleries { get; set; }
+
     public virtual DbSet<TblInventory> TblInventories { get; set; }
 
     public virtual DbSet<TblProduct> TblProducts { get; set; }
@@ -54,6 +57,7 @@ public partial class OnlineShopDbContext : DbContext
     public virtual DbSet<TblUnit> TblUnits { get; set; }
 
     public virtual DbSet<TblWishList> TblWishLists { get; set; }
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -203,6 +207,10 @@ public partial class OnlineShopDbContext : DbContext
             entity.Property(e => e.City)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.Country)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("country");
             entity.Property(e => e.CreatedAt).HasColumnName("createdAt");
             entity.Property(e => e.CreatedBy)
                 .HasMaxLength(255)
@@ -212,6 +220,10 @@ public partial class OnlineShopDbContext : DbContext
                 .HasMaxLength(250)
                 .IsUnicode(false)
                 .HasColumnName("deliverAddress");
+            entity.Property(e => e.PhoneNo)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("phone no");
             entity.Property(e => e.PinCode)
                 .HasMaxLength(6)
                 .IsUnicode(false)
@@ -291,6 +303,7 @@ public partial class OnlineShopDbContext : DbContext
             entity.Property(e => e.Rate)
                 .HasColumnType("decimal(18, 0)")
                 .HasColumnName("rate");
+            entity.Property(e => e.Shipping).HasColumnName("shipping");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TotalAmount)
                 .HasColumnType("decimal(18, 0)")
@@ -339,7 +352,11 @@ public partial class OnlineShopDbContext : DbContext
             entity.Property(e => e.Rate)
                 .HasColumnType("decimal(18, 0)")
                 .HasColumnName("rate");
+            entity.Property(e => e.Size).HasColumnName("size");
             entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.Totalamount)
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("totalamount");
             entity.Property(e => e.UpdatedAt).HasColumnName("updatedAt");
             entity.Property(e => e.UpdatedBy)
                 .HasMaxLength(255)
@@ -386,6 +403,45 @@ public partial class OnlineShopDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblCategoryUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
+        });
+
+        modelBuilder.Entity<TblGallery>(entity =>
+        {
+            entity.HasKey(e => e.GalleryId);
+
+            entity.ToTable("tblGallery");
+
+            entity.Property(e => e.GalleryId).HasColumnName("galleryId");
+            entity.Property(e => e.CreatedAt).HasColumnName("createdAt");
+            entity.Property(e => e.CreatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("createdBy");
+            entity.Property(e => e.Image)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("image");
+            entity.Property(e => e.ProductId).HasColumnName("productId");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.ThumbImage)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("thumbImage");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updatedAt");
+            entity.Property(e => e.UpdatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("updatedBy");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TblGalleryCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.Product).WithMany(p => p.TblGalleries)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("FK_tblGallery_tblproduct_tblproductId");
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblGalleryUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
         });
 
         modelBuilder.Entity<TblInventory>(entity =>
@@ -501,6 +557,9 @@ public partial class OnlineShopDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("createdBy");
             entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.Total)
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("total");
             entity.Property(e => e.UpdatedAt).HasColumnName("updatedAt");
             entity.Property(e => e.UpdatedBy)
                 .HasMaxLength(255)
