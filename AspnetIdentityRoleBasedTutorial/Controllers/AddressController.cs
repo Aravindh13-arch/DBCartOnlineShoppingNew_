@@ -50,7 +50,16 @@ namespace OnlineShoppingProject.Controllers
 
         }
 
-       
+
+        public IActionResult Home()
+        {
+            return View();
+        }
+
+
+
+
+
 
     }
 }

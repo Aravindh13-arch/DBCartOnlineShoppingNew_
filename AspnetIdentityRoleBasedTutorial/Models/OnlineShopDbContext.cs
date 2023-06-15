@@ -6,7 +6,6 @@ namespace OnlineShoppingProject.Models;
 
 public partial class OnlineShopDbContext : DbContext
 {
-
     public OnlineShopDbContext()
     {
     }
@@ -45,6 +44,8 @@ public partial class OnlineShopDbContext : DbContext
 
     public virtual DbSet<TblCategory> TblCategories { get; set; }
 
+    public virtual DbSet<TblGallery> TblGalleries { get; set; }
+
     public virtual DbSet<TblInventory> TblInventories { get; set; }
 
     public virtual DbSet<TblProduct> TblProducts { get; set; }
@@ -62,8 +63,6 @@ public partial class OnlineShopDbContext : DbContext
     {
         optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
     }
-
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -404,6 +403,45 @@ public partial class OnlineShopDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblCategoryUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
+        });
+
+        modelBuilder.Entity<TblGallery>(entity =>
+        {
+            entity.HasKey(e => e.GalleryId);
+
+            entity.ToTable("tblGallery");
+
+            entity.Property(e => e.GalleryId).HasColumnName("galleryId");
+            entity.Property(e => e.CreatedAt).HasColumnName("createdAt");
+            entity.Property(e => e.CreatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("createdBy");
+            entity.Property(e => e.Image)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("image");
+            entity.Property(e => e.ProductId).HasColumnName("productId");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.ThumbImage)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("thumbImage");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updatedAt");
+            entity.Property(e => e.UpdatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("updatedBy");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TblGalleryCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.Product).WithMany(p => p.TblGalleries)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("FK_tblGallery_tblproduct_tblproductId");
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblGalleryUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
         });
 
         modelBuilder.Entity<TblInventory>(entity =>
