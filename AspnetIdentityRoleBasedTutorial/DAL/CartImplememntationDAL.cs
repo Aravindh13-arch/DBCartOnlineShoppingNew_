@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using OnlineShoppingProject.Models;
 using OnlineShoppingProject.Constants;
 using OnlineShoppingProject.ViewModels.ProductModels;
+using OnlineShoppingProject.ViewModels.CategoryWiseList;
 
 namespace OnlineShoppingProject.DAL
 {
@@ -52,12 +53,28 @@ namespace OnlineShoppingProject.DAL
 
         public async Task<List<TblCart>> GetAllProductCart(string UserId)
         {
-            var result = _context.TblCarts.Include(r => r.Product).Select(r => r).Where(r => r.CreatedBy == UserId).ToListAsync();
-            return result.Result;
+            var result = _context.TblCarts.Include(r => r.Product).Select(r => r).Where(r => r.CreatedBy == UserId).ToList();
+            return result;
+        }
+
+        public cartcount GetCartCount()
+        {
+            if (_context != null)
+            {
+                var result = _context.TblCarts.Count();
+                cartcount cartcount = new cartcount();
+                cartcount.count = result;
+                return cartcount;
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
         public async Task<TblCart> GetCartById(int id)
         {
-            return await _context.TblCarts.FindAsync(id);
+                return await _context.TblCarts.FindAsync(id);
+           
         }
 
         public async Task<bool> RemoveCartbyId(ProductVM productVM)
@@ -80,5 +97,7 @@ namespace OnlineShoppingProject.DAL
                 throw ex;
             };
         }
+
+       
     }
 }

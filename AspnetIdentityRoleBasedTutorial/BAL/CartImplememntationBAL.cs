@@ -1,4 +1,6 @@
-﻿using OnlineShoppingProject.DAL;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineShoppingProject.DAL;
+using OnlineShoppingProject.ViewModels.CategoryWiseList;
 using OnlineShoppingProject.ViewModels.ProductModels;
 
 namespace OnlineShoppingProject.BAL
@@ -14,7 +16,7 @@ namespace OnlineShoppingProject.BAL
         {
             return new AddProductCartVM
             {
-                TblCarts = await _cartImplementation.GetAllProductCart(Id)
+                TblCarts = await _cartImplementation.GetAllProductCart(Id),
             };
 
         }
@@ -41,5 +43,12 @@ namespace OnlineShoppingProject.BAL
         {
             return await _cartImplementation.RemoveCartbyId(client);
         }
+
+        public cartcount GetCartCount()
+        {
+            var result = _cartImplementation.GetCartCount();
+            return result;
+        }
+
     }
 }
