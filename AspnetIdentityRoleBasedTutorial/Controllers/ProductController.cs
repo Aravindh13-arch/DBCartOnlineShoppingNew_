@@ -67,7 +67,10 @@ namespace AspnetIdentityRoleBasedTutorial.Controllers
          return View(await productimplemenationbal.GetGroceryListBAL());
       }
 
-
+        public IActionResult Electronic()
+        {
+            return View();
+        }
    }
 }
 

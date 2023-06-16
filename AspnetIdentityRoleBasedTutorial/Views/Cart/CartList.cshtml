@@ -34,17 +34,78 @@
     //    });
 
 
+    //function updateAmount(input) {
+    //    var quantity = input.value;
+    //    var rate = input.closest("tr").querySelector("#rate").innerText;
+    //    var totalCol = input.closest("tr").querySelector("#payableAmount");
+    //    var totalAmount = quantity * rate;
+    //    totalCol.innerText = totalAmount.toFixed(2);
+    //}
+
+    //function removeItem(button) {
+    //    var row = button.closest("tr");
+    //    row.remove();
+    //}
+
+
+    //function updateAmount(input) {
+    //    var quantity = input.value;
+    //    var rate = parseFloat(input.closest("tr").querySelector("#rate").innerText);
+    //    var totalCol = input.closest("tr").querySelector("#payableAmount");
+    //    var subtotalCol = input.closest("tr").querySelector("#subtotalAmount");
+
+    //    var totalAmount = quantity * rate;
+    //    totalCol.innerText = totalAmount.toFixed(2);
+    //    subtotalCol.innerText = totalAmount.toFixed(2);
+
+    //    updateSubtotal();
+    //}
+    //function updateSubtotal() {
+    //    var subtotal = 0;
+    //    var totalCols = document.querySelectorAll(".summary-subtotal #payableAmount");
+
+    //    totalCols.forEach(function (col) {
+    //        subtotal += parseFloat(col.innerText);
+    //    });
+
+    //    document.getElementById("subtotalAmount").innerText = subtotal.toFixed(2);
+    //}
+
     function updateAmount(input) {
+        // Update quantity and calculate new total amount
         var quantity = input.value;
         var rate = input.closest("tr").querySelector("#rate").innerText;
         var totalCol = input.closest("tr").querySelector("#payableAmount");
         var totalAmount = quantity * rate;
         totalCol.innerText = totalAmount.toFixed(2);
+
+        // Update subtotal
+        var subtotalCol = document.querySelector("#subtotalAmount");
+        var allTotalCols = document.querySelectorAll(".total-col");
+        var subtotalAmount = 0;
+        allTotalCols.forEach(function (col) {
+            subtotalAmount += parseFloat(col.innerText);
+        });
+        subtotalCol.innerText = subtotalAmount.toFixed(2);
+
+
+        var totalCol = document.querySelector("#totalAmount");
+        totalCol.innerText = subtotalAmount.toFixed(2);
     }
 
     function removeItem(button) {
+        // Remove the item from the cart
         var row = button.closest("tr");
         row.remove();
+
+        // Update subtotal
+        var subtotalCol = document.querySelector("#subtotalAmount");
+        var allTotalCols = document.querySelectorAll(".total-col");
+        var subtotalAmount = 0;
+        allTotalCols.forEach(function (col) {
+            subtotalAmount += parseFloat(col.innerText);
+        });
+        subtotalCol.innerText = subtotalAmount.toFixed(2);
     }
 </script>
 
@@ -283,7 +344,7 @@
                                         <tbody>
                                             <tr class="summary-subtotal">
                                                 <td>Subtotal:</td>
-                                                <td>@totalAmount</td>
+                                                <td id="subtotalAmount">@totalAmount</td>
                                             </tr><!-- End .summary-subtotal -->
                                             <tr class="summary-shipping">
                                                 <td>Shipping:</td>
@@ -327,7 +388,7 @@
 
                                             <tr class="summary-total">
                                                 <td>Total:</td>
-                                                <td>@totalAmount</td>
+                                                <td id="totalAmount">@totalAmount</td>
                                             </tr><!-- End .summary-total -->
                                         </tbody>
                                     </table><!-- End .table table-summary -->
