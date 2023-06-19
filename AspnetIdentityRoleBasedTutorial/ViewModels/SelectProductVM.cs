@@ -6,6 +6,7 @@ namespace OnlineShoppingProject.ViewModels
     {
         public int CategoryId { get; set; }
         public int SubCategoryId { get; set; }
+        public int ProductId { get; set; }
 
         public int BrandId { get; set; }
         public string ProductName { get; set; }

@@ -39,9 +39,9 @@ namespace OnlineShoppingProject.BAL
             return productVM;
         }
 
-        public async Task<bool> RemoveCartbyId(ProductVM client)
+        public async Task<bool> RemoveCartbyId(int ProductId)
         {
-            return await _cartImplementation.RemoveCartbyId(client);
+            return await _cartImplementation.RemoveCartbyId(ProductId);
         }
 
         public cartcount GetCartCount()
@@ -50,5 +50,9 @@ namespace OnlineShoppingProject.BAL
             return result;
         }
 
+        public async Task<bool> UpdateCartBAL(int Id, int quantity, decimal payableAmount,string UserId)
+        {
+            return await _cartImplementation.UpdateCartby(Id, quantity, payableAmount, UserId);
+        }
     }
 }

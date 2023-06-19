@@ -10,7 +10,6 @@ using OnlineShoppingProject.Services;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
-
 namespace OnlineShoppingProject.Controllers
 {
     public class CartController : Controller
@@ -92,22 +91,23 @@ namespace OnlineShoppingProject.Controllers
 //    var client = await _clientImplementation.GetClientById(id);
 //    return View(client);
 //}
-public async Task<IActionResult> RemoveCartList(int id)
+        public async Task<IActionResult> RemoveCartList(int id)
         {
             //var product = await _cartImplementation.GetCartById(id);
             return View(id);
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ConfirmDelete(ProductVM product)
+
+
+
+        public async Task<IActionResult> ConfirmDelete(int ProductId)
         {
             string UserName = HttpContext.User.Identity.Name;
             if (UserName.IsNullOrEmpty())
             {
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
-            product.UserId = _commonImplementation.GetTheUserIdDAL(UserName);
-            if (await _cartImplementation.RemoveCartbyId(product))
+            string UserId = _commonImplementation.GetTheUserIdDAL(UserName);
+            if (await _cartImplementation.RemoveCartbyId(ProductId))
             {
                 return Json(new { isValid = true, html = "" });
             }
@@ -126,12 +126,6 @@ public async Task<IActionResult> RemoveCartList(int id)
         {
             return View();
         }
-        //public JsonResult GetCartCount()
-        //{
-        //    int cartCount = _cartImplementation.GetCartCount(); // Replace with your own implementation
-        //    ViewData.Count = cartCount;
-        //    return Json(cartCount);
-        //}
         public IActionResult GetCartCount()
         {
             var cartCount = _cartImplementation.GetCartCount(); 
@@ -158,6 +152,26 @@ public async Task<IActionResult> RemoveCartList(int id)
             }
 
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateCart(int Id,int quantity,decimal payableAmount)
+        {
+            string UserName = HttpContext.User.Identity.Name;
+            if (UserName.IsNullOrEmpty())
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
+                var UserId = _commonImplementation.GetTheUserIdDAL(UserName);
+            if (await _cartImplementation.UpdateCartBAL(Id, quantity, payableAmount, UserId))
+            {
+                return RedirectToPage("/Cart/CartList");
+            }
+            else
+            {
+                return Json(new { isValid = false, html = "<h1>failed to submit</h1>" });
+            }
+        }
+
 
     }
 }
