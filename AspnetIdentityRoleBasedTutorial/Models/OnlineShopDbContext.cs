@@ -52,17 +52,19 @@ public partial class OnlineShopDbContext : DbContext
 
     public virtual DbSet<TblPurchase> TblPurchases { get; set; }
 
+    public virtual DbSet<TblSize> TblSizes { get; set; }
+
     public virtual DbSet<TblSubCategory> TblSubCategories { get; set; }
 
     public virtual DbSet<TblUnit> TblUnits { get; set; }
 
     public virtual DbSet<TblWishList> TblWishLists { get; set; }
 
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
     }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -352,7 +354,7 @@ public partial class OnlineShopDbContext : DbContext
             entity.Property(e => e.Rate)
                 .HasColumnType("decimal(18, 0)")
                 .HasColumnName("rate");
-            entity.Property(e => e.Size).HasColumnName("size");
+            entity.Property(e => e.SizeId).HasColumnName("sizeId");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Totalamount)
                 .HasColumnType("decimal(18, 0)")
@@ -367,7 +369,14 @@ public partial class OnlineShopDbContext : DbContext
                 .HasForeignKey(d => d.CreatedBy)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.Product).WithMany(p => p.TblCarts).HasForeignKey(d => d.ProductId);
+            entity.HasOne(d => d.Product).WithMany(p => p.TblCarts)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.Size).WithMany(p => p.TblCarts)
+                .HasForeignKey(d => d.SizeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_tblCart_tblSize_productId");
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblCartUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
         });
@@ -576,6 +585,33 @@ public partial class OnlineShopDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblPurchaseUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
+        });
+
+        modelBuilder.Entity<TblSize>(entity =>
+        {
+            entity.HasKey(e => e.SizeId);
+
+            entity.ToTable("tblSize");
+
+            entity.Property(e => e.SizeId).HasColumnName("sizeId");
+            entity.Property(e => e.CreatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("createdBy");
+            entity.Property(e => e.TypesOfSize)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("typesOfSize");
+            entity.Property(e => e.UpdatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("updatedBy");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TblSizeCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblSizeUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
         });
 
         modelBuilder.Entity<TblSubCategory>(entity =>

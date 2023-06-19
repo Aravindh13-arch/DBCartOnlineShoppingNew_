@@ -10,7 +10,7 @@ namespace OnlineShoppingProject.ViewModels.ProductModels
         public string ProductName { get; set; }
         public string Code { get; set; }
         public string Unit { get; set; }
-        //public decimal Quantity { get; set; }
+        public int size { get; set; }
         public int quantity { get; set; }
 
         public decimal Rate { get; set; }

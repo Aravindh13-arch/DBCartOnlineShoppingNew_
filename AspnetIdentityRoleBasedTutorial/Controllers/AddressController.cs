@@ -41,11 +41,17 @@ namespace OnlineShoppingProject.Controllers
             return View();
         }
 
-        public  IActionResult GetSelectSummary(int Id)
+        public  async Task<IActionResult> GetSelectSummary(int Id)
         {
-             
-            var select=AddressImplemenation.GetSelectSummaryBAL(Id);
-            return View(select);
+            try
+            {
+               
+                return View(await AddressImplemenation.GetSelectSummaryBAL(Id));
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
 
 
         }

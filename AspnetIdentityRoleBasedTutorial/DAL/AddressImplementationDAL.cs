@@ -3,6 +3,7 @@ using OnlineShoppingProject.Models;
 using Microsoft.EntityFrameworkCore;
 using OnlineShoppingProject.ViewModels;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using AspnetIdentityRoleBasedTutorial.Data;
 
 namespace OnlineShoppingProject.DAL
 {
@@ -83,10 +84,8 @@ namespace OnlineShoppingProject.DAL
 
 
 
-        public List<SelectProductVM> GetSelectSummaryDAL(int Id)
+        public async Task<List<SelectProductVM>> GetSelectSummaryDAL(int Id)
         {
-      
-
           
 
            List<SelectProductVM> spv = new List<SelectProductVM>();
@@ -96,6 +95,7 @@ namespace OnlineShoppingProject.DAL
                     t1 => t1.ProductId,
                     t2 => t2.ProductId,
                     (t1, t2) => new { t1, t2 })
+
                 .Where(g => g.t2.ProductId == Id)
                 .Select(g => new
                 {
@@ -109,24 +109,11 @@ namespace OnlineShoppingProject.DAL
                 })
                 .ToList();
 
-            //SelectProductVM sp = new SelectProductVM();
-            //sp.ProductName=select.ToArray()[0].ProductName;
-            //sp.Image = select.ToArray()[1].Image;
-            //sp.Rate = select.ToArray()[2].Rate;
 
-
-            //foreach (var item in select)
-            //{
-            //    TblImageVM imageVM = new TblImageVM();
-            //    imageVM.ProductId = item.productId;
-            //    imageVM.Image = item.Image1;
-            //    imageVM.ThumbImage = item.thumbImage;
-            //    sp.TblImages.Add(imageVM);
-            //}
-            //spv.Add(sp);
             if (select.Count > 0)
             {
                 SelectProductVM sp = new SelectProductVM();
+                sp.ProductId = select[0].productId;
                 sp.ProductName = select[0].ProductName;
                 sp.Image = select[0].Image;
                 sp.Rate = select[0].Rate;
@@ -134,20 +121,47 @@ namespace OnlineShoppingProject.DAL
                 foreach (var item in select)
                 {
                     TblImageVM imageVM = new TblImageVM();
-                    imageVM.ProductId = item.productId;
+                    // imageVM.Id = item.productId;
                     imageVM.Image = item.Image1;
                     imageVM.ThumbImage = item.thumbImage;
                     sp.TblImages.Add(imageVM);
                 }
+                var Size = await _context.TblSizes.Select(r => r).ToListAsync();
+                if (Size != null)
+                {
+                    foreach (var item in Size)
+                    {
+                        TblSize tblSize = new TblSize();
+                        tblSize.SizeId = item.SizeId;
+                        tblSize.TypesOfSize = item.TypesOfSize;
+                        sp.TblSizes.Add(tblSize);
+                    }
+                }
 
                 spv.Add(sp);
             }
+          
 
             return spv;
 
 
         }
        
-
+        //public async Task<List<TblSize>>GetTheSizesList()
+        //{
+        //    List<TblSize> tblSize = new List<TblSize>();
+        //    var sizeList = await _context.TblSizes.Select(r=>r).ToListAsync();
+        //    if (sizeList != null)
+        //    {
+        //        foreach (var item in sizeList)
+        //        {
+        //            TblSize Size = new TblSize();
+        //            Size.SizeId = item.SizeId;
+        //            Size.TypesOfSize = item.TypesOfSize;
+        //            tblSize.Add(Size);
+        //        }
+        //    }
+        //    return tblSize;
+        //}
     }
 }

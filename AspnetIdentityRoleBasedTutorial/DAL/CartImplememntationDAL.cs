@@ -28,7 +28,9 @@ namespace OnlineShoppingProject.DAL
                     {
                         Product = _context.TblProducts.Single(r => r.ProductId == product.Id),
                         Quantity = product.quantity,
+                        SizeId=product.size,
                         Rate = _context.TblProducts.Single(r => r.ProductId == product.Id).Rate,
+                        Totalamount = _context.TblProducts.Single(r => r.ProductId == product.Id).Rate*product.quantity,
                         Description = _context.TblProducts.Single(r => r.ProductId == product.Id).Description,
                         CreatedAt = DateTime.UtcNow,
                         Status = (int)MyConstants.Status.Active,
@@ -39,7 +41,7 @@ namespace OnlineShoppingProject.DAL
                 else
                 {
                     res.Quantity += product.quantity;
-                    res.Rate += _context.TblProducts.Single(r => r.ProductId == product.Id).Rate * product.quantity;
+                    res.Totalamount += _context.TblProducts.Single(r => r.ProductId == product.Id).Rate * product.quantity;
                 }
                 var result = await _context.SaveChangesAsync();
                 if (result > 0) { return true; }
