@@ -81,6 +81,10 @@ public partial class AspNetUser
 
     public virtual ICollection<TblPurchase> TblPurchaseUpdatedByNavigations { get; } = new List<TblPurchase>();
 
+    public virtual ICollection<TblSize> TblSizeCreatedByNavigations { get; } = new List<TblSize>();
+
+    public virtual ICollection<TblSize> TblSizeUpdatedByNavigations { get; } = new List<TblSize>();
+
     public virtual ICollection<TblSubCategory> TblSubCategoryCreatedByNavigations { get; } = new List<TblSubCategory>();
 
     public virtual ICollection<TblSubCategory> TblSubCategoryUpdatedByNavigations { get; } = new List<TblSubCategory>();

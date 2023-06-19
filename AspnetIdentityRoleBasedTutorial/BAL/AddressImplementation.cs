@@ -1,6 +1,7 @@
 ﻿using OnlineShoppingProject.DAL;
 using OnlineShoppingProject.Models;
 using OnlineShoppingProject.ViewModels;
+using System.Collections.Generic;
 
 namespace OnlineShoppingProject.BAL
 {
@@ -17,11 +18,17 @@ namespace OnlineShoppingProject.BAL
             return addressImplementationDAL.GetIDAddressDAL(userId, Id);
         }
 
-        public List<SelectProductVM> GetSelectSummaryBAL(int Id)
+        public async Task<List<SelectProductVM>> GetSelectSummaryBAL(int Id)
         {
+            try
+            {
+                   return  await addressImplementationDAL.GetSelectSummaryDAL(Id);
 
-            return addressImplementationDAL.GetSelectSummaryDAL(Id);
-           
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
       
     }
