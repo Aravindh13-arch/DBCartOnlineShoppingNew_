@@ -9,7 +9,7 @@ public partial class TblCart
 
     public int ProductId { get; set; }
 
-    public int SizeId { get; set; }
+    public int? SizeId { get; set; }
 
     public int Quantity { get; set; }
 
@@ -33,7 +33,9 @@ public partial class TblCart
 
     public virtual TblProduct Product { get; set; } = null!;
 
-    public virtual TblSize Size { get; set; } = null!;
+    public virtual TblSize? Size { get; set; }
+
+    public virtual ICollection<TblPlaceOrder> TblPlaceOrders { get; } = new List<TblPlaceOrder>();
 
     public virtual AspNetUser? UpdatedByNavigation { get; set; }
 }
