@@ -10,6 +10,7 @@
     var ProductName = Model.Select(r => r.ProductName).FirstOrDefault();
     var Rate = Model.Select(r => r.Rate).FirstOrDefault();
     var ProductId = Model.Select(r => r.ProductId).FirstOrDefault();
+    var tblSizeList = Model.SelectMany(r => r.TblSizes).ToList();
 }
 
 <body>
@@ -103,10 +104,10 @@
                                         <div class="select-custom">
                                             <select name="size" id="size" class="form-control">
                                                 <option value="#" selected="selected">Select a size</option>
-                                                <option value="s">Small</option>
-                                                <option value="m">Medium</option>
-                                                <option value="l">Large</option>
-                                                <option value="xl">Extra Large</option>
+                                                @foreach (var size in tblSizeList)
+                                                {
+                                                    <option value="@size.SizeId">@size.TypesOfSize</option>
+                                                }
                                             </select>
                                         </div><!-- End .select-custom -->
 
@@ -124,10 +125,9 @@
 
                                 <div class="product-details-action">
                                    @* <a href="#" class="btn-product btn-cart" onclick="addToCart('@Url.Action("InsertToCart", "Cart", new { Id = @ProductId, quantity = "TO_Num"  })'">*@
-                                    <a href="#" class="btn-product btn-cart" onclick="addToCart(this)" data-url='@Url.Action("InsertToCart", "Cart", new { Id = @ProductId, quantity = "TO_Num" })'><span>add to cart</span></a>
+                                    <a href="#" class="btn-product btn-cart" onclick="addToCart(this)" data-url='@Url.Action("InsertToCart", "Cart", new { Id = @ProductId, quantity = "TO_Num" , size = "TO_Size"})'><span>add to cart</span></a>
 
-                                    @*                                        <a href="#" class="btn-product btn-cart" onclick="addToCart('@Url.Action("InsertToCart", "Cart",new { Id = @ProductId,quantity = "TO_Num"})')"><span>add to cart</span></a>
-                                    *@
+                                  
                                     <div class="details-action-wrapper">
                                         <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
                                         <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a>
@@ -532,15 +532,18 @@
                     $('#main').html(msg);
 
                 }
-            })
-        }
+            });
+        };
 
         function addToCart(button) {
             const quantityInput = document.getElementById('quantity');
             const quantityValue = quantityInput.value;
 
+            const sizeSelect = document.getElementById('size');
+            const sizeValue = sizeSelect.value;
+
             const url = button.getAttribute('data-url');
-            const urlWithQuantity = url.replace("TO_Num", quantityValue);
+            const urlWithQuantity = url.replace("TO_Num", quantityValue).replace("TO_Size", sizeValue);
 
             mainMenuNav(urlWithQuantity);
         }
