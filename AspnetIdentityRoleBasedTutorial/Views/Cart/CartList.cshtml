@@ -1,75 +1,10 @@
 ﻿@model OnlineShoppingProject.ViewModels.ProductModels.AddProductCartVM
 
-@*<head>
-    <!--META TAGS-->
-    <meta name="viewport" content="width=device-width, initial-scal=1, user-scalable=no">
-    <meta name="author" content="Mahesh">
-
-    <!--FONT AWESOME-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!--GOOGLE FONTS-->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-</head>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
-*@@{
+@{
     int i = 0;
     decimal totalAmount = 0;
 }
 <script>
-    //function updatePayableAmount() {
-    //    var q = $("#quantity-input").val();
-    //    var r = $("#rate").val();
-
-    //    $("#payableAmount").val(q * r);
-    //}
-
-
-    //$("#rate").change(updatePayableAmount);
-    //$(".quantity-input").change(updatePayableAmount);
-    //    });
-
-
-    //function updateAmount(input) {
-    //    var quantity = input.value;
-    //    var rate = input.closest("tr").querySelector("#rate").innerText;
-    //    var totalCol = input.closest("tr").querySelector("#payableAmount");
-    //    var totalAmount = quantity * rate;
-    //    totalCol.innerText = totalAmount.toFixed(2);
-    //}
-
-    //function removeItem(button) {
-    //    var row = button.closest("tr");
-    //    row.remove();
-    //}
-
-
-    //function updateAmount(input) {
-    //    var quantity = input.value;
-    //    var rate = parseFloat(input.closest("tr").querySelector("#rate").innerText);
-    //    var totalCol = input.closest("tr").querySelector("#payableAmount");
-    //    var subtotalCol = input.closest("tr").querySelector("#subtotalAmount");
-
-    //    var totalAmount = quantity * rate;
-    //    totalCol.innerText = totalAmount.toFixed(2);
-    //    subtotalCol.innerText = totalAmount.toFixed(2);
-
-    //    updateSubtotal();
-    //}
-    //function updateSubtotal() {
-    //    var subtotal = 0;
-    //    var totalCols = document.querySelectorAll(".summary-subtotal #payableAmount");
-
-    //    totalCols.forEach(function (col) {
-    //        subtotal += parseFloat(col.innerText);
-    //    });
-
-    //    document.getElementById("subtotalAmount").innerText = subtotal.toFixed(2);
-    //}
 
     function updateAmount(input) {
         // Update quantity and calculate new total amount
@@ -88,123 +23,48 @@
         });
         subtotalCol.innerText = subtotalAmount.toFixed(2);
 
-
+        // Update total
         var totalCol = document.querySelector("#totalAmount");
         totalCol.innerText = subtotalAmount.toFixed(2);
     }
 
-    function removeItem(button) {
-        // Remove the item from the cart
-        var row = button.closest("tr");
-        row.remove();
 
-        // Update subtotal
-        var subtotalCol = document.querySelector("#subtotalAmount");
-        var allTotalCols = document.querySelectorAll(".total-col");
-        var subtotalAmount = 0;
-        allTotalCols.forEach(function (col) {
-            subtotalAmount += parseFloat(col.innerText);
+    function mainMenuNav(url) {
+        $.ajax({
+            type: 'POST',
+            url: url,
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                $('#main').html(res);
+            },
+            error: function (msg) {
+                $('#main').html(msg);
+            }
         });
-        subtotalCol.innerText = subtotalAmount.toFixed(2);
+    }
+
+    function addToCart(button) {
+        const quantityInput = button.closest('tr').querySelector('input[name="quantity"]');
+        const payableAmountInput = button.closest('tr').querySelector('.total-col');
+
+        const quantityValue = quantityInput.value;
+        const payableAmountValue = payableAmountInput.innerText;
+
+        const url = button.getAttribute('data-url');
+        const urlWithQuantity = url.replace("TO_Num", quantityValue).replace("Pay_Amount", payableAmountValue);
+        mainMenuNav(urlWithQuantity);
+    }
+
+    function removeItem(button, productId) {
+        // Show popup message
+        alert("Are you sure you want to remove this item?");
+
+        // Perform remove operation
+        const url = '@Url.Action("ConfirmDelete", "Cart")' + '?ProductId=' + productId;
+        mainMenuNav(url);
     }
 </script>
-
-
-@*<div class="col-12" style="margin-top:8%;">
-    <div class="card card-registration card-registration-2" >
-         <div class="card-body p-0">
-            <div class="row g-0">
-            <div class="col-lg-8">
-
-                <div class="d-flex justify-content-between align-items-center mb-5">
-                    <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
-                </div>
-                <hr class="my-4">
-
-                @if (Model.TblCarts != null)
-                {
-                    @foreach (var product in Model.TblCarts)
-                    {
-                        ++i;
-                        <div class="row mb-4 d-flex justify-content-between align-items-center">
-                            <div class="col-md-2 col-lg-2 col-xl-2">
-                                <img src="~/Img/@product.Product.Image" class="img-fluid rounded-3" width="112" height="112" alt="Cotton T-shirt">
-                            </div>
-                            <div class="col-md-3 col-lg-3 col-xl-3">
-                                <h4 class="text-black mb-0">@product.Description</h4>
-                            </div>
-
-                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">                            
-                                    <button class="quantity-button minus" onclick="decrementQuantity(this)">-</button>
-                                    <input type="number" class="quantity-input" name="quantity" min="1" max="100" value="@product.Quantity" >
-                                    <button class="quantity-button plus" onclick="incrementQuantity(this)">+</button>                            
-                            </div>
-
-
-                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                          
-                                <h4 class="mb-0" id="rate">₹ @product.Rate </h4>
-                            </div>
-                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                <a href="#!" class="text-muted"><i class="fas fa-times"></i>x</a>
-                            </div>
-                        </div>
-                        totalAmount += @product.Rate;
-                    }
-
-                }
-
-
-
-                <hr class="my-4">
-
-
-
-                <div class="pt-5">
-                    <h6 class="mb-0">
-                        <a href="#!" class="text-body">
-                            <i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop
-                        </a>
-                    </h6>
-                </div>
-            </div>
-
-
-            <div class="col-lg-4 bg-grey">
-                <div class="p-5">
-                    <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
-                    <hr class="my-4">
-
-                    <div class="d-flex justify-content-between mb-4">
-                        <h5 class="text-uppercase">Price (@i items)</h5>
-                          
-                        <h5>₹ @totalAmount</h5>
-                    </div>
-                    <div class="d-flex justify-content-between mb-4">
-                        <h5 class="text-uppercase">Delivery Charges</h5>
-                        <h5>Free</h5>
-                    </div>
-                </div>
-               
-
-                <hr class="my-4">
-
-                <div class="d-flex justify-content-between mb-5">
-                    <h5 class="text-uppercase">Total price</h5>
-                        <h5 id="payableAmount">₹ @totalAmount</h5>
-                </div>
-
-                <button type="button" class="btn btn-dark btn-block btn-lg"
-                        data-mdb-ripple-color="dark">
-                    Proceed To Buy
-                </button>
-
-            </div>
-            </div>
-        </div>
-    </div>
-</div>
-*@
 
 <body>
     <div class="page-wrapper">
@@ -229,113 +89,63 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-9">
-                                <table class="table table-cart table-mobile">
-                                    <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-@*                                        @foreach(var item in Model.TblCarts)
-                                        {
-                                        <tr>
-                                            <td class="product-col">
-                                                <div class="product">
-                                                    <figure class="product-media">
-                                                        <a href="#">
-                                                            <img src="Img/@item.Product.Image" alt="Product image">
-                                                        </a>
-                                                    </figure>
-
-                                                    <h3 class="product-title">
-                                                        <a href="#">@item.Product.ProductName</a>
-                                                    </h3><!-- End .product-title -->
-                                                </div><!-- End .product -->
-                                            </td>
-                                                <td class="price-col" id="rate">@item.Rate</td>
-                                            <td class="quantity-col">
-                                                <div class="cart-product-quantity">
-                                                        <input type="number" class="form-control" id="quantity-input" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                                                </div><!-- End .cart-product-quantity -->
-                                            </td>
-                                                <td class="total-col" id="payableAmount">@totalAmount</td>
-                                            <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-                                                totalAmount += @item.Rate;
+                                    <table class="table table-cart table-mobile">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Price</th>
+                                                <th>Quantity</th>
+                                                <th>Total</th>
+                                                <th></th>
                                             </tr>
-                                        }
-*@@*                                        <tr>
-                                            <td class="product-col">
-                                                <div class="product">
-                                                    <figure class="product-media">
-                                                        <a href="#">
-                                                            <img src="Img/products/table/product-2.jpg" alt="Product image">
-                                                        </a>
-                                                    </figure>
-
-                                                    <h3 class="product-title">
-                                                        <a href="#">Blue utility pinafore denim dress</a>
-                                                    </h3><!-- End .product-title -->
-                                                </div><!-- End .product -->
-                                            </td>
-                                            <td class="price-col">$76.00</td>
-                                            <td class="quantity-col">
-                                                <div class="cart-product-quantity">
-                                                    <input type="number" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                                                </div><!-- End .cart-product-quantity -->
-                                            </td>
-                                            <td class="total-col">$76.00</td>
-                                            <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-                                        </tr>*@
-                                        @foreach(var item in Model.TblCarts)
+                                        </thead>
+                                        <tbody>
+                                        @foreach (var item in Model.TblCarts)
                                         {
-                                        <tr>
-                                        <td class="product-col">
-                                        <div class="product">
-                                        <figure class="product-media">
-                                        <a href="#">
-                                        <img src="Img/@item.Product.Image" alt="Product image">
-                                        </a>
-                                        </figure>
-                                        <h3 class="product-title">
-                                        <a href="#">@item.Product.ProductName</a>
-                                        </h3><!-- End .product-title -->
-                                        </div><!-- End .product -->
-                                        </td>
-                                        <td class="price-col" id="rate">@item.Rate</td>
-                                        <td class="quantity-col">
-                                        <div class="cart-product-quantity">
-                                        <input type="number" class="form-control" id="quantity-input" value="1" min="1" max="10" step="1" data-decimals="0" onchange="updateAmount(this)" required>
-                                        </div><!-- End .cart-product-quantity -->
-                                        </td>
-                                        <td class="total-col" id="payableAmount">@totalAmount</td>
-                                        <td class="remove-col"><button class="btn-remove" onclick="removeItem(this)"><i class="icon-close"></i></button></td>
-                                        </tr>
-                                        totalAmount += @item.Rate;
-                                        }
+                                            <tr>
+                                                <td class="product-col">
+                                                    <div class="product">
+                                                        <figure class="product-media">
+                                                            <a href="#">
+                                                                <img src="Img/@item.Product.Image" alt="Product image">
+                                                            </a>
+                                                        </figure>
+                                                        <h3 class="product-title">
+                                                            <a href="#">@item.Product.ProductName</a>
+                                                        </h3><!-- End .product-title -->
+                                                    </div><!-- End .product -->
+                                                </td>
+                                                <td class="price-col" id="rate">@item.Rate</td>
+                                                <td class="quantity-col">
+                                                    <div class="cart-product-quantity">
+                                                        <input type="number" class="form-control" name="quantity" value="1" min="1" max="10" step="1" data-decimals="0" onchange="updateAmount(this)" required>
+                                                    </div><!-- End .cart-product-quantity -->
+                                                </td>
+                                                <td class="total-col" id="payableAmount">@item.Rate</td>
+                                                <td>
+                                                    <button type="submit" class="btn btn-outline-dark-2" data-url="@Url.Action("UpdateCart", "Cart", new { Id = item.ProductId, quantity = "TO_Num", payableAmount = "Pay_Amount" })" onclick="addToCart(this)">
+                                                        <span>UPDATE CART</span>
+                                                        <i class="icon-refresh"></i>
+                                                    </button>
+                                                </td>
+@*                                                <td class="remove-col">
+                                                    <a href="#" class="btn-remove"
+                                                       onclick="mainMenuNav('@Url.Action("ConfirmDelete", "Cart", new {ProductId = item.ProductId})')">
+                                                        <i class="icon-close"></i>
+                                                    </a>
+                                                    </td>*@
+                                                <td class="remove-col">
+                                                    <button class="btn-remove" onclick="removeItem(this, '@item.ProductId')">
+                                                        <i class="icon-close"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            totalAmount += @item.Rate;
+                                        }<!-- End .cart-bottom -->
+                                        </tbody>
+                                    </table><!-- End .table table-wishlist -->
 
-                                    </tbody>
-                                </table><!-- End .table table-wishlist -->
-
-                                <div class="cart-bottom">
-                                    <div class="cart-discount">
-                                        <form action="#">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" required placeholder="coupon code">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-outline-primary-2" type="submit"><i class="icon-long-arrow-right"></i></button>
-                                                </div><!-- .End .input-group-append -->
-                                            </div><!-- End .input-group -->
-                                        </form>
-                                    </div><!-- End .cart-discount -->
-
-                                    <a href="#" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i class="icon-refresh"></i></a>
-                                </div><!-- End .cart-bottom -->
-                            </div><!-- End .col-lg-9 -->
+                           </div><!-- End .col-lg-9 -->
                             <aside class="col-lg-3">
                                 <div class="summary summary-cart">
                                     <h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
@@ -408,7 +218,7 @@
 
 
 
-<script>
+@*<script>
     function incrementQuantity(button) {
         var input = $(button).siblings(".quantity-input");
         var value = parseInt(input.val());
@@ -424,7 +234,7 @@
             input.val(value - 1);
         }
     }
-</script>
+</script>*@
 
 
 
