@@ -7,7 +7,9 @@ public partial class TblAddress
 {
     public int AddressId { get; set; }
 
-    public int ProductId { get; set; }
+    public int CartId { get; set; }
+
+    public string Name { get; set; } = null!;
 
     public string City { get; set; } = null!;
 
@@ -15,9 +17,9 @@ public partial class TblAddress
 
     public string Country { get; set; } = null!;
 
-    public string PhoneNo { get; set; } = null!;
-
     public string PinCode { get; set; } = null!;
+
+    public string PhoneNo { get; set; } = null!;
 
     public string? DeliverAddress { get; set; }
 
@@ -31,9 +33,9 @@ public partial class TblAddress
 
     public string? UpdatedBy { get; set; }
 
-    public virtual AspNetUser CreatedByNavigation { get; set; } = null!;
+    public virtual TblCart Cart { get; set; } = null!;
 
-    public virtual TblProduct Product { get; set; } = null!;
+    public virtual AspNetUser CreatedByNavigation { get; set; } = null!;
 
     public virtual ICollection<TblBuyNow> TblBuyNows { get; } = new List<TblBuyNow>();
 

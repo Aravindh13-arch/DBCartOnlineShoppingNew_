@@ -73,9 +73,9 @@ public partial class AspNetUser
 
     public virtual ICollection<TblInventory> TblInventoryUpdatedByNavigations { get; } = new List<TblInventory>();
 
-    public virtual ICollection<TblPlaceOrder> TblPlaceOrderCreatedByNavigations { get; } = new List<TblPlaceOrder>();
+    public virtual ICollection<TblPaymentType> TblPaymentTypeCreatedByNavigations { get; } = new List<TblPaymentType>();
 
-    public virtual ICollection<TblPlaceOrder> TblPlaceOrderUpdatedByNavigations { get; } = new List<TblPlaceOrder>();
+    public virtual ICollection<TblPaymentType> TblPaymentTypeUpdatedByNavigations { get; } = new List<TblPaymentType>();
 
     public virtual ICollection<TblProduct> TblProductCreatedByNavigations { get; } = new List<TblProduct>();
 

@@ -3,13 +3,11 @@ using System.Collections.Generic;
 
 namespace OnlineShoppingProject.Models;
 
-public partial class TblShip
+public partial class TblPaymentType
 {
-    public int ShipId { get; set; }
+    public int PaymentTypesId { get; set; }
 
-    public string TypesOfShip { get; set; } = null!;
-
-    public int TypesOfAmount { get; set; }
+    public string TypesOfPayment { get; set; } = null!;
 
     public string CreatedBy { get; set; } = null!;
 

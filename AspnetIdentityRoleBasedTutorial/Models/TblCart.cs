@@ -35,7 +35,9 @@ public partial class TblCart
 
     public virtual TblSize? Size { get; set; }
 
-    public virtual ICollection<TblPlaceOrder> TblPlaceOrders { get; } = new List<TblPlaceOrder>();
+    public virtual ICollection<TblAddress> TblAddresses { get; } = new List<TblAddress>();
+
+    public virtual ICollection<TblBuyNow> TblBuyNows { get; } = new List<TblBuyNow>();
 
     public virtual AspNetUser? UpdatedByNavigation { get; set; }
 }
