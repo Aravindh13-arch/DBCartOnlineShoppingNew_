@@ -9,17 +9,11 @@ public partial class TblBuyNow
 
     public int AddressId { get; set; }
 
-    public int ProductId { get; set; }
+    public int CartId { get; set; }
 
-    public int PayementTypes { get; set; }
+    public int ShipId { get; set; }
 
-    public int Quantity { get; set; }
-
-    public decimal Rate { get; set; }
-
-    public decimal TotalAmount { get; set; }
-
-    public short Shipping { get; set; }
+    public int PaymentTypesId { get; set; }
 
     public short Status { get; set; }
 
@@ -33,9 +27,13 @@ public partial class TblBuyNow
 
     public virtual TblAddress Address { get; set; } = null!;
 
+    public virtual TblCart Cart { get; set; } = null!;
+
     public virtual AspNetUser CreatedByNavigation { get; set; } = null!;
 
-    public virtual TblProduct Product { get; set; } = null!;
+    public virtual TblPaymentType PaymentTypes { get; set; } = null!;
+
+    public virtual TblShip Ship { get; set; } = null!;
 
     public virtual ICollection<TblPurchase> TblPurchases { get; } = new List<TblPurchase>();
 
