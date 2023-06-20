@@ -18,25 +18,29 @@ namespace OnlineShoppingProject.DAL
 
         public async Task<bool> AddToCart(ProductVM product)
         {
-
             try
             {
                 var res = _context.TblCarts.FirstOrDefault(r => r.ProductId == product.Id);
                 if (res == null)
                 {
+                    int? newSizeId = null;
+                    if (product.size != null)
+                    {
+                        newSizeId = _context.TblSizes.SingleOrDefault(r => r.SizeId == product.size)?.SizeId;
+                    }
+
                     _context.TblCarts.Add(new TblCart
                     {
                         Product = _context.TblProducts.Single(r => r.ProductId == product.Id),
                         Quantity = product.quantity,
-                        SizeId=product.size,
+                        SizeId = newSizeId,
                         Rate = _context.TblProducts.Single(r => r.ProductId == product.Id).Rate,
-                        Totalamount = _context.TblProducts.Single(r => r.ProductId == product.Id).Rate*product.quantity,
+                        Totalamount = _context.TblProducts.Single(r => r.ProductId == product.Id).Rate * product.quantity,
                         Description = _context.TblProducts.Single(r => r.ProductId == product.Id).Description,
                         CreatedAt = DateTime.UtcNow,
                         Status = (int)MyConstants.Status.Active,
-                        CreatedBy = _context.AspNetUsers.Single(r=>r.Id == product.UserId).Id
+                        CreatedBy = _context.AspNetUsers.Single(r => r.Id == product.UserId).Id
                     });
-                    
                 }
                 else
                 {
@@ -44,14 +48,14 @@ namespace OnlineShoppingProject.DAL
                     res.Totalamount += _context.TblProducts.Single(r => r.ProductId == product.Id).Rate * product.quantity;
                 }
                 var result = await _context.SaveChangesAsync();
-                if (result > 0) { return true; }
-                return false;
+                return result > 0;
             }
             catch (Exception ex)
             {
                 throw ex;
-            };
+            }
         }
+
 
         public async Task<List<TblCart>> GetAllProductCart(string UserId)
         {

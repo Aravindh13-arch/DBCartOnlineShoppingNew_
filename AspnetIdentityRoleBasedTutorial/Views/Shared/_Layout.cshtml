@@ -171,23 +171,45 @@
                     </div><!-- End .header-dropdown -->
                 </div><!-- End .header-left -->
 
+@*                <div class="header-right">
+                    <ul class="top-menu">
+                        <li>
+                            <a href="#">Links</a>
+                            <ul>
+                                <ul>
+                                    <li><a href="#" onclick="loadView('@Url.Action("GetWishList", "WishList")')"><i class="icon-heart-o"></i>WishList</a></li>
+                                    <li><a href="#"></i></a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#" onclick="loadView('@Url.Action("About", "Home")')">About Us</a></li>
+                                    <li><a href="#"></a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#" onclick="loadView('@Url.Action("Contact", "Home")')">Contact Us</a></li>
+                                     <li><a href="#" ></a></li>
+                                </ul>
+                                <ul>
+                                  <partial name="_LoginPartial" />
+                                </ul>
+                            </ul>
+                        </li>
+                    </ul><!-- End .top-menu -->
+                </div><!-- End .header-right -->
+*@
                 <div class="header-right">
                     <ul class="top-menu">
                         <li>
                             <a href="#">Links</a>
                             <ul>
-                                <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li>
-                                <li><a href="#" onclick="loadView('@Url.Action("GetWishList", "WishList")')"><i class="icon-heart-o"></i>Wishlist</a></li>
+                                <li><a href="#" onclick="loadView('@Url.Action("GetWishList", "WishList")')"><i class="icon-heart-o"></i>WishList</a></li>
                                 <li><a href="#" onclick="loadView('@Url.Action("About", "Home")')">About Us</a></li>
                                 <li><a href="#" onclick="loadView('@Url.Action("Contact", "Home")')">Contact Us</a></li>
-                                <li>
-                                        <partial name="_LoginPartial" />
-                                </li>
+                                <partial name="_LoginPartial" />
                             </ul>
                         </li>
                     </ul><!-- End .top-menu -->
                 </div><!-- End .header-right -->
-            </div><!-- End .container -->
+              </div><!-- End .container -->
         </div><!-- End .header-top -->
 
         <div class="header-middle sticky-header">
@@ -198,14 +220,14 @@
                         <i class="icon-bars"></i>
                     </button>
 
-                    <a href="index.html" class="logo">
+                    <a href="index.html" class="logo" onclick="loadView('@Url.Action("Home", "Address")')">
                         <img src="https://relay.dbcartindia.com/files/system/_file62fb36873d3cd-site-logo.png" alt="Molla Logo" width="105" height="25">
                     </a>
                         
                     <nav class="main-nav">
                         <ul class="menu sf-arrows">
                             <li class="megamenu-container active">
-                                <a href="index.html" class="sf-with-ul">Home</a>
+                                <a href="#" class="sf-with-ul" onclick="loadView('@Url.Action("Home", "Address")')">Home</a>
                             </li>
                             <li>
                                @* <a href="category.html" class="sf-with-ul"></a>*@
