@@ -116,11 +116,22 @@
                                                     </div><!-- End .product -->
                                                 </td>
                                                 <td class="price-col" id="rate">@item.Rate</td>
+                                                @if(item.Quantity == null)
+                                                {
                                                 <td class="quantity-col">
                                                     <div class="cart-product-quantity">
                                                         <input type="number" class="form-control" name="quantity" value="1" min="1" max="10" step="1" data-decimals="0" onchange="updateAmount(this)" required>
                                                     </div><!-- End .cart-product-quantity -->
                                                 </td>
+                                                }
+                                                else
+                                                {
+                                                 <td class="quantity-col">
+                                                    <div class="cart-product-quantity">
+                                                        <input type="number" class="form-control" name="quantity" value="@item.Quantity" min="1" max="10" step="1" data-decimals="0" onchange="updateAmount(this)" required>
+                                                    </div><!-- End .cart-product-quantity -->
+                                                </td> 
+                                                }
                                                 <td class="total-col" id="payableAmount">@item.Rate</td>
                                                 <td>
                                                     <button type="submit" class="btn btn-outline-dark-2" data-url="@Url.Action("UpdateCart", "Cart", new { Id = item.ProductId, quantity = "TO_Num", payableAmount = "Pay_Amount" })" onclick="addToCart(this)">
@@ -204,7 +215,7 @@
                                     </table><!-- End .table table-summary -->
 
                                     <a href="checkout.html" class="btn btn-outline-primary-2 btn-order btn-block" onclick="loadView('@Url.Action("CheckOut", "Cart")')">PROCEED TO CHECKOUT</a>
-                                </div><!-- End .summary -->
+                                </div><!-- End .summary --> 
 
                                 <a href="#" class="btn btn-outline-dark-2 btn-block mb-3" onclick="loadView('@Url.Action("Index", "Home")')"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
                             </aside><!-- End .col-lg-3 -->
