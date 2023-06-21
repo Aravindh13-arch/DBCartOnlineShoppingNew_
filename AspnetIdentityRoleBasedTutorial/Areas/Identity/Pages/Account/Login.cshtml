@@ -1,85 +1,169 @@
 ﻿@page
-@model LoginModel
-
+@model AspnetIdentityRoleBasedTutorial.Areas.Identity.Pages.Account.LoginModel
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "";
+    Layout = null;
 }
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <title>DBCART SHOP</title>
+
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="author" content="p-themes">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Img/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Img/icons/favicon-16x16.png">
+    <link rel="manifest" href="Img/icons/site.html">
+    <link rel="mask-icon" href="~/Img/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="~/Img/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="Img/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Plugins CSS File -->
+
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="css/plugins/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="css/plugins/jquery.countdown.css">
+
+    <!-- Main CSS File -->
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Plugins JS File -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.hoverIntent.min.js"></script>
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <script src="assets/js/superfish.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/bootstrap-input-spinner.js"></script>
+    <script src="assets/js/jquery.plugin.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/jquery.countdown.min.js"></script>
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/demos/demo-4.js"></script>
+
+</head>
 <h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-6 col-lg-4">
-        <h2>Use a local account to log in.</h2>
-        <hr />
-        <div class="login-form">
-            <form id="account" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                <div class="form-group">
-                    <label asp-for="Input.Email" class="form-label">Email</label>
-                    <input asp-for="Input.Email" class="form-control" id="input-email" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Input.Password" class="form-label">Password</label>
-                    <input asp-for="Input.Password" class="form-control" id="input-password" autocomplete="current-password" aria-required="true" placeholder="password" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group form-check">
-                    <label asp-for="Input.RememberMe" class="form-check-label">
-                        <input class="form-check-input" id="input-remember" asp-for="Input.RememberMe" />
-                        @Html.DisplayNameFor(m => m.Input.RememberMe)
-                    </label>
-                </div>
-                <div>
-                    <button id="login-submit" type="submit" class="btn btn-primary">Log in</button>
-                </div>
-                <div>
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to log in.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
-                                article
-                                about setting up this ASP.NET application to support logging in via external services
-                            </a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
+
+<style>
+    body {
+        background-image: url("https://img.freepik.com/free-photo/front-view-cyber-monday-shopping-cart-with-bags-copy-space_23-2148657638.jpg?t=st=1687253972~exp=1687254572~hmac=4c31c9aba9e4418b1435ffc31440861093abf23a1bb9d12d5be3d1df2edf10ac");
+        background-size: cover;
+        background-position: center;
+    }
+
+    label {
+        display: inline-block;
+        margin-bottom: 0.5rem;
+        color: white;
+    }
+
+    .container {
+        background-color: white;
+        padding: 20px;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: peru;
+        border-color: peru;
+    }
+
+    .form-group p a {
+        color: peru;
+        text-decoration: none;
+        background-color: transparent;
+    }
+
+    .row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .col-lg-4 {
+        max-width: 33.333333%;
+        margin: auto;
+    }
+
+    .form-group {
+        text-align: center;
+    }
+
+    .form-control {
+        width: 70%;
+        margin: 0 auto;
+    }
+
+    .form-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+</style>
+
+<body>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                    <div class="login-form">
+                        <form id="account" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                            <div class="form-group">
+                            <label asp-for="Input.Email" class="form-label">Email</label><br>
+                                <input asp-for="Input.Email" class="form-control" />
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                            <label asp-for="Input.Password" class="form-label">Password</label><br>
+                                <input asp-for="Input.Password" class="form-control" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-footer">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label asp-for="Input.RememberMe">
+                                            <input asp-for="Input.RememberMe" />
+                                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Log in</button>
+                            </div>
+                        </form>
+
+                        <div class="form-group">
                             <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
+                                <a href="~/Identity/Account/ForgotPassword">Forgot your password?</a>
+                            </p>
+                            <p>
+                                <a href="~/Identity/Account/Register">Register as a new user</a>
                             </p>
                         </div>
-                    </form>
-                }
-            }
-        </section>
-    </div>
-</div>
+                    </div><!-- End .login-form -->
+                </div>
+            </div>
+        </div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
