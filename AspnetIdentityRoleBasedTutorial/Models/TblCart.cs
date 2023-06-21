@@ -39,5 +39,7 @@ public partial class TblCart
 
     public virtual ICollection<TblBuyNow> TblBuyNows { get; } = new List<TblBuyNow>();
 
+    public virtual ICollection<TblOrderItem> TblOrderItems { get; } = new List<TblOrderItem>();
+
     public virtual AspNetUser? UpdatedByNavigation { get; set; }
 }
