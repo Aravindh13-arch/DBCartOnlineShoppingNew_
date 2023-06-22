@@ -1,5 +1,5 @@
 using onlineShopping.DAL;
-using OnlineShoppingProject.ViewModels;
+using OnlineShoppingProject.ViewModels.ProductModels;
 
 namespace onlineShopping.BAL
 {

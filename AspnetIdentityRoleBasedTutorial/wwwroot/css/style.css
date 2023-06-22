@@ -20,6 +20,9 @@
         overflow-x: hidden
     }
 
+    .red-heart {
+        color: red;
+    }
     ::-moz-selection {
         color: #fff;
         background-color: #c96

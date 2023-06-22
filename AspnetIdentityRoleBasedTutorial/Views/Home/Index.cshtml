@@ -69,8 +69,11 @@
                             </figure><!-- End .product-media -->
 
                             <div class="product-body product-action-inner">
-                                    <a href="#" class="btn-product btn-wishlist" title="Add to wishlist" onclick="loadView('@Url.Action("AddWishList", "WishList", new { ProductId = item.ProductId })')"><span>add to wishlist</span></a>
-                                <div class="product-cat">
+                                    <a href="#" class="btn-product btn-wishlist" title="Add to wishlist" onclick="toggleWishlistColor(this); loadView('@Url.Action("AddWishList", "WishList", new { ProductId = item.ProductId })')">
+                                        <span id="wishlist-icon" class="glyphicon glyphicon-heart-empty">add to wishlist</span>
+                                    </a>
+@*                                  <a href="#" class="btn-product btn-wishlist" title="Add to wishlist" onclick="loadView('@Url.Action("AddWishList", "WishList", new { ProductId = item.ProductId })')"><span>add to wishlist</span></a>
+*@                                <div class="product-cat">
                                     <a href="#">Women</a>
                                 </div><!-- End .product-cat -->
                                 <h3 class="product-title"><a href="product.html">@item.ProductName</a></h3><!-- End .product-title -->
@@ -496,27 +499,7 @@
       text-align: justify;
   }
 
+</style>*@
+<style>
+
 </style>
-
-<script>
-  $(document).ready(function () {
-      // Activate Carousel
-      $("#myCarousel").carousel();
-
-      // Enable Carousel Indicators
-      $(".carousel-indicators li").click(function () {
-          $(".carousel-indicators li").removeClass("active");
-          $(this).addClass("active");
-      });
-
-      // Enable Carousel Controls
-      $(".carousel-control-prev").click(function () {
-          $("#myCarousel").carousel("prev");
-      });
-
-      $(".carousel-control-next").click(function () {
-          $("#myCarousel").carousel("next");
-      });
-  });
-
-</script>*@

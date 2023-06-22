@@ -60,10 +60,15 @@ namespace OnlineShoppingProject.DAL
         }
 
 
-        public async Task<List<TblCart>> GetAllProductCart(string UserId)
+        public async Task<AddProductCartVM> GetAllProductCart(string UserId)
         {
             var result = _context.TblCarts.Include(r => r.Product).Select(r => r).Where(r => r.CreatedBy == UserId).ToList();
-            return result;
+            AddProductCartVM addProductCartVM = new AddProductCartVM();
+            addProductCartVM.TblCarts = result;
+
+            var ShipList = _context.TblShips.ToList();
+            addProductCartVM.TblShipsList = ShipList;
+            return addProductCartVM;
         }
 
         public cartcount GetCartCount()

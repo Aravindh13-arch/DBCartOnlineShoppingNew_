@@ -16,11 +16,7 @@ namespace OnlineShoppingProject.BAL
         }
         public async Task<AddProductCartVM> GetProductCartBAL(string Id)
         {
-            return new AddProductCartVM
-            {
-                TblCarts = await _cartImplementation.GetAllProductCart(Id),
-            };
-
+            return await _cartImplementation.GetAllProductCart(Id);
         }
         public async Task<bool> InsertCartBAL(ProductVM product)
         {

@@ -14,21 +14,47 @@
         data: { area: "Identity" },
         success: function(response) {
             // Replace the current page content with the login view
-            $("body").html(response);
+            $("#main").html(response);
         },
         error: function() {
             alert("Failed to load login page.");
         }
     });
 }
+
+
+    $(document).ready(function () {
+        // Handle the click event of the profile link
+        $('.nav-link').click(function (event) {
+            event.preventDefault(); // Prevent the default navigation behavior
+
+            // Get the URL from the link's href attribute
+            var url = $(this).attr('href');
+
+            // Make an AJAX call to load the layout
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (response) {
+                    // Replace the content of the body with the loaded layout
+                    $('main').html(response);
+                },
+                error: function (xhr, status, error) {
+                    // Handle the error case
+                    console.error(error);
+                }
+            });
+        });
+    });
+
 </script>
 
      @if (SignInManager.IsSignedIn(User))
      {
        <li class="nav-item">
-        <a class="nav-link" onclick="loadLoginView()"><i class="fa fa-user" title="Manage" style="font-size:24px;color:aqua;"></i>Profile</a>
-@*         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="background-color: white;">Profile</a>
-*@       </li>
+@*        <a class="nav-link" onclick="loadLoginView()"><i class="fa fa-user" title="Manage" style="font-size:24px;color:aqua;"></i>Profile</a>
+*@         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="background-color: white;">Profile</a>
+       </li>
        <li class="nav-item">
          <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
            <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>

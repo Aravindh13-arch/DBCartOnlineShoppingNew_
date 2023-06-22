@@ -26,6 +26,7 @@ namespace OnlineShoppingProject.ViewModels.ProductModels
 
         public List<TblCart>? TblCarts { get; set; } = new List<TblCart>();
 
+        public List<TblShip>? TblShipsList { get; set; } = new List<TblShip>();
 
     }
 }
