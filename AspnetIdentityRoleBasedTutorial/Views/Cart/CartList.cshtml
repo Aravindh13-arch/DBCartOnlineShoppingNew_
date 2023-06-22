@@ -6,6 +6,28 @@
 }
 <script>
 
+    //function updateAmount(input) {
+    //    // Update quantity and calculate new total amount
+    //    var quantity = input.value;
+    //    var rate = input.closest("tr").querySelector("#rate").innerText;
+    //    var totalCol = input.closest("tr").querySelector("#payableAmount");
+    //    var totalAmount = quantity * rate;
+    //    totalCol.innerText = totalAmount.toFixed(2);
+
+    //    // Update subtotal
+    //    var subtotalCol = document.querySelector("#subtotalAmount");
+    //    var allTotalCols = document.querySelectorAll(".total-col");
+    //    var subtotalAmount = 0;
+    //    allTotalCols.forEach(function (col) {
+    //        subtotalAmount += parseFloat(col.innerText);
+    //    });
+    //    subtotalCol.innerText = subtotalAmount.toFixed(2);
+
+    //    // Update total
+    //    var totalCol = document.querySelector("#totalAmount");
+    //    totalCol.innerText = subtotalAmount.toFixed(2);
+    //}
+
     function updateAmount(input) {
         // Update quantity and calculate new total amount
         var quantity = input.value;
@@ -27,8 +49,6 @@
         var totalCol = document.querySelector("#totalAmount");
         totalCol.innerText = subtotalAmount.toFixed(2);
     }
-
-
     function mainMenuNav(url) {
         $.ajax({
             type: 'POST',
@@ -64,8 +84,37 @@
         const url = '@Url.Action("ConfirmDelete", "Cart")' + '?ProductId=' + productId;
         mainMenuNav(url);
     }
-</script>
 
+
+        $(document).ready(function () {
+        $('input[name="shipping"]').on('change', function () {
+                var selectedPaymentTypeId = $(this).val();
+                // Perform actions with the selected payment type ID
+                console.log('Selected Payment Type ID: ' + selectedPaymentTypeId);
+            });
+        });
+
+</script>
+<style>
+    .custom-radio-input {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 13px;
+        height: 13px;
+        position: static;
+        margin-top: 0.1rem;
+        border: 2px solid #c96;
+        border-radius: 50%;
+        background-color: #fff;
+        outline: none;
+    }
+
+        .custom-radio-input:checked {
+            background-color: #c96;
+        }
+
+</style>
 <body>
     <div class="page-wrapper">
         <main class="main">
@@ -171,37 +220,19 @@
                                                 <td>Shipping:</td>
                                                 <td>&nbsp;</td>
                                             </tr>
+                                            @foreach (var item in Model.TblShipsList)
+                                            {
+                                                 <tr class="summary-shipping-row">
+                                                    <td>
+                                                        <input type="radio" id="shipping-@(item.ShipId)" name="shipping" value="@item.ShipId" class="custom-radio-input">
+                                                        <label class="custom-control-label" for="shipping-@(item.ShipId)" style="font-family: 'Poppins'">@item.TypesOfShip</label>
+                                                    </td>                                              
+                                                    <td>@item.TypesOfAmount</td>
+                                                </tr>
+                                            
 
-                                            <tr class="summary-shipping-row">
-                                                <td>
-                                                    <div class="custom-control custom-radio">
-                                                        <input type="radio" id="free-shipping" name="shipping" class="custom-control-input">
-                                                        <label class="custom-control-label" for="free-shipping">Free Shipping</label>
-                                                    </div><!-- End .custom-control -->
-                                                </td>
-                                                <td>$0.00</td>
-                                            </tr><!-- End .summary-shipping-row -->
 
-                                            <tr class="summary-shipping-row">
-                                                <td>
-                                                    <div class="custom-control custom-radio">
-                                                        <input type="radio" id="standart-shipping" name="shipping" class="custom-control-input">
-                                                        <label class="custom-control-label" for="standart-shipping">Standart:</label>
-                                                    </div><!-- End .custom-control -->
-                                                </td>
-                                                <td>$10.00</td>
-                                            </tr><!-- End .summary-shipping-row -->
-
-                                            <tr class="summary-shipping-row">
-                                                <td>
-                                                    <div class="custom-control custom-radio">
-                                                        <input type="radio" id="express-shipping" name="shipping" class="custom-control-input">
-                                                        <label class="custom-control-label" for="express-shipping">Express:</label>
-                                                    </div><!-- End .custom-control -->
-                                                </td>
-                                                <td>$20.00</td>
-                                            </tr><!-- End .summary-shipping-row -->
-
+                                            }  
                                             <tr class="summary-shipping-estimate">
                                                 <td>Estimate for Your Country<br> <a href="dashboard.html">Change address</a></td>
                                                 <td>&nbsp;</td>
@@ -229,23 +260,6 @@
 
 
 
-@*<script>
-    function incrementQuantity(button) {
-        var input = $(button).siblings(".quantity-input");
-        var value = parseInt(input.val());
-        if (value < 10) {
-            input.val(value + 1);
-        }
-    }
-
-    function decrementQuantity(button) {
-        var input = $(button).siblings(".quantity-input");
-        var value = parseInt(input.val());
-        if (value > 1) {
-            input.val(value - 1);
-        }
-    }
-</script>*@
 
 
 

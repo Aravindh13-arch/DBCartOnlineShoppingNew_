@@ -40,57 +40,7 @@ namespace OnlineShoppingProject.Controllers
             ViewBag.CartItems = model;
             return View(model);
         }
-        //public async Task<IActionResult> InsertToCart(ProductVM product)
-        //{
 
-        //    string UserName = HttpContext.User.Identity.Name;
-        //    if (UserName.IsNullOrEmpty())
-        //    {
-        //        return RedirectToPage("/Account/Login", new { area = "Identity" });
-        //    }
-        //    product.UserId = _commonImplementation.GetTheUserIdDAL(UserName);
-        //    if (await _cartImplementation.InsertCartBAL(product))
-        //    {
-        //        return RedirectToPage("/Cart/CartList");
-        //        // return Json(new { isValid = true, message = "Cart item added successfully." });
-        //    }
-        //    else
-        //    {
-        //        return Json(new { isValid = false, html = "<h1>failed to submit</h1>" });
-        //    }
-
-        //}
-
-
-//             if (Session["cart"]==null)
-//            {
-//                List<Mobiles> li = new List<Mobiles>();
-
-//        li.Add(mo);
-//                Session["cart"] = li;
-//                ViewBag.cart = li.Count();
-
-               
-//                    Session["count"] = 1;
-
-
-//            }
-//            else
-//            {
-//                List<Mobiles> li = (List<Mobiles>)Session["cart"];
-//    li.Add(mo);
-//                Session["cart"] = li;
-//                ViewBag.cart = li.Count();
-//                Session["count"] = Convert.ToInt32(Session["count"]) + 1;
-
-//            }
-//return RedirectToAction("Index", "Home");
-
-//public async Task<IActionResult> GetClientById(int id)
-//{
-//    var client = await _clientImplementation.GetClientById(id);
-//    return View(client);
-//}
         public async Task<IActionResult> RemoveCartList(int id)
         {
             //var product = await _cartImplementation.GetCartById(id);
@@ -109,7 +59,7 @@ namespace OnlineShoppingProject.Controllers
             string UserId = _commonImplementation.GetTheUserIdDAL(UserName);
             if (await _cartImplementation.RemoveCartbyId(ProductId))
             {
-                return Json(new { isValid = true, html = "" });
+                return RedirectToAction("CartList", "Cart");
             }
             else
             {
@@ -143,7 +93,7 @@ namespace OnlineShoppingProject.Controllers
             product.UserId = _commonImplementation.GetTheUserIdDAL(UserName);
             if (await _cartImplementation.InsertCartBAL(product))
             {
-                return RedirectToPage("/Cart/CartList");
+                return RedirectToAction("CartList", "Cart");
                 // return Json(new { isValid = true, message = "Cart item added successfully." });
             }
             else
@@ -164,7 +114,7 @@ namespace OnlineShoppingProject.Controllers
                 var UserId = _commonImplementation.GetTheUserIdDAL(UserName);
             if (await _cartImplementation.UpdateCartBAL(Id, quantity, payableAmount, UserId))
             {
-                return RedirectToPage("/Cart/CartList");
+                return RedirectToAction("CartList", "Cart");
             }
             else
             {

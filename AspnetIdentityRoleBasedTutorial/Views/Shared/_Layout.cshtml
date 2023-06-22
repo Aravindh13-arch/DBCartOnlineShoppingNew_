@@ -109,6 +109,12 @@
     //            }
     //        });
     //    });
+
+
+    function toggleWishlistColor(element) {
+        var icon = element.querySelector('#wishlist-icon');
+        icon.classList.toggle('red-heart');
+    }
 </script>
 
 
@@ -688,7 +694,7 @@
     </div><!-- End .mobile-menu-container -->
     @*Main Content Area@**@
   <div class="container">
-    <main role="main" class="pb-3">
+    <main role="main" id="main" class="pb-3">
    @RenderBody()
     </main>
   </div>

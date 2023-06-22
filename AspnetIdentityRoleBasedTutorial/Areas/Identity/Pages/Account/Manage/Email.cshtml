@@ -1,44 +1,244 @@
 ﻿@page
 @model EmailModel
 @{
+    Layout = null;
     ViewData["Title"] = "Manage Email";
     ViewData["ActivePage"] = ManageNavPages.Email;
 }
 
-<h3>@ViewData["Title"]</h3>
-<partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="email-form" method="post">
-            <div asp-validation-summary="All" class="text-danger" role="alert"></div>
-            @if (Model.IsEmailConfirmed)
-            {
-                <div class="form-floating mb-3 input-group">
-                    <input asp-for="Email" class="form-control" placeholder="Please enter your email." disabled />
-                        <div class="input-group-append">
-                            <span class="h-100 input-group-text text-success font-weight-bold">✓</span>
-                        </div>
-                    <label asp-for="Email" class="form-label"></label>
-                </div>
-            }
-            else
-            {
-                <div class="form-floating mb-3">
-                    <input asp-for="Email" class="form-control" placeholder="Please enter your email." disabled />
-                    <label asp-for="Email" class="form-label"></label>
-                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
-                </div>
-            }
-            <div class="form-floating mb-3">
-                <input asp-for="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" placeholder="Please enter new email." />
-                <label asp-for="Input.NewEmail" class="form-label"></label>
-                <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
-            </div>
-            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="w-100 btn btn-lg btn-primary">Change email</button>
-        </form>
-    </div>
-</div>
 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>DBCART SHOP</title>
+
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="author" content="p-themes">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Img/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Img/icons/favicon-16x16.png">
+    <link rel="manifest" href="Img/icons/site.html">
+    <link rel="mask-icon" href="~/Img/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="~/Img/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="Img/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Plugins CSS File -->
+
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="css/plugins/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="css/plugins/jquery.countdown.css">
+
+    <!-- Main CSS File -->
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Plugins JS File -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.hoverIntent.min.js"></script>
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <script src="assets/js/superfish.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/bootstrap-input-spinner.js"></script>
+    <script src="assets/js/jquery.plugin.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/jquery.countdown.min.js"></script>
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/demos/demo-4.js"></script>
+</head>
+
+
+
+
+<body>
+        <div class="container">
+            <partial name="_StatusMessage" for="StatusMessage" />
+            <div class="row">
+                <div class="col-md-8">
+                    <h3>@ViewData["Title"]</h3>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <partial name="_ManageNav" />
+                        </div>
+                        <div class="col-md-8">
+                            <form id="profile-form" method="post" enctype="multipart/form-data">
+                                @if (Model.IsEmailConfirmed)
+                                {
+                                    <div class="form-group mb-4 input-group">
+                                        <label asp-for="Email" class="input-group-text form-label"></label>
+                                        <input asp-for="Email" class="form-control" placeholder="Please enter your email." disabled />
+                                        <div class="input-group-append">
+                                            <span class="h-100 input-group-text text-success font-weight-bold">✓</span>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group mb-3">
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <label asp-for="Email" class="form-label"></label>
+                                            <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+                                        </div>
+                                        <input asp-for="Email" class="form-control" placeholder="Please enter your email." disabled />
+                                    </div>
+                                }
+                              <div class="form-group mb-4 input-group">
+                                      <label asp-for="Input.NewEmail" class="input-group-text form-label"></label>
+@*                                     <label asp-for="Input.NewEmail" class="form-label"></label>
+*@                                    <input asp-for="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" placeholder="Please enter new email." />
+                                    <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
+                                </div>
+                                <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="w-100 btn btn-lg btn-primary">Change email</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="scripts.js"></script>
+
+    <style>
+
+        body {
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh;
+        }
+
+        .row {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+            width: inherit;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .col-md-4 {
+            flex-basis: 33.333%;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+
+        .col-md-8 {
+            flex-basis: 66.666%;
+            margin-bottom: 20px;
+            max-width: 59.666667%;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #dddddd;
+            border-radius: 4px;
+        }
+
+        .form-group {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #000000;
+            width: 91px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dddddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+            .form-control:focus {
+                outline: none;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            }
+
+        .btn-primary {
+            color: #ffffff;
+            background-color: #c96;
+            border-color: #c96a;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            .btn-primary:hover {
+                background-color: #c96;
+                border-color: #c96;
+            }
+
+        .text-danger {
+            color: #ff0000;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* Additional CSS styles */
+
+        .col-md-6 {
+            flex-basis: 50%;
+            margin-top: 1rem;
+        }
+
+        .mt-4 {
+            margin-top: 4rem;
+        }
+
+        .input-group > .form-control, .input-group > .form-control-plaintext {
+            position: relative;
+            -ms-flex: 1 1 auto;
+            flex: 1 1;
+            width: 356px;
+            margin-bottom: 0;
+        }
+</style>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+
+
+@*
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+*@

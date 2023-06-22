@@ -13,7 +13,7 @@ namespace onlineShopping.DAL
 		}
 		public async Task<List<TblWishList>> GetListOfWishListDAL(string id)
 		{
-			return await _context.TblWishLists.Select(r => r).Where(r => r.CreatedBy == id).ToListAsync();
+			return await _context.TblWishLists.Include(r=> r.Product).Select(r => r).Where(r => r.CreatedBy == id).ToListAsync();
 		}
 
 
@@ -34,8 +34,8 @@ namespace onlineShopping.DAL
 				}
                 else
                 {
-					var product = _context.TblWishLists.Single(r=>r.ProductId == res.ProductId);
-					_context.TblWishLists.Remove(_context.TblWishLists.Find(product.ProductId));
+                    var product = _context.TblWishLists.Single(r=>r.ProductId == res.ProductId);
+					_context.TblWishLists.Remove(product);
 
                 }
                 var result = await _context.SaveChangesAsync();

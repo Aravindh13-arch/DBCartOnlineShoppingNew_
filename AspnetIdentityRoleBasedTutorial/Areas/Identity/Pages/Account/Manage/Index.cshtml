@@ -1,44 +1,232 @@
 ﻿@page
 @model IndexModel
 @{
+    Layout = null;
     ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h3>@ViewData["Title"]</h3>
-<partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    @if (!string.IsNullOrEmpty(Model.Input.ProfilePicture))
-    {
-        <div class="col-md-4">
-            <img src="/uploads/@Model.Input.ProfilePicture" style="width:250px;height:300px"/>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>DBCART SHOP</title>
+
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="author" content="p-themes">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Img/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Img/icons/favicon-16x16.png">
+    <link rel="manifest" href="Img/icons/site.html">
+    <link rel="mask-icon" href="~/Img/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="~/Img/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="Img/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Plugins CSS File -->
+
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="css/plugins/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="css/plugins/jquery.countdown.css">
+
+    <!-- Main CSS File -->
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Plugins JS File -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.hoverIntent.min.js"></script>
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <script src="assets/js/superfish.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/bootstrap-input-spinner.js"></script>
+    <script src="assets/js/jquery.plugin.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/jquery.countdown.min.js"></script>
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/demos/demo-4.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <partial name="_StatusMessage" for="StatusMessage" />
+        <div class="row">
+            <div class="col-md-8">
+                <h3>@ViewData["Title"]</h3>
+                <div class="row">
+                    <partial name="_ManageNav" />
+                    <div class="col-md-6">
+                        <form id="profile-form" method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                            <div class="form-group mb-4 input-group">
+                                <label asp-for="Username" class="input-group-text form-label"></label>
+@*                                <label asp-for="Username" class="form-label"></label>
+*@                                <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
+                            </div>
+                            <div class="form-group mb-4 input-group">
+                                <label asp-for="Input.PhoneNumber" class="input-group-text form-label"></label>
+@*                                <label asp-for="Input.PhoneNumber" class="form-label"></label>
+*@                                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number." />
+                                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mb-4 input-group">
+                                <label asp-for="Input.Name" class="input-group-text form-label"></label>
+@*                                <label asp-for="Input.Name" class="form-label"></label>
+*@                                <input asp-for="Input.Name" class="form-control" placeholder="Please enter your name " />
+                                <span asp-validation-for="Input.Name" class="text-danger"></span>
+                            </div>
+                            <div class="m-2">
+                                <label class="form-label" for="ProfilePicture">Profile picture</label>
+                                <input asp-for="Input.ImageFile" />
+                            </div>
+                            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+                        </form>
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- Additional content or form fields -->
+                    </div>
+                </div>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.Input.ProfilePicture))
+            {
+                <div class="col-md-4">
+                    <img src="/uploads/@Model.Input.ProfilePicture" alt="Profile Picture" style="width: 100%;">
+                </div>
+            }
+
         </div>
-    }
-    <div class="col-md-6">
-        <form id="profile-form" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
-                <label asp-for="Username" class="form-label"></label>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number."/>
-                <label asp-for="Input.PhoneNumber" class="form-label"></label>
-                <span asp-validation- for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Name" class="form-control" placeholder="Please enter your name "/>
-                <label asp-for="Input.Name" class="form-label"></label>
-                <span asp-validation-for="Input.Name" class="text-danger"></span>
-            </div>
-            <div class="m-2">
-                <label class="form-label" for="ProfilePicture">Profile picture</label>
-                <input asp-for="Input.ImageFile"/>
-            </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
-        </form>
     </div>
-</div>
+
+    <!-- Scripts -->
+    <!-- Plugins JS File -->
+    <script src="assets/js/jquery.hoverIntent.min.js"></script>
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <script src="assets/js/superfish.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/bootstrap-input-spinner.js"></script>
+    <script src="assets/js/jquery.plugin.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/jquery.countdown.min.js"></script>
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/demos/demo-4.js"></script>
+</body>
+
+
+<style>
+    body {
+        background-color: #ffffff;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        height: 100vh;
+    }
+
+    h3 {
+        color: #000000;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .col-md-4 {
+        flex-basis: 33.333%;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+    }
+
+    .col-md-8 {
+        flex-basis: 66.666%;
+        margin-bottom: 20px;
+    }
+
+    .col-md-6 {
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 60%;
+    }
+
+    form {
+        background-color: #ffffff;
+        padding: 20px;
+        border: 1px solid #dddddd;
+        border-radius: 4px;
+    }
+
+    .form-group {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #000000;
+        width: 115px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #dddddd;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+        .form-control:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+    .btn-primary {
+        color: #ffffff;
+        background-color: #c96;
+        border-color: #c96a;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #c96;
+            border-color: #c96;
+        }
+
+    .text-danger {
+        color: #ff0000;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+</style>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

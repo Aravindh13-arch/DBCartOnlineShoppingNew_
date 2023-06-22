@@ -68,7 +68,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+                                    <td class="remove-col"><button class="btn-remove" onclick="loadView('@Url.Action("AddWishList", "WishList" , new { ProductId=item.ProductId })')"><i class="icon-close"></i></button></td>
                             </tr>
                            }
 @*                            <tr>
