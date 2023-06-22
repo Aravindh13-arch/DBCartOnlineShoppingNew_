@@ -48,6 +48,8 @@ public partial class OnlineShopDbContext : DbContext
 
     public virtual DbSet<TblInventory> TblInventories { get; set; }
 
+    public virtual DbSet<TblOrderItem> TblOrderItems { get; set; }
+
     public virtual DbSet<TblPaymentType> TblPaymentTypes { get; set; }
 
     public virtual DbSet<TblProduct> TblProducts { get; set; }
@@ -63,6 +65,7 @@ public partial class OnlineShopDbContext : DbContext
     public virtual DbSet<TblUnit> TblUnits { get; set; }
 
     public virtual DbSet<TblWishList> TblWishLists { get; set; }
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -485,6 +488,36 @@ public partial class OnlineShopDbContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.TblInventories).HasForeignKey(d => d.ProductId);
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblInventoryUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
+        });
+
+        modelBuilder.Entity<TblOrderItem>(entity =>
+        {
+            entity.HasKey(e => e.OrderItemId);
+
+            entity.ToTable("tblOrderItem");
+
+            entity.Property(e => e.CartId).HasColumnName("cartId");
+            entity.Property(e => e.CreatedAt).HasColumnName("createdAt");
+            entity.Property(e => e.CreatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("createdBy");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updatedAt");
+            entity.Property(e => e.UpdatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("updatedBy");
+
+            entity.HasOne(d => d.Cart).WithMany(p => p.TblOrderItems)
+                .HasForeignKey(d => d.CartId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TblOrderItemCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblOrderItemUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
         });
 
         modelBuilder.Entity<TblPaymentType>(entity =>

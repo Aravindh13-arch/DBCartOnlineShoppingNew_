@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using OnlineShoppingProject.Models;
 using OnlineShoppingProject.Constants;
-using OnlineShoppingProject.ViewModels.ProductModels;
 using OnlineShoppingProject.ViewModels.CategoryWiseList;
+using OnlineShoppingProject.ViewModels;
 
 namespace OnlineShoppingProject.DAL
 {
@@ -33,7 +33,9 @@ namespace OnlineShoppingProject.DAL
                     {
                         Product = _context.TblProducts.Single(r => r.ProductId == product.Id),
                         Quantity = product.quantity,
+
                         SizeId = newSizeId,
+
                         Rate = _context.TblProducts.Single(r => r.ProductId == product.Id).Rate,
                         Totalamount = _context.TblProducts.Single(r => r.ProductId == product.Id).Rate * product.quantity,
                         Description = _context.TblProducts.Single(r => r.ProductId == product.Id).Description,
@@ -41,6 +43,7 @@ namespace OnlineShoppingProject.DAL
                         Status = (int)MyConstants.Status.Active,
                         CreatedBy = _context.AspNetUsers.Single(r => r.Id == product.UserId).Id
                     });
+
                 }
                 else
                 {
@@ -84,8 +87,8 @@ namespace OnlineShoppingProject.DAL
         }
         public async Task<TblCart> GetCartById(int id)
         {
-                return await _context.TblCarts.FindAsync(id);
-           
+            return await _context.TblCarts.FindAsync(id);
+
         }
 
         public async Task<bool> RemoveCartbyId(int ProductId)
@@ -149,5 +152,50 @@ namespace OnlineShoppingProject.DAL
             }
         }
 
+
+
+        public async Task<PlaceOrderVM> GetCheckOutDAL(string userId)
+        {
+            List<PlaceOrderVM> placeOrderVMs = new List<PlaceOrderVM>();
+            PlaceOrderVM placeOrder = new PlaceOrderVM();
+
+            var productList = await _context.TblCarts.Include(r => r.Product).Select(r => r).Where(r => r.CreatedBy == userId).ToListAsync();
+           
+            placeOrder.TblCarts = productList;
+            //foreach (var item in productList)
+            //{
+            //    PlaceOrderVM orderVM = new PlaceOrderVM();
+            //    orderVM.ProductName=item.Product.ProductName;
+            //    orderVM.ProductTotalAmount = item.Totalamount;
+            //    //placeOrderVMs.Add(orderVM);
+            //    placeOrderVMs.Add(orderVM);
+
+            //}
+
+
+            //var paymentTypes = await _context.TblPaymentTypes.Select(r => r).ToListAsync();
+            //if (paymentTypes != null)
+            //{
+            //    foreach (var item in paymentTypes)
+            //    {
+            //        TblPaymentType tblpayment = new TblPaymentType();
+            //        tblpayment.PaymentTypesId = item.PaymentTypesId;
+            //        tblpayment.TypesOfPayment = item.TypesOfPayment;
+            //        placeOrderVMs.Add(tblpayment);
+            //    }
+            //}
+            var paymentTypes = await _context.TblPaymentTypes.ToListAsync();
+            placeOrder.TblPaymentTypesVM = paymentTypes;
+       //    .Select(r => new PaymentTypesVM
+       //    {
+       //        PaymentTypesId = r.PaymentTypesId,
+       //         PaymentTypes = r.TypesOfPayment
+       //}).ToListAsync();
+
+            //PlaceOrderVM placeOrderVM = new PlaceOrderVM();
+            //placeOrderVM.TblPaymentTypesVM = paymentTypes;
+            //placeOrderVMs.Add(placeOrderVM);
+            return placeOrder;
+        }
     }
 }

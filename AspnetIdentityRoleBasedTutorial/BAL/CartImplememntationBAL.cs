@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineShoppingProject.DAL;
 using OnlineShoppingProject.ViewModels.CategoryWiseList;
+using OnlineShoppingProject.ViewModels;
 using OnlineShoppingProject.ViewModels.ProductModels;
+
 
 namespace OnlineShoppingProject.BAL
 {
@@ -50,5 +52,21 @@ namespace OnlineShoppingProject.BAL
         {
             return await _cartImplementation.UpdateCartby(Id, quantity, payableAmount, UserId);
         }
+
+
+        public async Task<PlaceOrderVM> GetCheckOutBAL(string userId)
+        {
+            try
+            {
+                return await _cartImplementation.GetCheckOutDAL(userId);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
     }
 }

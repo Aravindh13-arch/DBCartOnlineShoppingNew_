@@ -3,7 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using OnlineShoppingProject.BAL;
 using OnlineShoppingProject.DAL;
 using OnlineShoppingProject.ViewModels.CategoryWiseList;
-using OnlineShoppingProject.ViewModels.ProductModels;
+using OnlineShoppingProject.ViewModels;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using OnlineShoppingProject.Services;
@@ -54,7 +54,8 @@ namespace OnlineShoppingProject.Controllers
             string UserName = HttpContext.User.Identity.Name;
             if (UserName.IsNullOrEmpty())
             {
-                return RedirectToPage("/Account/Login", new { area = "Identity" });
+                return Redirect("/Identity/Account/Login");
+                //return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
             string UserId = _commonImplementation.GetTheUserIdDAL(UserName);
             if (await _cartImplementation.RemoveCartbyId(ProductId))
@@ -74,7 +75,15 @@ namespace OnlineShoppingProject.Controllers
 
         public async Task<IActionResult> CheckOut()
         {
-            return View();
+
+            var userName = HttpContext.User.Identity.Name;
+            if (userName == null)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+            var userId = _commonImplementation.GetTheUserIdDAL(userName);
+            var totalProduct = await _cartImplementation.GetCheckOutBAL(userId);
+            return View(totalProduct);
         }
         public IActionResult GetCartCount()
         {
@@ -88,12 +97,14 @@ namespace OnlineShoppingProject.Controllers
             string UserName = HttpContext.User.Identity.Name;
             if (UserName.IsNullOrEmpty())
             {
-                return RedirectToPage("/Account/Login", new { area = "Identity" });
+                return Redirect("/Identity/Account/Login");
+                //return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
             product.UserId = _commonImplementation.GetTheUserIdDAL(UserName);
             if (await _cartImplementation.InsertCartBAL(product))
             {
                 return RedirectToAction("CartList", "Cart");
+
                 // return Json(new { isValid = true, message = "Cart item added successfully." });
             }
             else
