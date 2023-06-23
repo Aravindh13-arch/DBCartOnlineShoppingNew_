@@ -1,8 +1,15 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model OnlineShoppingProject.ViewModels.PlaceOrderVM
+@*@{
+    try
+    {
+        var cartList= Model.SelectMany(r => r).ToList();
+    }
+    catch(Exception ex)
+    {
+        throw ex;
+    }
+}*@
+
 <body>
     <div class="page-wrapper">
         <main class="main">
@@ -24,12 +31,7 @@
             <div class="page-content">
                 <div class="checkout">
                     <div class="container">
-                        <div class="checkout-discount">
-                            <form action="#">
-                                <input type="text" class="form-control" required id="checkout-discount-input">
-                                <label for="checkout-discount-input" class="text-truncate">Have a coupon? <span>Click here to enter your code</span></label>
-                            </form>
-                        </div><!-- End .checkout-discount -->
+
                         <form action="#">
                             <div class="row">
                                 <div class="col-lg-9">
@@ -46,15 +48,14 @@
                                         </div><!-- End .col-sm-6 -->
                                     </div><!-- End .row -->
 
-                                    <label>Company Name (Optional)</label>
-                                    <input type="text" class="form-control">
+
 
                                     <label>Country *</label>
                                     <input type="text" class="form-control" required>
 
                                     <label>Street address *</label>
                                     <input type="text" class="form-control" placeholder="House number and Street name" required>
-                                    <input type="text" class="form-control" placeholder="Appartments, suite, unit etc ..." required>
+
 
                                     <div class="row">
                                         <div class="col-sm-6">
@@ -70,7 +71,7 @@
 
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <label>Postcode / ZIP *</label>
+                                            <label>PINCode</label>
                                             <input type="text" class="form-control" required>
                                         </div><!-- End .col-sm-6 -->
 
@@ -80,8 +81,7 @@
                                         </div><!-- End .col-sm-6 -->
                                     </div><!-- End .row -->
 
-                                    <label>Email address *</label>
-                                    <input type="email" class="form-control" required>
+
 
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="checkout-create-acc">
@@ -99,8 +99,9 @@
                                 <aside class="col-lg-3">
                                     <div class="summary">
                                         <h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
-
+                                         
                                         <table class="table table-summary">
+                                            
                                             <thead>
                                                 <tr>
                                                     <th>Product</th>
@@ -109,18 +110,20 @@
                                             </thead>
 
                                             <tbody>
+                                                @foreach (var totallist in Model.TblCarts)
+                                                {
                                                 <tr>
-                                                    <td><a href="#">Beige knitted elastic runner shoes</a></td>
-                                                    <td>$84.00</td>
+                                                    <td><a href="#">@totallist.Product.ProductName</a></td>
+                                                    <td>@totallist.Totalamount</td>
                                                 </tr>
-
-                                                <tr>
-                                                    <td><a href="#">Blue utility pinafore denimdress</a></td>
-                                                    <td>$76,00</td>
-                                                </tr>
+                                                }
+                                                 @{
+                                                    decimal? subtotal = Model.TblCarts.Sum(t => t.Totalamount);
+                                                  }
+                                               
                                                 <tr class="summary-subtotal">
                                                     <td>Subtotal:</td>
-                                                    <td>$160.00</td>
+                                                    <td>@subtotal</td>
                                                 </tr><!-- End .summary-subtotal -->
                                                 <tr>
                                                     <td>Shipping:</td>
@@ -128,88 +131,48 @@
                                                 </tr>
                                                 <tr class="summary-total">
                                                     <td>Total:</td>
-                                                    <td>$160.00</td>
+                                                    <td>@subtotal</td>
                                                 </tr><!-- End .summary-total -->
                                             </tbody>
                                         </table><!-- End .table table-summary -->
 
+
+
                                         <div class="accordion-summary" id="accordion-payment">
-                                            <div class="card">
-                                                <div class="card-header" id="heading-1">
-                                                    <h2 class="card-title">
-                                                        <a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
-                                                            Direct bank transfer
-                                                        </a>
-                                                    </h2>
-                                                </div><!-- End .card-header -->
-                                                <div id="collapse-1" class="collapse show" aria-labelledby="heading-1" data-parent="#accordion-payment">
-                                                    <div class="card-body">
-                                                        Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
-                                                    </div><!-- End .card-body -->
-                                                </div><!-- End .collapse -->
-                                            </div><!-- End .card -->
-
-                                            <div class="card">
-                                                <div class="card-header" id="heading-2">
-                                                    <h2 class="card-title">
-                                                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
-                                                            Check payments
-                                                        </a>
-                                                    </h2>
-                                                </div><!-- End .card-header -->
-                                                <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion-payment">
-                                                    <div class="card-body">
-                                                        Ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.
-                                                    </div><!-- End .card-body -->
-                                                </div><!-- End .collapse -->
-                                            </div><!-- End .card -->
-
-                                            <div class="card">
-                                                <div class="card-header" id="heading-3">
-                                                    <h2 class="card-title">
-                                                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
-                                                            Cash on delivery
-                                                        </a>
-                                                    </h2>
-                                                </div><!-- End .card-header -->
-                                                <div id="collapse-3" class="collapse" aria-labelledby="heading-3" data-parent="#accordion-payment">
-                                                    <div class="card-body">
-                                                        Quisque volutpat mattis eros. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros.
-                                                    </div><!-- End .card-body -->
-                                                </div><!-- End .collapse -->
-                                            </div><!-- End .card -->
-
-                                            <div class="card">
-                                                <div class="card-header" id="heading-4">
-                                                    <h2 class="card-title">
-                                                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-4" aria-expanded="false" aria-controls="collapse-4">
-                                                            PayPal <small class="float-right paypal-link">What is PayPal?</small>
-                                                        </a>
-                                                    </h2>
-                                                </div><!-- End .card-header -->
-                                                <div id="collapse-4" class="collapse" aria-labelledby="heading-4" data-parent="#accordion-payment">
-                                                    <div class="card-body">
-                                                        Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum.
-                                                    </div><!-- End .card-body -->
-                                                </div><!-- End .collapse -->
-                                            </div><!-- End .card -->
-
-                                            <div class="card">
-                                                <div class="card-header" id="heading-5">
-                                                    <h2 class="card-title">
-                                                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-5" aria-expanded="false" aria-controls="collapse-5">
-                                                            Credit Card (Stripe)
-                                                            <img src="Img/payments-summary.png" alt="payments cards">
-                                                        </a>
-                                                    </h2>
-                                                </div><!-- End .card-header -->
-                                                <div id="collapse-5" class="collapse" aria-labelledby="heading-5" data-parent="#accordion-payment">
-                                                    <div class="card-body">
-                                                        Donec nec justo eget felis facilisis fermentum.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Lorem ipsum dolor sit ame.
-                                                    </div><!-- End .card-body -->
-                                                </div><!-- End .collapse -->
-                                            </div><!-- End .card -->
+                                            @foreach (var paymentType in Model.TblPaymentTypesVM)
+                                            {
+                                                <div class="card">
+                                                    <div class="card-header" id="heading-@(paymentType.PaymentTypesId)">
+                                                        <h2 class="card-title">
+                                                            <label>
+                                                                <input type="radio" name="paymentType" value="@paymentType.PaymentTypesId" />
+                                                                @paymentType.TypesOfPayment
+                                                            </label>
+                                                        </h2>
+                                                    </div><!-- End .card-header -->
+                                                    
+                                                </div>
+                                                <br />
+                                                <!-- End .card -->
+                                            }
                                         </div><!-- End .accordion -->
+
+                                        <script>
+                                            $(document).ready(function () {
+                                                $('input[name="paymentType"]').on('change', function () {
+                                                    var selectedPaymentTypeId = $(this).val();
+                                                    // Perform actions with the selected payment type ID
+                                                    console.log('Selected Payment Type ID: ' + selectedPaymentTypeId);
+                                                });
+                                            });
+                                        </script>
+                                        <style>
+                                             .accordion-summary,
+                                            .card-title {
+                                                font-family: 'Poppins', sans-serif;
+                                            }
+                                        </style>
+
 
                                         <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
                                             <span class="btn-text">Place Order</span>
@@ -223,6 +186,5 @@
                 </div><!-- End .checkout -->
             </div><!-- End .page-content -->
         </main><!-- End .main -->
-     </div>
-  </body>
-
+    </div>
+</body>

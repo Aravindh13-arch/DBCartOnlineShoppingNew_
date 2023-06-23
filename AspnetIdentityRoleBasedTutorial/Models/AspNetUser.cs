@@ -73,6 +73,14 @@ public partial class AspNetUser
 
     public virtual ICollection<TblInventory> TblInventoryUpdatedByNavigations { get; } = new List<TblInventory>();
 
+    public virtual ICollection<TblOrderItem> TblOrderItemCreatedByNavigations { get; } = new List<TblOrderItem>();
+
+    public virtual ICollection<TblOrderItem> TblOrderItemUpdatedByNavigations { get; } = new List<TblOrderItem>();
+
+    public virtual ICollection<TblPaymentType> TblPaymentTypeCreatedByNavigations { get; } = new List<TblPaymentType>();
+
+    public virtual ICollection<TblPaymentType> TblPaymentTypeUpdatedByNavigations { get; } = new List<TblPaymentType>();
+
     public virtual ICollection<TblProduct> TblProductCreatedByNavigations { get; } = new List<TblProduct>();
 
     public virtual ICollection<TblProduct> TblProductUpdatedByNavigations { get; } = new List<TblProduct>();
@@ -80,6 +88,14 @@ public partial class AspNetUser
     public virtual ICollection<TblPurchase> TblPurchaseCreatedByNavigations { get; } = new List<TblPurchase>();
 
     public virtual ICollection<TblPurchase> TblPurchaseUpdatedByNavigations { get; } = new List<TblPurchase>();
+
+    public virtual ICollection<TblShip> TblShipCreatedByNavigations { get; } = new List<TblShip>();
+
+    public virtual ICollection<TblShip> TblShipUpdatedByNavigations { get; } = new List<TblShip>();
+
+    public virtual ICollection<TblSize> TblSizeCreatedByNavigations { get; } = new List<TblSize>();
+
+    public virtual ICollection<TblSize> TblSizeUpdatedByNavigations { get; } = new List<TblSize>();
 
     public virtual ICollection<TblSubCategory> TblSubCategoryCreatedByNavigations { get; } = new List<TblSubCategory>();
 

@@ -240,5 +240,10 @@ namespace OnlineShoppingProject.ViewModels.CategoryWiseList
 
         public string? UpdatedBy { get; set; }
     }
+
+    public class cartcount
+    {
+        public int count { get; set;}
+    }
 }
 

@@ -8,6 +8,16 @@
  Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@*<script>
+    function loadView(url) {
+        $.get(url, function (data) {
+            document.open();
+            document.write(data);
+            document.close();
+        });
+    }
+</script>*@
+
 <!-- molla/cart.html  22 Nov 2019 09:55:06 GMT -->
     <body>
         <div class="page-wrapper">
@@ -165,27 +175,17 @@
                                             </tbody>
                                         </table><!-- End .table table-summary -->
 
-                                        <a href="checkout.html" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+                                    <a href="checkout.html" class="btn btn-outline-primary-2 btn-order btn-block" onclick="loadView('@Url.Action("CheckOut", "Cart")')">PROCEED TO CHECKOUT</a>
                                     </div><!-- End .summary -->
 
-                                    <a href="category.html" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
+                                    <a href="#" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
                                 </aside><!-- End .col-lg-3 -->
                             </div><!-- End .row -->
                         </div><!-- End .container -->
                     </div><!-- End .cart -->
                 </div><!-- End .page-content -->
             </main><!-- End .main -->
-
-        <!-- Plugins JS File -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/bootstrap.bundle.min.js"></script>
-        <script src="assets/js/jquery.hoverIntent.min.js"></script>
-        <script src="assets/js/jquery.waypoints.min.js"></script>
-        <script src="assets/js/superfish.min.js"></script>
-        <script src="assets/js/owl.carousel.min.js"></script>
-        <script src="assets/js/bootstrap-input-spinner.js"></script>
-        <!-- Main JS File -->
-        <script src="assets/js/main.js"></script>
+        </div>
     </body>
 
 

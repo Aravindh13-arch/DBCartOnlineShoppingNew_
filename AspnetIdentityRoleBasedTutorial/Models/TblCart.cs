@@ -7,13 +7,13 @@ public partial class TblCart
 {
     public int CartId { get; set; }
 
-    public int? ProductId { get; set; }
+    public int ProductId { get; set; }
+
+    public int? SizeId { get; set; }
 
     public int Quantity { get; set; }
 
     public decimal Rate { get; set; }
-
-    public int Size { get; set; }
 
     public decimal? Totalamount { get; set; }
 
@@ -31,7 +31,15 @@ public partial class TblCart
 
     public virtual AspNetUser CreatedByNavigation { get; set; } = null!;
 
-    public virtual TblProduct? Product { get; set; }
+    public virtual TblProduct Product { get; set; } = null!;
+
+    public virtual TblSize? Size { get; set; }
+
+    public virtual ICollection<TblAddress> TblAddresses { get; } = new List<TblAddress>();
+
+    public virtual ICollection<TblBuyNow> TblBuyNows { get; } = new List<TblBuyNow>();
+
+    public virtual ICollection<TblOrderItem> TblOrderItems { get; } = new List<TblOrderItem>();
 
     public virtual AspNetUser? UpdatedByNavigation { get; set; }
 }

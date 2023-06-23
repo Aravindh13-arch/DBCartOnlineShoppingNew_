@@ -1,5 +1,9 @@
-﻿using OnlineShoppingProject.DAL;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineShoppingProject.DAL;
+using OnlineShoppingProject.ViewModels.CategoryWiseList;
+using OnlineShoppingProject.ViewModels;
 using OnlineShoppingProject.ViewModels.ProductModels;
+
 
 namespace OnlineShoppingProject.BAL
 {
@@ -12,11 +16,7 @@ namespace OnlineShoppingProject.BAL
         }
         public async Task<AddProductCartVM> GetProductCartBAL(string Id)
         {
-            return new AddProductCartVM
-            {
-                TblCarts = await _cartImplementation.GetAllProductCart(Id)
-            };
-
+            return await _cartImplementation.GetAllProductCart(Id);
         }
         public async Task<bool> InsertCartBAL(ProductVM product)
         {
@@ -37,9 +37,36 @@ namespace OnlineShoppingProject.BAL
             return productVM;
         }
 
-        public async Task<bool> RemoveCartbyId(ProductVM client)
+        public async Task<bool> RemoveCartbyId(int ProductId)
         {
-            return await _cartImplementation.RemoveCartbyId(client);
+            return await _cartImplementation.RemoveCartbyId(ProductId);
         }
+
+        public cartcount GetCartCount()
+        {
+            var result = _cartImplementation.GetCartCount();
+            return result;
+        }
+
+        public async Task<bool> UpdateCartBAL(int Id, int quantity, decimal payableAmount,string UserId)
+        {
+            return await _cartImplementation.UpdateCartby(Id, quantity, payableAmount, UserId);
+        }
+
+
+        public async Task<PlaceOrderVM> GetCheckOutBAL(string userId)
+        {
+            try
+            {
+                return await _cartImplementation.GetCheckOutDAL(userId);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
     }
 }

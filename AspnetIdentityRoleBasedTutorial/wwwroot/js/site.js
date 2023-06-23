@@ -312,6 +312,24 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+mainMenuNav = (url) => {
+    $.ajax({
+        type: 'GET',
+        url: url,
+        contentType: false,
+        processData: false,
+        success: function (res) {
+            $('#main').html(res);
+        },
+        error: function (msg) {
+
+            $('#main').html(msg);
+
+        }
+    })
+}
+
+
 
 
 

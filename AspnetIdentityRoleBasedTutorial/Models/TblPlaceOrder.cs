@@ -3,25 +3,13 @@ using System.Collections.Generic;
 
 namespace OnlineShoppingProject.Models;
 
-public partial class TblAddress
+public partial class TblPlaceOrder
 {
-    public int AddressId { get; set; }
+    public int PlaceOrderId { get; set; }
 
     public int CartId { get; set; }
 
-    public string Name { get; set; } = null!;
-
-    public string City { get; set; } = null!;
-
-    public string State { get; set; } = null!;
-
-    public string Country { get; set; } = null!;
-
-    public string PinCode { get; set; } = null!;
-
-    public string PhoneNo { get; set; } = null!;
-
-    public string? DeliverAddress { get; set; }
+    public int ShipId { get; set; }
 
     public short Status { get; set; }
 
@@ -37,7 +25,7 @@ public partial class TblAddress
 
     public virtual AspNetUser CreatedByNavigation { get; set; } = null!;
 
-    public virtual ICollection<TblBuyNow> TblBuyNows { get; } = new List<TblBuyNow>();
+    public virtual TblShip Ship { get; set; } = null!;
 
     public virtual AspNetUser? UpdatedByNavigation { get; set; }
 }

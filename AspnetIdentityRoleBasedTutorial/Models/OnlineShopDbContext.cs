@@ -48,9 +48,17 @@ public partial class OnlineShopDbContext : DbContext
 
     public virtual DbSet<TblInventory> TblInventories { get; set; }
 
+    public virtual DbSet<TblOrderItem> TblOrderItems { get; set; }
+
+    public virtual DbSet<TblPaymentType> TblPaymentTypes { get; set; }
+
     public virtual DbSet<TblProduct> TblProducts { get; set; }
 
     public virtual DbSet<TblPurchase> TblPurchases { get; set; }
+
+    public virtual DbSet<TblShip> TblShips { get; set; }
+
+    public virtual DbSet<TblSize> TblSizes { get; set; }
 
     public virtual DbSet<TblSubCategory> TblSubCategories { get; set; }
 
@@ -63,6 +71,7 @@ public partial class OnlineShopDbContext : DbContext
     {
         optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
     }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -204,6 +213,7 @@ public partial class OnlineShopDbContext : DbContext
             entity.ToTable("tblAddress");
 
             entity.Property(e => e.AddressId).HasColumnName("addressId");
+            entity.Property(e => e.CartId).HasColumnName("cartId");
             entity.Property(e => e.City)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -220,15 +230,17 @@ public partial class OnlineShopDbContext : DbContext
                 .HasMaxLength(250)
                 .IsUnicode(false)
                 .HasColumnName("deliverAddress");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.PhoneNo)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("phone no");
+                .HasColumnName("phoneNo");
             entity.Property(e => e.PinCode)
                 .HasMaxLength(6)
                 .IsUnicode(false)
                 .HasColumnName("pinCode");
-            entity.Property(e => e.ProductId).HasColumnName("productId");
             entity.Property(e => e.State)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -239,14 +251,13 @@ public partial class OnlineShopDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("updatedBy");
 
+            entity.HasOne(d => d.Cart).WithMany(p => p.TblAddresses)
+                .HasForeignKey(d => d.CartId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TblAddressCreatedByNavigations)
                 .HasForeignKey(d => d.CreatedBy)
                 .OnDelete(DeleteBehavior.ClientSetNull);
-
-            entity.HasOne(d => d.Product).WithMany(p => p.TblAddresses)
-                .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_tblAddress_tblproduct_productId");
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblAddressUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
         });
@@ -292,22 +303,15 @@ public partial class OnlineShopDbContext : DbContext
 
             entity.Property(e => e.BuyNowId).HasColumnName("buyNowId");
             entity.Property(e => e.AddressId).HasColumnName("addressId");
+            entity.Property(e => e.CartId).HasColumnName("cartId");
             entity.Property(e => e.CreatedAt).HasColumnName("createdAt");
             entity.Property(e => e.CreatedBy)
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("createdBy");
-            entity.Property(e => e.PayementTypes).HasColumnName("payementTypes");
-            entity.Property(e => e.ProductId).HasColumnName("productId");
-            entity.Property(e => e.Quantity).HasColumnName("quantity");
-            entity.Property(e => e.Rate)
-                .HasColumnType("decimal(18, 0)")
-                .HasColumnName("rate");
-            entity.Property(e => e.Shipping).HasColumnName("shipping");
+            entity.Property(e => e.PaymentTypesId).HasColumnName("paymentTypesId");
+            entity.Property(e => e.ShipId).HasColumnName("shipId");
             entity.Property(e => e.Status).HasColumnName("status");
-            entity.Property(e => e.TotalAmount)
-                .HasColumnType("decimal(18, 0)")
-                .HasColumnName("totalAmount");
             entity.Property(e => e.UpdatedAt).HasColumnName("updatedAt");
             entity.Property(e => e.UpdatedBy)
                 .HasMaxLength(255)
@@ -316,17 +320,23 @@ public partial class OnlineShopDbContext : DbContext
 
             entity.HasOne(d => d.Address).WithMany(p => p.TblBuyNows)
                 .HasForeignKey(d => d.AddressId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_tblBuyNow_tblAddress_Address");
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.Cart).WithMany(p => p.TblBuyNows)
+                .HasForeignKey(d => d.CartId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TblBuyNowCreatedByNavigations)
                 .HasForeignKey(d => d.CreatedBy)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.Product).WithMany(p => p.TblBuyNows)
-                .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_tblBuyNow_tblproduct_productId");
+            entity.HasOne(d => d.PaymentTypes).WithMany(p => p.TblBuyNows)
+                .HasForeignKey(d => d.PaymentTypesId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.Ship).WithMany(p => p.TblBuyNows)
+                .HasForeignKey(d => d.ShipId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblBuyNowUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
         });
@@ -352,7 +362,7 @@ public partial class OnlineShopDbContext : DbContext
             entity.Property(e => e.Rate)
                 .HasColumnType("decimal(18, 0)")
                 .HasColumnName("rate");
-            entity.Property(e => e.Size).HasColumnName("size");
+            entity.Property(e => e.SizeId).HasColumnName("sizeId");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Totalamount)
                 .HasColumnType("decimal(18, 0)")
@@ -367,7 +377,13 @@ public partial class OnlineShopDbContext : DbContext
                 .HasForeignKey(d => d.CreatedBy)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.Product).WithMany(p => p.TblCarts).HasForeignKey(d => d.ProductId);
+            entity.HasOne(d => d.Product).WithMany(p => p.TblCarts)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.Size).WithMany(p => p.TblCarts)
+                .HasForeignKey(d => d.SizeId)
+                .HasConstraintName("FK_tblCart_tblSize_productId");
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblCartUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
         });
@@ -474,6 +490,63 @@ public partial class OnlineShopDbContext : DbContext
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblInventoryUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
         });
 
+        modelBuilder.Entity<TblOrderItem>(entity =>
+        {
+            entity.HasKey(e => e.OrderItemId);
+
+            entity.ToTable("tblOrderItem");
+
+            entity.Property(e => e.CartId).HasColumnName("cartId");
+            entity.Property(e => e.CreatedAt).HasColumnName("createdAt");
+            entity.Property(e => e.CreatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("createdBy");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updatedAt");
+            entity.Property(e => e.UpdatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("updatedBy");
+
+            entity.HasOne(d => d.Cart).WithMany(p => p.TblOrderItems)
+                .HasForeignKey(d => d.CartId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TblOrderItemCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblOrderItemUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
+        });
+
+        modelBuilder.Entity<TblPaymentType>(entity =>
+        {
+            entity.HasKey(e => e.PaymentTypesId);
+
+            entity.ToTable("tblPaymentTypes");
+
+            entity.Property(e => e.PaymentTypesId).HasColumnName("paymentTypesId");
+            entity.Property(e => e.CreatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("createdBy");
+            entity.Property(e => e.TypesOfPayment)
+                .HasMaxLength(150)
+                .IsUnicode(false)
+                .HasColumnName("typesOfPayment");
+            entity.Property(e => e.UpdatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("updatedBy");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TblPaymentTypeCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblPaymentTypeUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
+        });
+
         modelBuilder.Entity<TblProduct>(entity =>
         {
             entity.HasKey(e => e.ProductId);
@@ -576,6 +649,61 @@ public partial class OnlineShopDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblPurchaseUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
+        });
+
+        modelBuilder.Entity<TblShip>(entity =>
+        {
+            entity.HasKey(e => e.ShipId);
+
+            entity.ToTable("tblShip");
+
+            entity.Property(e => e.ShipId).HasColumnName("shipId");
+            entity.Property(e => e.CreatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("createdBy");
+            entity.Property(e => e.TypesOfAmount).HasColumnName("typesOfAmount");
+            entity.Property(e => e.TypesOfShip)
+                .HasMaxLength(150)
+                .IsUnicode(false)
+                .HasColumnName("typesOfShip");
+            entity.Property(e => e.UpdatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("updatedBy");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TblShipCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblShipUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
+        });
+
+        modelBuilder.Entity<TblSize>(entity =>
+        {
+            entity.HasKey(e => e.SizeId);
+
+            entity.ToTable("tblSize");
+
+            entity.Property(e => e.SizeId).HasColumnName("sizeId");
+            entity.Property(e => e.CreatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("createdBy");
+            entity.Property(e => e.TypesOfSize)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("typesOfSize");
+            entity.Property(e => e.UpdatedBy)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("updatedBy");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TblSizeCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.TblSizeUpdatedByNavigations).HasForeignKey(d => d.UpdatedBy);
         });
 
         modelBuilder.Entity<TblSubCategory>(entity =>
