@@ -97,7 +97,7 @@ namespace OnlineShoppingProject.Controllers
             string UserName = HttpContext.User.Identity.Name;
             if (UserName.IsNullOrEmpty())
             {
-                return Redirect("/Identity/Account/Login");
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
                 //return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
             product.UserId = _commonImplementation.GetTheUserIdDAL(UserName);
