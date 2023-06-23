@@ -6,6 +6,32 @@
  Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+<style>
+    .fa-heart-o {
+        color: red;
+        cursor: pointer;
+    }
+
+    .fa-heart {
+        color: red;
+        cursor: pointer;
+    }
+
+</style>
+<script>
+    $(document).ready(function () {
+        $("#heart").click(function () {
+            if ($("#heart").hasClass("liked")) {
+                $("#heart").html('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+                $("#heart").removeClass("liked");
+            } else {
+                $("#heart").html('<i class="fa fa-heart" aria-hidden="true"></i>');
+                $("#heart").addClass("liked");
+            }
+        });
+    });
+</script>
 <body>
     <div class="page-wrapper">
         <main class="main">
@@ -69,8 +95,8 @@
                             </figure><!-- End .product-media -->
 
                             <div class="product-body product-action-inner">
-                                    <a href="#" class="btn-product btn-wishlist" title="Add to wishlist" onclick="toggleWishlistColor(this); loadView('@Url.Action("AddWishList", "WishList", new { ProductId = item.ProductId })')">
-                                        <span id="wishlist-icon" class="glyphicon glyphicon-heart-empty">add to wishlist</span>
+                                    <a href="#" class="btn-product btn-wishlist" id="heart" title="Add to wishlist" onclick="loadView('@Url.Action("AddWishList", "WishList", new { ProductId = item.ProductId })')">
+                                        <span id=heart><i class="fa fa-heart-o" aria-hidden="true"></i> </span>
                                     </a>
 @*                                  <a href="#" class="btn-product btn-wishlist" title="Add to wishlist" onclick="loadView('@Url.Action("AddWishList", "WishList", new { ProductId = item.ProductId })')"><span>add to wishlist</span></a>
 *@                                <div class="product-cat">
@@ -78,8 +104,11 @@
                                 </div><!-- End .product-cat -->
                                 <h3 class="product-title"><a href="product.html">@item.ProductName</a></h3><!-- End .product-title -->
                                 <div class="product-price">
+                                    @{
+                                           var a = @item.Rate+100;
+                                     }
                                     <span class="new-price">@item.Rate</span>
-                                    <span class="old-price">$84.00</span>
+                                        <span class="old-price">MRP-@a₹</span>
                                 </div><!-- End .product-price -->
                                 <div class="ratings-container">
                                     <div class="ratings ratings-primary">
@@ -500,6 +529,4 @@
   }
 
 </style>*@
-<style>
 
-</style>

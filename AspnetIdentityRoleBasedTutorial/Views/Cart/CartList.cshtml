@@ -3,8 +3,32 @@
 @{
     int i = 0;
     decimal totalAmount = 0;
+    decimal x = 0;
+    decimal y = 0;
 }
 <script>
+
+    function updateAmount(input) {
+        // Update quantity and calculate new total amount
+        var quantity = input.value;
+        var rate = input.closest("tr").querySelector("#rate").innerText;
+        var totalCol = input.closest("tr").querySelector("#payableAmount");
+        var totalAmount = quantity * rate;
+        totalCol.innerText = totalAmount.toFixed(2);
+
+        // Update subtotal
+        var subtotalCol = document.querySelector("#subtotalAmount");
+        var allTotalCols = document.querySelectorAll(".total-col");
+        var subtotalAmount = 0;
+        allTotalCols.forEach(function (col) {
+            subtotalAmount += parseFloat(col.innerText);
+        });
+        subtotalCol.innerText = subtotalAmount.toFixed(2);
+
+        // Update total
+        var totalCol = document.querySelector("#totalAmount");
+        totalCol.innerText = subtotalAmount.toFixed(2);
+    }
 
     //function updateAmount(input) {
     //    // Update quantity and calculate new total amount
@@ -28,27 +52,33 @@
     //    totalCol.innerText = subtotalAmount.toFixed(2);
     //}
 
-    function updateAmount(input) {
-        // Update quantity and calculate new total amount
-        var quantity = input.value;
-        var rate = input.closest("tr").querySelector("#rate").innerText;
-        var totalCol = input.closest("tr").querySelector("#payableAmount");
-        var totalAmount = quantity * rate;
-        totalCol.innerText = totalAmount.toFixed(2);
 
-        // Update subtotal
-        var subtotalCol = document.querySelector("#subtotalAmount");
-        var allTotalCols = document.querySelectorAll(".total-col");
-        var subtotalAmount = 0;
-        allTotalCols.forEach(function (col) {
-            subtotalAmount += parseFloat(col.innerText);
-        });
-        subtotalCol.innerText = subtotalAmount.toFixed(2);
+    //function updateAmount(input) {
+    //    // Update quantity and calculate new total amount
 
-        // Update total
-        var totalCol = document.querySelector("#totalAmount");
-        totalCol.innerText = subtotalAmount.toFixed(2);
-    }
+    //    var quantity = input.value;
+    //    var rate = input.closest("tr").querySelector("#rate").innerText;
+    //    var totalCol = input.closest("tr").querySelector("#payableAmount");
+    //    var totalAmount = quantity * rate;
+    //    totalCol.innerText = totalAmount.toFixed(2);
+
+    //    // Update subtotal
+    //    var subtotalCol = document.querySelector("#subtotalAmount");
+    //    var allTotalCols = document.querySelectorAll(".total-col");
+    //    var subtotalAmount = 0;
+    //    allTotalCols.forEach(function (col) {
+    //        subtotalAmount += parseFloat(col.innerText);
+    //    });
+    //    subtotalCol.innerText = subtotalAmount.toFixed(2);
+
+    //    //// Update total
+    //    //var totalQuantity = document.querySelector("#totalQuantity").innerText;
+    //    //var totalCol = document.querySelector("#payableAmount");
+    //    //var totalAmount = subtotalAmount * totalQuantity;
+    //    //totalCol.innerText = totalAmount.toFixed(2);
+    //}
+
+
     function mainMenuNav(url) {
         $.ajax({
             type: 'POST',
@@ -165,7 +195,7 @@
                                                     </div><!-- End .product -->
                                                 </td>
                                                 <td class="price-col" id="rate">@item.Rate</td>
-                                                @if(item.Quantity == null)
+                                                @if(item.Quantity == 0)
                                                 {
                                                 <td class="quantity-col">
                                                     <div class="cart-product-quantity">
@@ -177,11 +207,23 @@
                                                 {
                                                  <td class="quantity-col">
                                                     <div class="cart-product-quantity">
-                                                        <input type="number" class="form-control" name="quantity" value="@item.Quantity" min="1" max="10" step="1" data-decimals="0" onchange="updateAmount(this)" required>
+                                                            <input type="number" class="form-control" id="totalQuantity" name="quantity" value="@item.Quantity" min="1" max="10" step="1" data-decimals="0" onchange="updateAmount(this)" required>
                                                     </div><!-- End .cart-product-quantity -->
                                                 </td> 
+                                                
                                                 }
-                                                <td class="total-col" id="payableAmount">@item.Rate</td>
+                                                @{
+                                                    x = @item.Quantity * item.Rate;
+                                                    y = @item.Rate * 1;
+                                                }
+
+                                                @if(@item.Quantity == 0)
+                                                 {
+                                                  <td class="total-col" id="payableAmount">@y</td>
+                                                 }
+                                                else{
+                                                    <td class="total-col" id="payableAmount">@x</td>
+                                                }
                                                 <td>
                                                     <button type="submit" class="btn btn-outline-dark-2" data-url="@Url.Action("UpdateCart", "Cart", new { Id = item.ProductId, quantity = "TO_Num", payableAmount = "Pay_Amount" })" onclick="addToCart(this)">
                                                         <span>UPDATE CART</span>

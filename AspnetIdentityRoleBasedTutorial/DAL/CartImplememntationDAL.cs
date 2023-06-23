@@ -4,6 +4,7 @@ using OnlineShoppingProject.Models;
 using OnlineShoppingProject.Constants;
 using OnlineShoppingProject.ViewModels.CategoryWiseList;
 using OnlineShoppingProject.ViewModels;
+using OnlineShoppingProject.ViewModels.ProductModels;
 
 namespace OnlineShoppingProject.DAL
 {
