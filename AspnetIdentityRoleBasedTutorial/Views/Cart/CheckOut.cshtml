@@ -1,14 +1,5 @@
 ﻿@model OnlineShoppingProject.ViewModels.PlaceOrderVM
-@*@{
-    try
-    {
-        var cartList= Model.SelectMany(r => r).ToList();
-    }
-    catch(Exception ex)
-    {
-        throw ex;
-    }
-}*@
+
 
 <body>
     <div class="page-wrapper">
@@ -39,7 +30,7 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <label>First Name *</label>
-                                            <input type="text" class="form-control" required>
+                                            <input type="text" class="form-control" id="firstName" required>
                                         </div><!-- End .col-sm-6 -->
 
                                         <div class="col-sm-6">
@@ -158,13 +149,60 @@
                                         </div><!-- End .accordion -->
 
                                         <script>
-                                            $(document).ready(function () {
-                                                $('input[name="paymentType"]').on('change', function () {
-                                                    var selectedPaymentTypeId = $(this).val();
-                                                    // Perform actions with the selected payment type ID
-                                                    console.log('Selected Payment Type ID: ' + selectedPaymentTypeId);
-                                                });
-                                            });
+                                            
+                                            mainMenuNav = (url) => {
+                                               
+                                            }
+
+                                            function AllParamter(url, element) {
+                                                var selectedPaymentTypeId = $('input[name="paymentType"]:checked').val();
+                                                var updatedUrl = url.replace('__PAYMENT_TYPE_ID__', selectedPaymentTypeId);
+
+                                                var name = document.getElementById('#firstName').value;
+
+                                                var checkOutVM = {
+                                                    firstName: firstName,
+                                                    // Add other properties here
+                                                };
+
+                                                var xhr = new XMLHttpRequest();
+                                                xhr.open('POST', url, true);
+                                                xhr.setRequestHeader('Content-Type', 'application/json');
+
+                                                xhr.onreadystatechange = function () {
+                                                    if (xhr.readyState === 4 && xhr.status === 200) {
+                                                        // Handle the response
+                                                        var response = JSON.parse(xhr.responseText);
+                                                        if (response.isValid) {
+                                                            // Success
+                                                            alert('Order placed successfully!');
+                                                        } else {
+                                                            // Error
+                                                            alert('Failed to submit order.');
+                                                        }
+                                                    }
+                                                };
+                                                xhr.send(JSON.stringify(checkOutVM));
+                                                // Perform any additional actions with the updated URL
+                                                console.log('Updated URL: ' + updatedUrl);
+
+                                                // Redirect to the specified URL or make an AJAX request to the server
+                                                // ...
+                                                $.ajax({
+                                                    type: 'Post',
+                                                    url: updatedUrl,
+                                                    contentType: false,
+                                                    processData: false,
+                                                    success: function (res) {
+                                                        $('#main').html(res);
+                                                    },
+                                                    error: function (msg) {
+
+                                                        $('#main').html(msg);
+
+                                                    }
+                                                })
+                                            }
                                         </script>
                                         <style>
                                              .accordion-summary,
@@ -174,7 +212,7 @@
                                         </style>
 
 
-                                        <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                        <button id="proceedToCheckoutButton" type="submit" class="btn btn-outline-primary-2 btn-order btn-block" onclick="AllParamter('@Url.Action("ProcessToCheckOut", "Cart", new {paymentTypeId = "__PAYMENT_TYPE_ID__" })', this)">
                                             <span class="btn-text">Place Order</span>
                                             <span class="btn-hover-text">Proceed to Checkout</span>
                                         </button>

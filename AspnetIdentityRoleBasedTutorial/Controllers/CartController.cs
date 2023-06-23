@@ -134,5 +134,23 @@ namespace OnlineShoppingProject.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> ProcessToCheckOut(CheckOutVM checkOutVM)
+        {
+            string UserName = HttpContext.User.Identity.Name;
+            var UserId = _commonImplementation.GetTheUserIdDAL(UserName);
+
+            if (await _cartImplementation.ProcessToCheckOutBAL(checkOutVM,UserId))
+            {
+                return Json(new { isValid = true, html = "<h1>Successfully</h1>" });
+            }
+            else
+            {
+                return Json(new { isValid = false, html = "<h1>failed to submit</h1>" });
+            }
+      
+        }
+
+
     }
 }

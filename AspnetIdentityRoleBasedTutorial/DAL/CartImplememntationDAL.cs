@@ -163,40 +163,37 @@ namespace OnlineShoppingProject.DAL
             var productList = await _context.TblCarts.Include(r => r.Product).Select(r => r).Where(r => r.CreatedBy == userId).ToListAsync();
            
             placeOrder.TblCarts = productList;
-            //foreach (var item in productList)
-            //{
-            //    PlaceOrderVM orderVM = new PlaceOrderVM();
-            //    orderVM.ProductName=item.Product.ProductName;
-            //    orderVM.ProductTotalAmount = item.Totalamount;
-            //    //placeOrderVMs.Add(orderVM);
-            //    placeOrderVMs.Add(orderVM);
-
-            //}
-
-
-            //var paymentTypes = await _context.TblPaymentTypes.Select(r => r).ToListAsync();
-            //if (paymentTypes != null)
-            //{
-            //    foreach (var item in paymentTypes)
-            //    {
-            //        TblPaymentType tblpayment = new TblPaymentType();
-            //        tblpayment.PaymentTypesId = item.PaymentTypesId;
-            //        tblpayment.TypesOfPayment = item.TypesOfPayment;
-            //        placeOrderVMs.Add(tblpayment);
-            //    }
-            //}
+       
             var paymentTypes = await _context.TblPaymentTypes.ToListAsync();
             placeOrder.TblPaymentTypesVM = paymentTypes;
-       //    .Select(r => new PaymentTypesVM
-       //    {
-       //        PaymentTypesId = r.PaymentTypesId,
-       //         PaymentTypes = r.TypesOfPayment
-       //}).ToListAsync();
-
-            //PlaceOrderVM placeOrderVM = new PlaceOrderVM();
-            //placeOrderVM.TblPaymentTypesVM = paymentTypes;
-            //placeOrderVMs.Add(placeOrderVM);
+      
             return placeOrder;
+        }
+
+        public async Task<bool> ProcessToCheckOutDAL(CheckOutVM checkOutVM,string UserId)
+        {
+          
+           
+            var cartIds = await _context.TblCarts.Where(c => c.CreatedBy == UserId).Select(c => c.CartId).ToListAsync();
+
+            if (cartIds != null && cartIds.Count > 0)
+            {
+                foreach (var cartId in cartIds)
+                {
+                    _context.TblOrderItems.Add(new TblOrderItem
+                    {
+                        CartId = cartId,
+                        Status = (int)Constants.MyConstants.Status.Active,
+                        CreatedAt = DateTime.UtcNow,
+                        CreatedBy = _context.AspNetUsers.Single(r => r.Id == UserId).Id,
+                    });
+                }
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
     }
 }
