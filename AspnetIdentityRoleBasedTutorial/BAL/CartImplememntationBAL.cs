@@ -71,6 +71,21 @@ namespace OnlineShoppingProject.BAL
             }
         }
 
+        public async Task<bool> ProcessToCheckOutBAL(CheckOutVM checkOutVM,string UserId)
+        {
+            try
+            {
+                return await _cartImplementation.ProcessToCheckOutDAL(checkOutVM, UserId);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
 
     }
 }
